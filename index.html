@@ -1,0 +1,3662 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Katalog Menu &amp; Reservasi Tempat — Official Website</title>
+  <meta name="description" id="dynamic-meta-desc" content="Jelajahi kurasi menu pilihan, suasana ruang yang nyaman, jam operasional, dan lokasi lengkap kedai kami." />
+  <link rel="icon" type="image/jpeg" href="logo.jpg" id="dynamic-favicon" />
+
+  <!-- Google Fonts: Fraunces (Editorial Serif) & Plus Jakarta Sans (Clean UI & Tabular Numerals) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN dengan dukungan CSS Variables untuk Dynamic Brand Color -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['"Fraunces"', 'Georgia', 'serif'],
+            sans: ['"Plus Jakarta Sans"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+          },
+          colors: {
+            espresso: {
+              950: 'rgb(var(--rgb-dark-950) / <alpha-value>)',
+              900: 'rgb(var(--rgb-dark-900) / <alpha-value>)',
+              800: 'rgb(var(--rgb-dark-800) / <alpha-value>)',
+              700: 'rgb(var(--rgb-dark-700) / <alpha-value>)',
+            },
+            ivory: {
+              50: 'rgb(var(--rgb-light-50) / <alpha-value>)',
+              100: 'rgb(var(--rgb-light-100) / <alpha-value>)',
+              200: '#E5DCCB',
+              300: '#D5C7B2',
+            },
+            stone: {
+              900: '#1C1917',
+              700: '#44403C',
+              600: '#57534E',
+              500: '#78716C',
+              400: '#A8A29E',
+            },
+            amber: {
+              brand: 'rgb(var(--rgb-accent) / <alpha-value>)',
+              hover: 'rgb(var(--rgb-accent-hover) / <alpha-value>)',
+              soft: '#F5E6C8',
+            },
+            gofood: '#EE2737',
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    :root {
+      --sc-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+      /* Default Brand Palette (Warm Espresso & Gold) — Diubah otomatis oleh Super Admin CMS */
+      --rgb-dark-950: 17 14 12;
+      --rgb-dark-900: 24 19 16;
+      --rgb-dark-800: 36 29 24;
+      --rgb-dark-700: 51 41 34;
+      --rgb-accent: 200 138 43;
+      --rgb-accent-hover: 181 121 30;
+      --rgb-light-50: 250 247 242;
+      --rgb-light-100: 242 236 225;
+      --hex-dark-950: #110E0C;
+      --hex-dark-900: #181310;
+      --hex-accent: #C88A2B;
+      --hex-light-50: #FAF7F2;
+    }
+
+    html {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--hex-light-50);
+      color: #1C1917;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    section[id], div[id] {
+      scroll-margin-top: 76px;
+    }
+
+    .tabular-nums {
+      font-variant-numeric: tabular-nums;
+    }
+
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    .warm-editorial-photo {
+      filter: sepia(10%) saturate(95%) contrast(104%) brightness(98%);
+    }
+
+    .hero-editorial-bg {
+      background:
+        radial-gradient(circle at 80% 40%, rgb(var(--rgb-accent) / 0.14) 0%, rgb(var(--rgb-dark-900) / 0.92) 55%, var(--hex-dark-950) 100%),
+        var(--hex-dark-950);
+    }
+
+    a:focus-visible,
+    button:focus-visible,
+    [role="button"]:focus-visible {
+      outline: 2px solid var(--hex-accent);
+      outline-offset: 3px;
+    }
+
+    /* ========================================================================
+       SCROLL CRAFT ENGINE — HIGH-IMPACT NON-DESTRUCTIVE CHOREOGRAPHY
+       ======================================================================== */
+    [data-sc-act] {
+      --sc-p: 0;
+      --sc-enter: 1;
+      --sc-wave: 0;
+    }
+
+    /* ACT 1: HERO */
+    .sc-hero-sunbeam {
+      background:
+        radial-gradient(ellipse 55% 45% at 78% 38%, rgb(var(--rgb-accent) / 0.22) 0%, rgb(var(--rgb-accent) / 0.05) 45%, transparent 75%);
+      transform: translate3d(
+        calc(var(--sc-p, 0) * -90px),
+        calc(var(--sc-p, 0) * 120px),
+        0
+      ) rotate(calc(var(--sc-p, 0) * -12deg)) scale(calc(1 + (var(--sc-p, 0) * 0.28)));
+      opacity: calc(var(--sc-p, 0) * 0.95);
+      will-change: transform, opacity;
+    }
+
+    #hero [data-sc-depth] {
+      will-change: transform, opacity;
+    }
+
+    #hero [data-sc-depth="0.20"] {
+      transform: translate3d(0, calc(var(--sc-p, 0) * -65px), 0);
+      opacity: calc(1 - (var(--sc-p, 0) * 1.15));
+    }
+
+    #hero [data-sc-depth="0.35"] {
+      transform: perspective(900px)
+        translate3d(0, calc(var(--sc-p, 0) * -115px), 0)
+        rotateX(calc(var(--sc-p, 0) * 10deg))
+        scale(calc(1 - (var(--sc-p, 0) * 0.04)));
+      opacity: calc(1 - (var(--sc-p, 0) * 0.95));
+      transform-origin: left center;
+    }
+
+    #hero [data-sc-depth="0.52"] {
+      transform: translate3d(0, calc(var(--sc-p, 0) * -160px), 0)
+        scale(calc(1 - (var(--sc-p, 0) * 0.06)));
+      opacity: calc(1 - (var(--sc-p, 0) * 1.1));
+    }
+
+    #hero [data-sc-depth="0.75"] {
+      --sc-hero-rx: 0deg;
+      --sc-hero-ry: 0deg;
+      transform: perspective(1100px)
+        translate3d(0, calc(var(--sc-p, 0) * 28px), 0)
+        rotateX(var(--sc-hero-rx))
+        rotateY(var(--sc-hero-ry));
+      opacity: calc(1 - (var(--sc-p, 0) * 0.45));
+    }
+
+    #hero [data-sc-depth="0.95"] {
+      transform: scale(calc(1 + (var(--sc-p, 0) * 0.08)));
+    }
+
+    /* ACT 2: KEUNGGULAN */
+    #keunggulan [data-sc-pillar] {
+      transform: none;
+      opacity: 1;
+    }
+
+    #keunggulan [data-sc-pillar] svg {
+      transform: none;
+    }
+
+    /* ACT 3: MENU */
+    #menu .sc-menu-header {
+      transform: translate3d(
+        calc((1 - var(--sc-enter, 1)) * -48px),
+        calc((1 - var(--sc-enter, 1)) * 38px),
+        0
+      );
+      opacity: calc(0.05 + (var(--sc-enter, 1) * 0.95));
+      will-change: transform, opacity;
+    }
+
+    #menu .sc-menu-tabs {
+      transform: translate3d(0, calc((1 - var(--sc-enter, 1)) * 32px), 0);
+      opacity: calc(0.05 + (var(--sc-enter, 1) * 0.95));
+      will-change: transform, opacity;
+    }
+
+    .sc-spotlight-card {
+      --sc-rx: 0deg;
+      --sc-ry: 0deg;
+      --sc-card-p: clamp(0, calc(var(--sc-enter, 1) * 1.1), 1);
+      transform: perspective(1100px)
+        translate3d(
+          calc((1 - var(--sc-card-p)) * -60px),
+          calc(((1 - var(--sc-card-p)) * 85px) + ((var(--sc-p, 0.5) - 0.5) * -36px)),
+          0
+        )
+        rotate(calc((1 - var(--sc-card-p)) * -3.5deg))
+        rotateX(var(--sc-rx))
+        rotateY(var(--sc-ry))
+        scale(calc(0.88 + (var(--sc-card-p) * 0.12)));
+      opacity: calc(0.04 + (var(--sc-card-p) * 0.96));
+      will-change: transform, opacity;
+    }
+
+    .sc-spotlight-card .sc-spotlight-img {
+      transform: scale(calc(1.22 - (var(--sc-card-p) * 0.22) + (var(--sc-p, 0) * 0.08)));
+      will-change: transform;
+    }
+
+    .sc-menu-row {
+      --sc-row-i: 0;
+      --sc-row-p: clamp(0, calc((var(--sc-enter, 1) - 0.06 - (var(--sc-row-i) * 0.09)) / 0.50), 1);
+      transform: translate3d(
+        calc((1 - var(--sc-row-p)) * 72px),
+        calc(((1 - var(--sc-row-p)) * 42px) + ((var(--sc-p, 0.5) - 0.5) * (var(--sc-row-i) + 1) * 12px)),
+        0
+      ) scale(calc(0.92 + (var(--sc-row-p) * 0.08)));
+      opacity: calc(0.04 + (var(--sc-row-p) * 0.96));
+      will-change: transform, opacity;
+    }
+
+    @keyframes scTabSwitchCascade {
+      0% {
+        opacity: 0;
+        transform: translate3d(0, 28px, 0) scale(0.96);
+      }
+      100% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0) scale(1);
+      }
+    }
+
+    .sc-tab-animating {
+      animation: scTabSwitchCascade 0.52s var(--sc-ease-out) both;
+    }
+
+    /* ACT 4: SUASANA */
+    #suasana {
+      position: relative;
+      overflow: hidden;
+    }
+
+    #suasana::before {
+      content: "";
+      position: absolute;
+      inset: -30%;
+      pointer-events: none;
+      background:
+        linear-gradient(
+          118deg,
+          transparent 30%,
+          rgb(var(--rgb-accent) / 0.16) 46%,
+          rgba(245, 230, 200, 0.09) 50%,
+          rgb(var(--rgb-accent) / 0.14) 54%,
+          transparent 70%
+        );
+      transform: translate3d(
+        calc((var(--sc-p, 0) - 0.5) * 55%),
+        calc((var(--sc-p, 0) - 0.5) * 25%),
+        0
+      ) rotate(calc((var(--sc-p, 0) - 0.5) * 14deg));
+      opacity: calc(0.25 + (var(--sc-enter, 1) * 0.75));
+      will-change: transform, opacity;
+      z-index: 0;
+    }
+
+    #suasana > div {
+      position: relative;
+      z-index: 1;
+    }
+
+    #suasana .sc-peak-header {
+      transform: translate3d(0, calc((1 - var(--sc-enter, 1)) * 52px), 0)
+        scale(calc(0.94 + (var(--sc-enter, 1) * 0.06)));
+      opacity: calc(0.05 + (var(--sc-enter, 1) * 0.95));
+      will-change: transform, opacity;
+    }
+
+    #suasana [data-sc-bento] {
+      --sc-bento-i: 0;
+      --sc-bento-dir: 0;
+      --sc-wipe: clamp(0, calc((var(--sc-enter, 1) - (var(--sc-bento-i) * 0.15)) / 0.68), 1);
+      clip-path: inset(
+        calc((1 - var(--sc-wipe)) * 28%)
+        calc((1 - var(--sc-wipe)) * 20%)
+        calc((1 - var(--sc-wipe)) * 28%)
+        calc((1 - var(--sc-wipe)) * 20%)
+        round 1.25rem
+      );
+      transform: translate3d(
+        calc((1 - var(--sc-wipe)) * var(--sc-bento-dir) * 55px),
+        calc(((1 - var(--sc-wipe)) * 85px) + ((0.5 - var(--sc-p, 0.5)) * (var(--sc-bento-i) + 1) * 16px)),
+        0
+      ) scale(calc(0.9 + (var(--sc-wipe) * 0.1)));
+      opacity: calc(0.08 + (var(--sc-wipe) * 0.92));
+      will-change: clip-path, transform, opacity;
+    }
+
+    #suasana [data-sc-bento] img {
+      transform: scale(calc(1.34 - (var(--sc-wipe) * 0.34) + (var(--sc-p, 0) * 0.1)))
+        translate3d(0, calc((0.5 - var(--sc-p, 0.5)) * 26px), 0);
+      will-change: transform;
+    }
+
+    #suasana [data-sc-facility] {
+      transform: none;
+      opacity: 1;
+    }
+
+    /* ACT 5: TENTANG / REVIEWS */
+    #tentang .sc-review-ledger {
+      transform: translate3d(
+        calc((1 - var(--sc-enter, 1)) * -64px),
+        calc((1 - var(--sc-enter, 1)) * 42px),
+        0
+      );
+      opacity: calc(0.05 + (var(--sc-enter, 1) * 0.95));
+      will-change: transform, opacity;
+    }
+
+    @media (min-width: 768px) {
+      #tentang [data-sc-quote] {
+        --sc-q-i: 0;
+        --sc-q-p: clamp(0, calc((var(--sc-enter, 1) - (var(--sc-q-i) * 0.15)) / 0.65), 1);
+        transform: perspective(1000px)
+          translate3d(
+            calc((1 - var(--sc-q-p)) * (1 - var(--sc-q-i)) * 95px),
+            calc(((1 - var(--sc-q-p)) * 82px) + ((var(--sc-p, 0.5) - 0.5) * (var(--sc-q-i) - 1) * -32px)),
+            0
+          )
+          rotate(calc((1 - var(--sc-q-p)) * (var(--sc-q-i) - 1) * 7deg))
+          scale(calc(0.88 + (var(--sc-q-p) * 0.12)));
+        opacity: calc(0.05 + (var(--sc-q-p) * 0.95));
+        will-change: transform, opacity;
+      }
+    }
+
+    /* ACT 6: MOMEN / CRAFT / PROMO CARDS */
+    #momen .sc-momen-header {
+      transform: translate3d(0, calc((1 - var(--sc-enter, 1)) * 45px), 0);
+      opacity: calc(0.05 + (var(--sc-enter, 1) * 0.95));
+      will-change: transform, opacity;
+    }
+
+    @media (min-width: 1024px) {
+      #momen [data-sc-craft] {
+        --sc-c-i: 0;
+        --sc-c-dir: 1;
+        --sc-c-p: clamp(0, calc((var(--sc-enter, 1) - (var(--sc-c-i) * 0.11)) / 0.65), 1);
+        transform: translate3d(
+          calc(((0.52 - var(--sc-p, 0.52)) * 135px) + ((1 - var(--sc-c-p)) * 80px)),
+          calc(((1 - var(--sc-c-p)) * 58px) + ((var(--sc-p, 0.5) - 0.5) * var(--sc-c-dir) * 34px)),
+          0
+        ) rotate(calc((0.5 - var(--sc-p, 0.5)) * var(--sc-c-dir) * 2.4deg))
+          scale(calc(0.88 + (var(--sc-c-p) * 0.12)));
+        opacity: calc(0.06 + (var(--sc-c-p) * 0.94));
+        will-change: transform, opacity;
+      }
+
+      #momen [data-sc-craft] img {
+        transform: scale(1.16)
+          translate3d(calc((var(--sc-p, 0.5) - 0.5) * -28px), 0, 0);
+        will-change: transform;
+      }
+    }
+
+    /* ACT 7: PROMO BANNER */
+    #promo[data-sc-act="promo"] {
+      position: relative;
+      overflow: hidden;
+      clip-path: inset(
+        calc((1 - var(--sc-enter, 1)) * 16%)
+        calc((1 - var(--sc-enter, 1)) * 10%)
+        calc((1 - var(--sc-enter, 1)) * 16%)
+        calc((1 - var(--sc-enter, 1)) * 10%)
+        round 1.5rem
+      );
+      transform: translate3d(0, calc((1 - var(--sc-enter, 1)) * 68px), 0)
+        scale(calc(0.88 + (var(--sc-enter, 1) * 0.12)));
+      opacity: calc(0.1 + (var(--sc-enter, 1) * 0.9));
+      will-change: clip-path, transform, opacity;
+    }
+
+    #promo[data-sc-act="promo"]::after {
+      content: "";
+      position: absolute;
+      inset: -20%;
+      pointer-events: none;
+      background: linear-gradient(
+        112deg,
+        transparent 25%,
+        rgb(var(--rgb-accent) / 0.22) 47%,
+        rgba(250, 247, 242, 0.12) 50%,
+        rgb(var(--rgb-accent) / 0.16) 53%,
+        transparent 75%
+      );
+      transform: translate3d(calc((var(--sc-p, 0) * 180%) - 90%), 0, 0);
+      will-change: transform;
+    }
+
+    /* ACT 8: LOKASI */
+    #lokasi [data-sc-loc-depth="0.35"] {
+      transform: translate3d(
+        calc((1 - var(--sc-enter, 1)) * -65px),
+        calc(((1 - var(--sc-enter, 1)) * 55px) + ((0.5 - var(--sc-p, 0.5)) * -18px)),
+        0
+      );
+      opacity: calc(0.05 + (var(--sc-enter, 1) * 0.95));
+      will-change: transform, opacity;
+    }
+
+    #lokasi [data-sc-loc-depth="0.65"] {
+      transform: perspective(1000px)
+        translate3d(
+          calc((1 - var(--sc-enter, 1)) * 65px),
+          calc(((1 - var(--sc-enter, 1)) * 88px) + ((0.5 - var(--sc-p, 0.5)) * 32px)),
+          0
+        )
+        rotate(calc((1 - var(--sc-enter, 1)) * 2.2deg))
+        scale(calc(0.88 + (var(--sc-enter, 1) * 0.12)));
+      opacity: calc(0.05 + (var(--sc-enter, 1) * 0.95));
+      will-change: transform, opacity;
+    }
+
+    @media (max-width: 768px) {
+      #hero [data-sc-depth="0.20"] {
+        transform: translate3d(0, calc(var(--sc-p, 0) * -18px), 0);
+      }
+      #hero [data-sc-depth="0.35"] {
+        transform: translate3d(0, calc(var(--sc-p, 0) * -28px), 0);
+      }
+      #hero [data-sc-depth="0.52"] {
+        transform: translate3d(0, calc(var(--sc-p, 0) * -36px), 0);
+      }
+      #hero [data-sc-depth="0.75"],
+      #hero [data-sc-depth="0.95"] {
+        transform: none;
+        opacity: 1;
+      }
+      .sc-spotlight-card {
+        transform: translate3d(0, calc((1 - var(--sc-card-p)) * 48px), 0)
+          scale(calc(0.92 + (var(--sc-card-p) * 0.08)));
+      }
+      .sc-menu-row {
+        transform: none;
+        opacity: 1;
+      }
+      #suasana [data-sc-bento] {
+        clip-path: inset(
+          calc((1 - var(--sc-wipe)) * 16%)
+          calc((1 - var(--sc-wipe)) * 10%)
+          calc((1 - var(--sc-wipe)) * 16%)
+          calc((1 - var(--sc-wipe)) * 10%)
+          round 0.85rem
+        );
+        transform: translate3d(0, calc((1 - var(--sc-wipe)) * 45px), 0);
+      }
+      #lokasi [data-sc-loc-depth="0.35"],
+      #lokasi [data-sc-loc-depth="0.65"] {
+        transform: translate3d(0, calc((1 - var(--sc-enter, 1)) * 45px), 0);
+      }
+    }
+
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+      #printable-menu-sheet,
+      #printable-menu-sheet * {
+        visibility: visible;
+      }
+      #printable-menu-sheet {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        max-height: none !important;
+        overflow: visible !important;
+        box-shadow: none !important;
+        border: none !important;
+        background: #FFFFFF !important;
+        color: #000000 !important;
+      }
+      .no-print {
+        display: none !important;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      [data-sc-act],
+      [data-sc-act] *,
+      #hero [data-sc-depth],
+      #keunggulan [data-sc-pillar],
+      #suasana [data-sc-bento],
+      #suasana [data-sc-bento] img,
+      #suasana [data-sc-facility],
+      #tentang .sc-review-ledger,
+      #tentang [data-sc-quote],
+      #momen [data-sc-craft],
+      #momen [data-sc-craft] img,
+      #promo[data-sc-act="promo"],
+      #lokasi [data-sc-loc-depth],
+      .sc-spotlight-card,
+      .sc-menu-row {
+        transform: none !important;
+        clip-path: none !important;
+        opacity: 1 !important;
+      }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col bg-ivory-50 text-stone-900 selection:bg-espresso-900 selection:text-ivory-50 overflow-x-hidden">
+
+  <!-- ========================================================================
+       STICKY NAVBAR (#header)
+       ======================================================================== -->
+  <header id="header" class="sticky top-0 z-40 h-16 sm:h-[72px] w-full bg-espresso-950/95 backdrop-blur-md border-b border-white/10 text-ivory-50 transition-colors">
+    <div class="max-w-7xl mx-auto h-full px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-3">
+      
+      <!-- Brand Identity (Left) -->
+      <a href="#hero" class="flex items-center gap-2.5 sm:gap-3 group shrink-0 py-1" aria-label="Kembali ke atas">
+        <div class="w-9 h-9 sm:w-11 sm:h-11 rounded-full overflow-hidden border border-white/25 bg-white flex items-center justify-center shrink-0 shadow-sm group-hover:border-amber-brand transition-colors">
+          <img
+            src="logo.jpg"
+            alt="Logo Kafe"
+            width="44"
+            height="44"
+            onerror="handleImgFallback(this, 'TK')"
+            class="w-full h-full object-contain p-0.5"
+          />
+        </div>
+        <div class="flex flex-col">
+          <span class="font-bold text-xs sm:text-base tracking-[0.12em] uppercase text-ivory-50 leading-none">TENTANG KOPI</span>
+          <span class="text-[9px] sm:text-[10px] tracking-[0.16em] uppercase text-stone-400 mt-1">Sukmajaya, Depok</span>
+        </div>
+      </a>
+
+      <!-- Desktop Anchor Navigation (Center) -->
+      <nav aria-label="Navigasi Utama" class="hidden md:flex items-center gap-8 text-sm font-medium text-stone-300">
+        <a href="#menu" data-nav-label="1" class="hover:text-ivory-50 transition-colors py-2">Menu</a>
+        <a href="#suasana" data-nav-label="2" class="hover:text-ivory-50 transition-colors py-2">Suasana</a>
+        <a href="#tentang" data-nav-label="3" class="hover:text-ivory-50 transition-colors py-2">Cerita &amp; Ulasan</a>
+        <a href="#lokasi" data-nav-label="4" class="hover:text-ivory-50 transition-colors py-2">Lokasi</a>
+      </nav>
+
+      <!-- Action Controls (Right) -->
+      <div class="flex items-center gap-2">
+        <a
+          id="nav-order-cta"
+          href="https://gofood.co.id/jakarta/restaurant/tentang-kopi-sukmajaya-f95616be-e5a2-4c9c-bc15-4b75093b2e9b"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="bg-amber-brand hover:bg-amber-hover text-espresso-950 font-semibold text-xs sm:text-sm px-3.5 sm:px-5 h-9 sm:h-[42px] rounded-lg inline-flex items-center justify-center gap-1.5 transition-colors"
+        >
+          <span id="nav-order-cta-label">Pesan Online</span>
+          <span aria-hidden="true" class="text-xs">↗</span>
+        </a>
+
+        <a
+          id="nav-wa-cta"
+          href="https://wa.me/6285691895114?text=Halo%20Tentang%20Kopi%20Sukmajaya%20Depok%2C%20saya%20ingin%20bertanya%20mengenai%20menu%20dan%20reservasi%20tempat."
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Hubungi via WhatsApp"
+          title="Chat WhatsApp"
+          class="w-9 h-9 sm:w-10 sm:h-10 rounded-lg border border-white/15 hover:border-white/40 hover:bg-white/5 flex items-center justify-center text-ivory-50 transition-colors shrink-0"
+        >
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824zm-3.423-14.416c-6.627 0-12 5.373-12 12 0 2.124.556 4.119 1.528 5.847l-1.528 5.581 5.714-1.499c1.682.912 3.607 1.433 5.654 1.433 6.627 0 12-5.373 12-12s-5.373-12-12.368-11.362z"/>
+          </svg>
+        </a>
+
+        <!-- Mobile Menu Toggle -->
+        <button
+          type="button"
+          id="mobile-menu-btn"
+          aria-expanded="false"
+          aria-controls="mobile-menu-drawer"
+          aria-label="Buka menu navigasi"
+          class="md:hidden w-9 h-9 rounded-lg border border-white/15 hover:bg-white/5 flex items-center justify-center text-ivory-50 transition-colors"
+        >
+          <svg id="hamburger-open-icon" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+          <svg id="hamburger-close-icon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Compact 2x2 Grid Mobile Navigation Drawer -->
+    <div
+      id="mobile-menu-drawer"
+      class="hidden md:hidden bg-espresso-900 border-b border-white/15 px-4 pt-3 pb-4 shadow-2xl"
+      aria-label="Navigasi Seluler"
+    >
+      <nav class="grid grid-cols-2 gap-2 text-xs font-medium text-stone-200">
+        <a href="#menu" data-mobile-nav-link class="p-3 rounded-lg bg-white/5 hover:bg-white/10 flex items-center justify-between">
+          <span data-nav-label="1">Menu Pilihan</span>
+          <span aria-hidden="true" class="text-amber-brand">→</span>
+        </a>
+        <a href="#suasana" data-mobile-nav-link class="p-3 rounded-lg bg-white/5 hover:bg-white/10 flex items-center justify-between">
+          <span data-nav-label="2">Suasana</span>
+          <span aria-hidden="true" class="text-amber-brand">→</span>
+        </a>
+        <a href="#tentang" data-mobile-nav-link class="p-3 rounded-lg bg-white/5 hover:bg-white/10 flex items-center justify-between">
+          <span data-nav-label="3">Cerita &amp; Ulasan</span>
+          <span aria-hidden="true" class="text-amber-brand">→</span>
+        </a>
+        <a href="#lokasi" data-mobile-nav-link class="p-3 rounded-lg bg-white/5 hover:bg-white/10 flex items-center justify-between">
+          <span data-nav-label="4">Lokasi &amp; Jam</span>
+          <span aria-hidden="true" class="text-amber-brand">→</span>
+        </a>
+      </nav>
+      <div id="mobile-drawer-cta-grid" class="mt-2.5 grid grid-cols-2 gap-2">
+        <a
+          id="mobile-order-cta"
+          href="https://gofood.co.id/jakarta/restaurant/tentang-kopi-sukmajaya-f95616be-e5a2-4c9c-bc15-4b75093b2e9b"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="bg-amber-brand text-espresso-950 font-semibold text-xs h-10 px-3 rounded-lg text-center flex items-center justify-center gap-1.5"
+        >
+          <span id="mobile-order-cta-label">Pesan di GoFood</span>
+          <span aria-hidden="true">↗</span>
+        </a>
+        <a
+          id="mobile-wa-cta"
+          href="https://wa.me/6285691895114?text=Halo%20Tentang%20Kopi%20Sukmajaya%20Depok%2C%20saya%20ingin%20reservasi%20tempat."
+          target="_blank"
+          rel="noopener noreferrer"
+          class="border border-white/20 text-ivory-50 font-medium text-xs h-10 px-3 rounded-lg text-center flex items-center justify-center gap-1.5 hover:bg-white/5"
+        >
+          <span>Reservasi WA</span>
+          <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-1">
+
+    <!-- ======================================================================
+         HERO SECTION (#hero)
+         ====================================================================== -->
+    <section
+      id="hero"
+      data-sc-act="hero"
+      data-sc-device="parallax-planes"
+      aria-labelledby="hero-title"
+      class="relative hero-editorial-bg text-ivory-50 overflow-hidden"
+    >
+      <div class="relative overflow-hidden">
+        <!-- Mobile Atmospheric Background -->
+        <div class="lg:hidden absolute inset-0 z-0 pointer-events-none">
+          <img
+            src="hero-signature-latte.jpg"
+            alt=""
+            aria-hidden="true"
+            fetchpriority="high"
+            onerror="handleImgFallback(this, 'Signature Coffee')"
+            class="w-full h-full object-cover object-[center_48%] warm-editorial-photo opacity-50 brightness-110"
+          />
+          <div class="absolute inset-0 bg-gradient-to-r from-espresso-950/90 via-espresso-950/65 to-espresso-950/35"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-espresso-950 via-transparent to-espresso-950/60"></div>
+        </div>
+
+        <!-- Desktop Parallax Sunbeam Plane -->
+        <div
+          data-sc-depth="0.12"
+          aria-hidden="true"
+          class="hidden lg:block sc-hero-sunbeam pointer-events-none absolute inset-0"
+        ></div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-7 pb-8 sm:py-16 lg:py-20">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+            
+            <!-- Left Column (7 cols on Desktop) -->
+            <div class="lg:col-span-7 max-w-2xl">
+              <!-- Status Badge -->
+              <div
+                id="hero-status-badge"
+                data-sc-depth="0.20"
+                class="inline-flex flex-wrap items-center gap-2 text-[11px] sm:text-xs tracking-wide text-stone-300 mb-3 sm:mb-6"
+              >
+                <span id="hero-status-dot" class="w-2 h-2 rounded-full bg-[#22C55E]" aria-hidden="true"></span>
+                <span id="hero-status-text" class="tabular-nums font-medium text-ivory-100">Buka Hari Ini · 11.00 – 22.00 WIB</span>
+                <span class="text-stone-500" aria-hidden="true">/</span>
+                <span id="hero-status-branch" class="text-stone-400">Sukmajaya, Depok</span>
+              </div>
+
+              <!-- Primary Editorial Headline -->
+              <h1
+                id="hero-title"
+                data-sc-depth="0.35"
+                class="font-serif text-[34px] sm:text-5xl lg:text-[64px] font-semibold tracking-tight text-ivory-50 leading-[1.06]"
+              >
+                Secangkir Kopi,<br />
+                <span class="italic font-normal text-amber-brand">Sejuta Cerita.</span>
+              </h1>
+
+              <!-- Narrative Copy & Adaptive CTA Container -->
+              <div data-sc-depth="0.52">
+                <p id="hero-desc-text" class="mt-3 sm:mt-6 text-sm sm:text-lg text-stone-200 sm:text-stone-300 leading-relaxed max-w-xl font-normal">
+                  Tempat singgah di Sukmajaya untuk menikmati seduhan Arabika Nusantara, menyelesaikan pekerjaan, atau berbincang santai.
+                </p>
+
+                <!-- Adaptive CTA Grid: Otomatis merapikan lebar jika tombol Order dimatikan -->
+                <div id="hero-cta-container" class="mt-5 sm:mt-9 grid grid-cols-2 sm:flex sm:flex-row sm:items-center gap-2.5 sm:gap-4">
+                  <a
+                    id="hero-order-cta"
+                    href="https://gofood.co.id/jakarta/restaurant/tentang-kopi-sukmajaya-f95616be-e5a2-4c9c-bc15-4b75093b2e9b"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="bg-amber-brand hover:bg-amber-hover text-espresso-950 font-semibold text-xs sm:text-sm px-3 sm:px-7 h-11 sm:min-h-[50px] rounded-lg inline-flex items-center justify-center gap-1.5 sm:gap-2.5 transition-colors shadow-lg whitespace-nowrap"
+                  >
+                    <span id="hero-order-cta-label">Pesan di GoFood</span>
+                    <span class="text-sm leading-none" aria-hidden="true">↗</span>
+                  </a>
+
+                  <a
+                    id="hero-menu-cta"
+                    href="#menu"
+                    class="bg-espresso-950/40 sm:bg-transparent border border-white/25 hover:border-ivory-50 hover:bg-white/5 text-ivory-50 font-medium text-xs sm:text-sm px-3 sm:px-6 h-11 sm:min-h-[50px] rounded-lg inline-flex items-center justify-center gap-1.5 sm:gap-2 transition-colors whitespace-nowrap"
+                  >
+                    <span id="hero-menu-cta-label">Lihat Menu</span>
+                    <span class="text-sm leading-none" aria-hidden="true">↓</span>
+                  </a>
+                </div>
+
+                <!-- Sleek Mobile Brand Sub-caption -->
+                <div class="mt-5 pt-3.5 border-t border-white/15 flex lg:hidden items-center justify-between text-[10px] text-stone-300 tracking-[0.14em] uppercase font-medium">
+                  <span data-hero-sub-left>ARABIKA NUSANTARA</span>
+                  <span data-hero-sub-right class="text-amber-brand">RUANG SINGGAH</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right Column (5 cols) — Exclusive to Desktop (lg+) -->
+            <div class="hidden lg:flex lg:col-span-5 flex-col items-center lg:items-end">
+              <figure id="hero-figure-card" data-sc-depth="0.75" class="w-full max-w-[440px]">
+                <div class="relative aspect-[4/5] w-full rounded-xl overflow-hidden border border-white/15 bg-espresso-900 shadow-2xl">
+                  <img
+                    src="hero-signature-latte.jpg"
+                    alt="Sajian unggulan"
+                    width="800"
+                    height="1000"
+                    fetchpriority="high"
+                    data-sc-depth="0.95"
+                    onerror="handleImgFallback(this, 'Signature Coffee')"
+                    class="w-full h-full object-cover object-center warm-editorial-photo"
+                  />
+                  <div class="absolute inset-0 bg-gradient-to-t from-espresso-950/75 via-transparent to-transparent pointer-events-none"></div>
+
+                  <div class="absolute bottom-5 left-5 right-5 flex items-end justify-between text-ivory-50 pointer-events-none">
+                    <div>
+                      <p id="hero-card-kicker" class="text-[11px] uppercase tracking-[0.18em] text-amber-brand font-semibold">Signature Cup</p>
+                      <p id="hero-card-title" class="font-serif text-lg italic text-ivory-50 leading-snug mt-0.5">Espresso &amp; Creamy Milk</p>
+                    </div>
+                    <span id="hero-card-badge" class="text-[11px] tracking-[0.16em] uppercase text-stone-300 tabular-nums">SUKMAJAYA</span>
+                  </div>
+                </div>
+
+                <figcaption class="mt-3 flex items-center justify-between gap-4 text-[11px] text-stone-300 tracking-[0.14em] uppercase font-medium">
+                  <span data-hero-sub-left class="whitespace-nowrap">ARABIKA NUSANTARA</span>
+                  <span data-hero-sub-right class="text-amber-brand whitespace-nowrap shrink-0">RUANG SINGGAH</span>
+                </figcaption>
+              </figure>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- ====================================================================
+           HIGHLIGHT KEUNGGULAN (#keunggulan) — 3 Pilar USP
+           ==================================================================== -->
+      <div
+        id="keunggulan"
+        data-sc-act="keunggulan"
+        class="relative z-10 bg-ivory-100 text-stone-900 border-t border-b border-ivory-200"
+      >
+        <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+          <div class="grid grid-cols-3 divide-x divide-ivory-300/80 items-stretch">
+            
+            <!-- Pillar 1 -->
+            <div
+              data-sc-pillar
+              class="py-3.5 px-1.5 sm:py-5 sm:px-4 md:py-6 md:px-6 first:md:pl-0 flex flex-col md:flex-row items-center md:items-start text-center md:text-left gap-1.5 md:gap-4"
+            >
+              <svg class="w-4 h-4 sm:w-5 sm:h-5 text-amber-brand shrink-0 md:mt-0.5" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9zm0 3c2.2 0 4 2.69 4 6s-1.8 6-4 6-4-2.69-4-6 1.8-6 4-6zm0 0c.8 1.8.8 4.2 0 6-.8 1.8-.8 4.2 0 6" />
+              </svg>
+              <div>
+                <h2 id="usp-1-title" class="text-[11px] sm:text-xs md:text-sm font-bold text-stone-900 tracking-tight leading-snug">100% Arabica Lokal</h2>
+                <p id="usp-1-desc" class="hidden md:block text-xs text-stone-600 mt-0.5 leading-relaxed">Biji Arabika Nusantara pilihan yang disangrai untuk rasa yang bersih dan seimbang.</p>
+              </div>
+            </div>
+
+            <!-- Pillar 2 -->
+            <div
+              data-sc-pillar
+              class="py-3.5 px-1.5 sm:py-5 sm:px-4 md:py-6 md:px-6 flex flex-col md:flex-row items-center md:items-start text-center md:text-left gap-1.5 md:gap-4"
+            >
+              <svg class="w-4 h-4 sm:w-5 sm:h-5 text-amber-brand shrink-0 md:mt-0.5" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" />
+              </svg>
+              <div>
+                <h2 id="usp-2-title" class="text-[11px] sm:text-xs md:text-sm font-bold text-stone-900 tracking-tight leading-snug">Nyaman untuk Bekerja</h2>
+                <p id="usp-2-desc" class="hidden md:block text-xs text-stone-600 mt-0.5 leading-relaxed">Meja kerja, Wi-Fi stabil, dan akses stopkontak tersedia di area duduk.</p>
+              </div>
+            </div>
+
+            <!-- Pillar 3 -->
+            <div
+              data-sc-pillar
+              class="py-3.5 px-1.5 sm:py-5 sm:px-4 md:py-6 md:px-6 last:md:pr-0 flex flex-col md:flex-row items-center md:items-start text-center md:text-left gap-1.5 md:gap-4"
+            >
+              <svg class="w-4 h-4 sm:w-5 sm:h-5 text-amber-brand shrink-0 md:mt-0.5" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 15s1-6 8-6 8 6 8 6M4 15c0 1.657 1.343 3 3 3h10c1.657 0 3-1.343 3-3M4 15h16M9 9V6.5a1.5 1.5 0 013 0V9m3 0V7a1.5 1.5 0 013 0v2" />
+              </svg>
+              <div>
+                <h2 id="usp-3-title" class="text-[11px] sm:text-xs md:text-sm font-bold text-stone-900 tracking-tight leading-snug">Pastry &amp; Toast Hangat</h2>
+                <p id="usp-3-desc" class="hidden md:block text-xs text-stone-600 mt-0.5 leading-relaxed">Roti panggang, croissant renyah, dan kudapan pendamping kopi yang segar.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         MENU PILIHAN (#menu)
+         ====================================================================== -->
+    <section
+      id="menu"
+      data-sc-act="menu"
+      data-sc-device="pointer-respond"
+      aria-labelledby="menu-heading"
+      class="py-10 sm:py-16 lg:py-20 bg-ivory-50 overflow-hidden"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Editorial Header -->
+        <div class="sc-menu-header flex flex-row items-end justify-between gap-4">
+          <div>
+            <span id="menu-kicker" class="text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.18em] text-amber-brand block">
+              KURASI SAJIAN
+            </span>
+            <h2 id="menu-heading" class="font-serif text-2xl sm:text-4xl font-semibold text-stone-900 tracking-tight mt-1">
+              Menu Pilihan
+            </h2>
+            <p id="menu-subdesc" class="hidden sm:block text-sm sm:text-base text-stone-600 mt-2 max-w-xl">
+              Diracik setiap hari dari bahan terbaik. Pilih kategori di bawah untuk melihat menu favorit dan harga lengkap kami.
+            </p>
+          </div>
+
+          <button
+            type="button"
+            id="btn-view-all-menu"
+            aria-pressed="false"
+            class="shrink-0 inline-flex items-center gap-1.5 px-3 sm:px-4 h-9 sm:min-h-[42px] rounded-lg border border-stone-300 bg-transparent hover:border-stone-900 hover:bg-stone-900 hover:text-ivory-50 text-[11px] sm:text-xs font-semibold text-stone-800 transition-colors"
+          >
+            <span id="view-all-menu-label">Tampilkan Semua Menu</span>
+            <span aria-hidden="true">→</span>
+          </button>
+        </div>
+
+        <!-- Category Filter Tabs -->
+        <div class="sc-menu-tabs mt-5 sm:mt-10 border-b border-ivory-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <div
+            role="tablist"
+            aria-label="Kategori Menu Pilihan"
+            id="menu-tablist"
+            class="flex items-center gap-5 sm:gap-9 overflow-x-auto no-scrollbar"
+          >
+            <!-- Populated by JS -->
+          </div>
+          <p id="menu-filter-status" aria-live="polite" class="hidden sm:block text-xs text-stone-500 pb-3">
+            Menampilkan pilihan Signature Coffee
+          </p>
+        </div>
+
+        <!-- Dynamic Menu Layout Container -->
+        <div
+          id="menu-content-area"
+          role="tabpanel"
+          aria-live="polite"
+          class="mt-6 sm:mt-10"
+        >
+          <!-- Populated by JS -->
+        </div>
+
+        <!-- Adaptive Order & Printable PDF Catalog Bar -->
+        <div id="menu-bottom-bar" class="mt-7 sm:mt-12 pt-5 sm:pt-8 border-t border-ivory-200 flex flex-col lg:flex-row lg:items-center justify-between gap-4 sm:gap-6">
+          <div class="space-y-0.5">
+            <p id="menu-bar-title" class="text-xs sm:text-sm font-semibold text-stone-900">
+              Ingin pesan antar ke rumah/kantor atau simpan daftar menu lengkap?
+            </p>
+            <p id="menu-bar-desc" class="text-[11px] sm:text-xs text-stone-600">
+              Tersedia untuk dine-in, takeaway, maupun pesan antar praktis melalui GoFood.
+            </p>
+          </div>
+
+          <div id="menu-bar-actions" class="grid grid-cols-2 sm:flex sm:flex-wrap items-center gap-2.5 sm:gap-3 shrink-0">
+            <button
+              type="button"
+              id="btn-open-pdf-menu"
+              class="inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-5 h-10 sm:min-h-[44px] rounded-lg border border-stone-300 bg-white hover:border-stone-900 text-[11px] sm:text-xs font-semibold text-stone-900 transition-colors whitespace-nowrap"
+            >
+              <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-brand shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V4" />
+              </svg>
+              <span id="pdf-btn-label">Katalog PDF</span>
+            </button>
+
+            <a
+              id="menu-bar-order-cta"
+              href="https://gofood.co.id/jakarta/restaurant/tentang-kopi-sukmajaya-f95616be-e5a2-4c9c-bc15-4b75093b2e9b"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center justify-center gap-1.5 sm:gap-2.5 px-3 sm:px-6 h-10 sm:min-h-[44px] rounded-lg bg-amber-brand hover:bg-amber-hover text-espresso-950 text-[11px] sm:text-xs font-semibold transition-colors shadow-sm whitespace-nowrap"
+            >
+              <span class="w-2 h-2 rounded-full bg-gofood shrink-0" aria-hidden="true"></span>
+              <span id="menu-bar-order-label">Pesan di GoFood</span>
+              <span aria-hidden="true">↗</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         SUASANA & FASILITAS (#suasana)
+         ====================================================================== -->
+    <section
+      id="suasana"
+      data-sc-act="suasana"
+      data-sc-device="clip-reveal"
+      data-sc-peak="true"
+      aria-labelledby="suasana-heading"
+      class="py-10 sm:py-16 lg:py-20 bg-espresso-950 text-ivory-50"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Section Intro Header -->
+        <div class="sc-peak-header flex flex-row items-end justify-between gap-4 mb-6 sm:mb-10">
+          <div>
+            <span id="suasana-kicker" class="text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.18em] text-amber-brand block">
+              RUANG &amp; KENYAMANAN
+            </span>
+            <h2 id="suasana-heading" class="font-serif text-2xl sm:text-4xl lg:text-[42px] font-semibold text-ivory-50 tracking-tight leading-[1.12] mt-1 sm:mt-2">
+              Ruang yang Menginspirasi
+            </h2>
+            <p id="suasana-desc" class="hidden sm:block text-sm text-stone-300 leading-relaxed max-w-xl mt-2">
+              Dirancang dengan pencahayaan hangat dan sirkulasi lega—baik saat Anda butuh fokus di dalam ruangan maupun bersantai di teras teduh.
+            </p>
+          </div>
+          <button
+            type="button"
+            id="btn-open-gallery"
+            class="shrink-0 inline-flex items-center gap-1.5 px-3.5 sm:px-4 h-9 sm:min-h-[40px] rounded-lg border border-white/25 hover:border-ivory-50 hover:bg-white/5 text-[11px] sm:text-xs font-medium text-ivory-50 transition-colors"
+          >
+            <span id="btn-open-gallery-label">Galeri Foto</span>
+            <span aria-hidden="true">↗</span>
+          </button>
+        </div>
+
+        <!-- Bento Photo Grid -->
+        <div class="grid grid-cols-2 md:grid-cols-12 gap-3 sm:gap-5">
+          
+          <!-- Space 1: Primary Space (Indoor AC) -->
+          <article
+            data-gallery-idx="0"
+            data-sc-bento
+            style="--sc-bento-i: 0; --sc-bento-dir: -1;"
+            tabindex="0"
+            role="button"
+            aria-label="Perbesar foto ruang 1"
+            class="col-span-2 md:col-span-8 relative rounded-xl overflow-hidden group cursor-pointer h-[210px] sm:h-[360px] md:h-[460px] border border-white/10 bg-espresso-900"
+          >
+            <img
+              src="ambience-indoor-ac.jpg"
+              alt="Area Indoor"
+              width="900"
+              height="600"
+              loading="lazy"
+              onerror="handleImgFallback(this, 'Indoor AC')"
+              class="w-full h-full object-cover object-center warm-editorial-photo"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-espresso-950/90 via-espresso-950/20 to-transparent"></div>
+            <div class="absolute bottom-3.5 sm:bottom-5 left-4 sm:left-5 right-4 sm:right-5 flex items-end justify-between gap-4">
+              <div>
+                <span id="space-1-kicker" class="text-[9px] sm:text-[10px] font-semibold uppercase tracking-[0.16em] text-amber-brand block">INDOOR LOUNGE</span>
+                <h3 id="space-1-title" class="font-serif text-lg sm:text-2xl font-medium text-ivory-50 mt-0.5">Area Indoor (Full AC)</h3>
+                <p id="space-1-sub" class="hidden sm:block text-xs text-stone-300 mt-1 max-w-md">Tenang, sejuk, dan dilengkapi meja kayu panjang untuk bekerja (WFC) atau membaca.</p>
+              </div>
+              <span class="text-[11px] sm:text-xs text-stone-300 group-hover:text-ivory-50 shrink-0">Perbesar ↗</span>
+            </div>
+          </article>
+
+          <!-- Secondary Spaces (2 & 3) -->
+          <div class="col-span-2 md:col-span-4 grid grid-cols-2 md:grid-cols-1 gap-3 sm:gap-5">
+            
+            <!-- Space 2 -->
+            <article
+              data-gallery-idx="1"
+              data-sc-bento
+              style="--sc-bento-i: 1; --sc-bento-dir: 1;"
+              tabindex="0"
+              role="button"
+              aria-label="Perbesar foto ruang 2"
+              class="relative rounded-xl overflow-hidden group cursor-pointer h-[135px] sm:h-[200px] md:h-[220px] border border-white/10 bg-espresso-900"
+            >
+              <img
+                src="ambience-outdoor-terrace.jpg"
+                alt="Area Outdoor"
+                width="600"
+                height="400"
+                loading="lazy"
+                onerror="handleImgFallback(this, 'Outdoor Area')"
+                class="w-full h-full object-cover object-center warm-editorial-photo"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-espresso-950/90 via-espresso-950/20 to-transparent"></div>
+              <div class="absolute bottom-3 sm:bottom-4 left-3 sm:left-4 right-3 sm:right-4 flex items-end justify-between">
+                <div>
+                  <span id="space-2-kicker" class="text-[9px] sm:text-[10px] font-semibold uppercase tracking-[0.14em] text-amber-brand block">TERRACE AREA</span>
+                  <h3 id="space-2-title" class="font-serif text-sm sm:text-lg font-medium text-ivory-50 leading-tight mt-0.5">Outdoor (Smoking)</h3>
+                </div>
+                <span class="text-xs text-stone-300">↗</span>
+              </div>
+            </article>
+
+            <!-- Space 3 -->
+            <article
+              data-gallery-idx="2"
+              data-sc-bento
+              style="--sc-bento-i: 2; --sc-bento-dir: 1;"
+              tabindex="0"
+              role="button"
+              aria-label="Perbesar foto ruang 3"
+              class="relative rounded-xl overflow-hidden group cursor-pointer h-[135px] sm:h-[200px] md:h-[220px] border border-white/10 bg-espresso-900"
+            >
+              <img
+                src="ambience-coffee-bar.jpg"
+                alt="Area Bar"
+                width="600"
+                height="400"
+                loading="lazy"
+                onerror="handleImgFallback(this, 'Coffee Bar')"
+                class="w-full h-full object-cover object-center warm-editorial-photo"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-espresso-950/90 via-espresso-950/20 to-transparent"></div>
+              <div class="absolute bottom-3 sm:bottom-4 left-3 sm:left-4 right-3 sm:right-4 flex items-end justify-between">
+                <div>
+                  <span id="space-3-kicker" class="text-[9px] sm:text-[10px] font-semibold uppercase tracking-[0.14em] text-amber-brand block">SLOW BAR</span>
+                  <h3 id="space-3-title" class="font-serif text-sm sm:text-lg font-medium text-ivory-50 leading-tight mt-0.5">Espresso &amp; Brew Bar</h3>
+                </div>
+                <span class="text-xs text-stone-300">↗</span>
+              </div>
+            </article>
+
+          </div>
+
+        </div>
+
+        <!-- 4 Facilities Strictly Aligned in 1 Row -->
+        <div class="mt-6 sm:mt-12 pt-5 sm:pt-8 border-t border-white/10">
+          <div class="grid grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-6 lg:gap-8 items-center">
+            
+            <div data-sc-facility class="flex items-center gap-2.5 sm:gap-3.5">
+              <span class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-amber-brand shrink-0" aria-hidden="true"></span>
+              <div class="min-w-0">
+                <span id="fac-1-title" class="text-xs sm:text-sm font-semibold text-ivory-50 block truncate">Mushola Bersih</span>
+                <span id="fac-1-desc" class="text-[11px] sm:text-xs text-stone-400 block truncate">Di dalam area kedai</span>
+              </div>
+            </div>
+
+            <div data-sc-facility class="flex items-center gap-2.5 sm:gap-3.5">
+              <span class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-amber-brand shrink-0" aria-hidden="true"></span>
+              <div class="min-w-0">
+                <span id="fac-2-title" class="text-xs sm:text-sm font-semibold text-ivory-50 block truncate">Area Parkir Memadai</span>
+                <span id="fac-2-desc" class="text-[11px] sm:text-xs text-stone-400 block truncate">Akses motor &amp; mobil</span>
+              </div>
+            </div>
+
+            <div data-sc-facility class="flex items-center gap-2.5 sm:gap-3.5">
+              <span class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-amber-brand shrink-0" aria-hidden="true"></span>
+              <div class="min-w-0">
+                <span id="fac-3-title" class="text-xs sm:text-sm font-semibold text-ivory-50 block truncate">Pet Friendly</span>
+                <span id="fac-3-desc" class="text-[11px] sm:text-xs text-stone-400 block truncate">Area teras outdoor</span>
+              </div>
+            </div>
+
+            <div data-sc-facility class="flex items-center gap-2.5 sm:gap-3.5">
+              <span class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-amber-brand shrink-0" aria-hidden="true"></span>
+              <div class="min-w-0">
+                <span id="fac-4-title" class="text-xs sm:text-sm font-semibold text-ivory-50 block truncate">Toilet Terawat</span>
+                <span id="fac-4-desc" class="text-[11px] sm:text-xs text-stone-400 block truncate">Bersih &amp; nyaman</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         CERITA, ULASAN & MOMEN SEDUHAN (#tentang & #momen)
+         ====================================================================== -->
+    <section
+      id="tentang"
+      data-sc-act="tentang"
+      data-sc-device="stack-cards"
+      aria-labelledby="reviews-heading"
+      class="py-10 sm:py-16 lg:py-20 bg-ivory-50 border-b border-ivory-200 overflow-hidden"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Part A: Editorial Review Ledger -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-start">
+          
+          <!-- Left Column (4 cols) -->
+          <div class="sc-review-ledger lg:col-span-4 lg:pr-6 flex flex-col sm:flex-row lg:flex-col sm:items-center lg:items-start justify-between gap-4">
+            <div>
+              <span id="reviews-kicker" class="text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.18em] text-amber-brand block">
+                CATATAN PELANGGAN
+              </span>
+              <h2 id="reviews-heading" class="font-serif text-2xl sm:text-4xl font-semibold text-stone-900 tracking-tight mt-1">
+                Apa Kata Mereka
+              </h2>
+              <p id="reviews-desc" class="text-xs sm:text-sm text-stone-600 mt-1.5 leading-relaxed max-w-md">
+                Kesan hangat dari teman-teman yang menjadikan Tentang Kopi Sukmajaya sebagai ruang singgah harian.
+              </p>
+            </div>
+
+            <!-- Verified Google Maps Score Block -->
+            <div class="pt-3 sm:pt-0 lg:mt-6 lg:pt-6 border-t sm:border-t-0 lg:border-t border-ivory-200 shrink-0">
+              <div class="flex items-baseline gap-2">
+                <span id="reviews-score-num" class="font-serif text-2xl sm:text-4xl font-semibold text-stone-900 tabular-nums">4.5</span>
+                <span class="text-xs sm:text-sm text-stone-500 tabular-nums">/ 5.0</span>
+                <span class="text-amber-brand text-xs sm:text-sm tracking-widest ml-1" aria-hidden="true">★★★★★</span>
+              </div>
+              <p class="text-[11px] sm:text-xs text-stone-600 mt-1">
+                Berdasarkan <strong>ulasan pelanggan</strong> di Google Maps.
+              </p>
+              <a
+                href="https://maps.google.com/?cid=7088790801722791724"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="mt-2 sm:mt-3 inline-flex items-center gap-1.5 text-xs font-semibold text-stone-900 hover:text-amber-brand transition-colors"
+              >
+                <span>Buka Ulasan di Google Maps</span>
+                <span aria-hidden="true">↗</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Right Column (8 cols) -->
+          <div class="lg:col-span-8 min-w-0 w-full relative">
+            
+            <button
+              type="button"
+              id="reviews-prev-btn"
+              aria-label="Ulasan sebelumnya"
+              class="md:hidden absolute left-2 top-1/2 -translate-y-1/2 z-10 w-6 h-6 rounded-full bg-stone-900/10 hover:bg-stone-900/20 text-stone-700 flex items-center justify-center transition-colors"
+            >
+              <svg class="w-2.5 h-2.5 fill-current" viewBox="0 0 12 12" aria-hidden="true">
+                <path d="M8.5 1.5L3.5 6L8.5 10.5V1.5Z" />
+              </svg>
+            </button>
+
+            <button
+              type="button"
+              id="reviews-next-btn"
+              aria-label="Ulasan selanjutnya"
+              class="md:hidden absolute right-2 top-1/2 -translate-y-1/2 z-10 w-6 h-6 rounded-full bg-stone-900/10 hover:bg-stone-900/20 text-stone-700 flex items-center justify-center transition-colors"
+            >
+              <svg class="w-2.5 h-2.5 fill-current" viewBox="0 0 12 12" aria-hidden="true">
+                <path d="M3.5 1.5L8.5 6L3.5 10.5V1.5Z" />
+              </svg>
+            </button>
+
+            <!-- Reviews Slider Track -->
+            <div
+              id="reviews-slider"
+              class="flex md:grid md:grid-cols-3 overflow-x-auto md:overflow-visible snap-x snap-mandatory no-scrollbar scroll-smooth gap-4 md:gap-0 md:divide-x divide-ivory-200 w-full"
+            >
+              
+              <!-- Quote 1 -->
+              <blockquote
+                data-sc-quote
+                style="--sc-q-i: 0;"
+                class="w-full min-w-full md:min-w-0 md:w-auto shrink-0 snap-center bg-ivory-100/80 md:bg-transparent py-5 px-9 md:p-0 rounded-xl md:rounded-none border border-ivory-200 md:border-0 md:px-6 first:md:pl-0 flex flex-col justify-between"
+              >
+                <div>
+                  <span class="font-serif text-2xl sm:text-3xl text-amber-brand leading-none block" aria-hidden="true">“</span>
+                  <p id="rev-1-quote" class="text-xs sm:text-sm text-stone-800 leading-relaxed mt-1.5 whitespace-normal break-words">
+                    Kopi di sini selalu konsisten enak. Baristanya ramah dan tempatnya tenang banget buat fokus kerja atau nugas dari siang sampai malam.
+                  </p>
+                </div>
+                <footer class="mt-4 sm:mt-6 pt-3 border-t border-ivory-200/70">
+                  <cite id="rev-1-author" class="not-italic text-xs font-bold text-stone-900 block">Rizky A.</cite>
+                  <span id="rev-1-role" class="text-[11px] text-stone-500">Local Guide · Sukmajaya</span>
+                </footer>
+              </blockquote>
+
+              <!-- Quote 2 -->
+              <blockquote
+                data-sc-quote
+                style="--sc-q-i: 1;"
+                class="w-full min-w-full md:min-w-0 md:w-auto shrink-0 snap-center bg-ivory-100/80 md:bg-transparent py-5 px-9 md:p-0 rounded-xl md:rounded-none border border-ivory-200 md:border-0 md:px-6 flex flex-col justify-between"
+              >
+                <div>
+                  <span class="font-serif text-2xl sm:text-3xl text-amber-brand leading-none block" aria-hidden="true">“</span>
+                  <p id="rev-2-quote" class="text-xs sm:text-sm text-stone-800 leading-relaxed mt-1.5 whitespace-normal break-words">
+                    Suasananya homey dan adem, lokasinya juga gampang dicari tepat di samping Polsek Sukmajaya. Egg Toast dan es kopi susunya mantap!
+                  </p>
+                </div>
+                <footer class="mt-4 sm:mt-6 pt-3 border-t border-ivory-200/70">
+                  <cite id="rev-2-author" class="not-italic text-xs font-bold text-stone-900 block">Dewi S.</cite>
+                  <span id="rev-2-role" class="text-[11px] text-stone-500">Pelanggan Setia · Depok</span>
+                </footer>
+              </blockquote>
+
+              <!-- Quote 3 -->
+              <blockquote
+                data-sc-quote
+                style="--sc-q-i: 2;"
+                class="w-full min-w-full md:min-w-0 md:w-auto shrink-0 snap-center bg-ivory-100/80 md:bg-transparent py-5 px-9 md:p-0 rounded-xl md:rounded-none border border-ivory-200 md:border-0 md:px-6 last:md:pr-0 flex flex-col justify-between"
+              >
+                <div>
+                  <span class="font-serif text-2xl sm:text-3xl text-amber-brand leading-none block" aria-hidden="true">“</span>
+                  <p id="rev-3-quote" class="text-xs sm:text-sm text-stone-800 leading-relaxed mt-1.5 whitespace-normal break-words">
+                    Salah satu tempat ngopi favorit di Sukmajaya. Karakter espresso-nya berasa, manisnya pas, dan harganya sangat bersahabat di kantong.
+                  </p>
+                </div>
+                <footer class="mt-4 sm:mt-6 pt-3 border-t border-ivory-200/70">
+                  <cite id="rev-3-author" class="not-italic text-xs font-bold text-stone-900 block">Andi P.</cite>
+                  <span id="rev-3-role" class="text-[11px] text-stone-500">Penikmat Kopi · Depok</span>
+                </footer>
+              </blockquote>
+
+            </div>
+
+            <div id="reviews-dots" class="md:hidden mt-3 flex items-center justify-center gap-1.5" aria-hidden="true">
+              <span class="w-4 h-1 rounded-full bg-amber-brand transition-all"></span>
+              <span class="w-1.5 h-1 rounded-full bg-stone-300 transition-all"></span>
+              <span class="w-1.5 h-1 rounded-full bg-stone-300 transition-all"></span>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- ==================================================================
+             SECTION MULTI-FUNGSI: CERITA SEDUHAN / HIGHLIGHT / 4 POSTER PROMO (#momen)
+             ================================================================== -->
+        <div
+          id="momen"
+          data-sc-act="momen"
+          data-sc-device="horizontal-pan"
+          class="mt-8 sm:mt-12 pt-8 sm:pt-12 border-t border-ivory-200"
+        >
+          <div class="sc-momen-header flex flex-col md:flex-row md:items-end justify-between gap-4 mb-5 sm:mb-8">
+            <div>
+              <span id="momen-kicker" class="text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.18em] text-amber-brand block">
+                DI BALIK BAR · @TENTANGKOPIDEPOK
+              </span>
+              <h3 id="momen-heading" class="font-serif text-xl sm:text-3xl font-semibold text-stone-900 mt-1">
+                Cerita di Setiap Seduhan
+              </h3>
+            </div>
+
+            <div class="grid grid-cols-2 sm:flex sm:items-center gap-2.5 sm:gap-4 text-xs font-semibold">
+              <a
+                href="https://www.instagram.com/tentangkopidepok/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="px-3.5 py-2.5 rounded-lg border border-stone-300 bg-white hover:border-amber-brand inline-flex items-center justify-center gap-1.5 text-stone-900 hover:text-amber-brand transition-colors whitespace-nowrap"
+              >
+                <span>Instagram</span>
+                <span aria-hidden="true">↗</span>
+              </a>
+              <a
+                href="https://www.tiktok.com/@tentangkopidepok"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="px-3.5 py-2.5 rounded-lg border border-stone-300 bg-white hover:border-amber-brand inline-flex items-center justify-center gap-1.5 text-stone-900 hover:text-amber-brand transition-colors whitespace-nowrap"
+              >
+                <span>TikTok</span>
+                <span aria-hidden="true">↗</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="relative w-full min-w-0">
+            
+            <button
+              type="button"
+              id="momen-prev-btn"
+              aria-label="Foto sebelumnya"
+              class="lg:hidden absolute left-2.5 top-1/2 -translate-y-1/2 z-10 w-7 h-7 rounded-full bg-espresso-950/60 hover:bg-espresso-950/85 border border-white/20 text-ivory-50 flex items-center justify-center backdrop-blur-sm transition-colors"
+            >
+              <svg class="w-2.5 h-2.5 fill-current" viewBox="0 0 12 12" aria-hidden="true">
+                <path d="M8.5 1.5L3.5 6L8.5 10.5V1.5Z" />
+              </svg>
+            </button>
+
+            <button
+              type="button"
+              id="momen-next-btn"
+              aria-label="Foto selanjutnya"
+              class="lg:hidden absolute right-2.5 top-1/2 -translate-y-1/2 z-10 w-7 h-7 rounded-full bg-espresso-950/60 hover:bg-espresso-950/85 border border-white/20 text-ivory-50 flex items-center justify-center backdrop-blur-sm transition-colors"
+            >
+              <svg class="w-2.5 h-2.5 fill-current" viewBox="0 0 12 12" aria-hidden="true">
+                <path d="M3.5 1.5L8.5 6L3.5 10.5V1.5Z" />
+              </svg>
+            </button>
+
+            <div
+              id="momen-slider"
+              class="flex lg:grid lg:grid-cols-4 overflow-x-auto lg:overflow-visible snap-x snap-mandatory no-scrollbar scroll-smooth gap-4 sm:gap-5 w-full"
+            >
+              
+              <!-- Craft / Promo Card 1 -->
+              <button
+                type="button"
+                data-gallery-idx="3"
+                data-sc-craft
+                style="--sc-c-i: 0; --sc-c-dir: -1;"
+                aria-label="Perbesar foto 1"
+                class="w-full min-w-full sm:min-w-[calc(50%-10px)] lg:min-w-0 lg:w-auto shrink-0 snap-center group relative rounded-xl overflow-hidden aspect-[4/3] bg-ivory-200 text-left cursor-pointer"
+              >
+                <img
+                  id="craft-1-img"
+                  src="craft-latte-art.jpg"
+                  alt="Microfoam & Latte Art"
+                  width="450"
+                  height="340"
+                  loading="lazy"
+                  onerror="handleImgFallback(this, 'Visual 1')"
+                  class="w-full h-full object-cover warm-editorial-photo"
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-espresso-950/80 via-transparent to-transparent flex items-end p-4">
+                  <span id="craft-1-title" class="text-ivory-50 text-xs font-medium tracking-wide">Microfoam &amp; Latte Art</span>
+                </div>
+              </button>
+
+              <!-- Craft / Promo Card 2 -->
+              <button
+                type="button"
+                data-gallery-idx="4"
+                data-sc-craft
+                style="--sc-c-i: 1; --sc-c-dir: 1;"
+                aria-label="Perbesar foto 2"
+                class="w-full min-w-full sm:min-w-[calc(50%-10px)] lg:min-w-0 lg:w-auto shrink-0 snap-center group relative rounded-xl overflow-hidden aspect-[4/3] bg-ivory-200 text-left cursor-pointer"
+              >
+                <img
+                  id="craft-2-img"
+                  src="craft-manual-brew.jpg"
+                  alt="Seduhan Manual Brew"
+                  width="450"
+                  height="340"
+                  loading="lazy"
+                  onerror="handleImgFallback(this, 'Visual 2')"
+                  class="w-full h-full object-cover warm-editorial-photo"
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-espresso-950/80 via-transparent to-transparent flex items-end p-4">
+                  <span id="craft-2-title" class="text-ivory-50 text-xs font-medium tracking-wide">Seduhan Manual Brew</span>
+                </div>
+              </button>
+
+              <!-- Craft / Promo Card 3 -->
+              <button
+                type="button"
+                data-gallery-idx="5"
+                data-sc-craft
+                style="--sc-c-i: 2; --sc-c-dir: -1;"
+                aria-label="Perbesar foto 3"
+                class="w-full min-w-full sm:min-w-[calc(50%-10px)] lg:min-w-0 lg:w-auto shrink-0 snap-center group relative rounded-xl overflow-hidden aspect-[4/3] bg-ivory-200 text-left cursor-pointer"
+              >
+                <img
+                  id="craft-3-img"
+                  src="craft-espresso-calibration.jpg"
+                  alt="Espresso Kalibrasi Harian"
+                  width="450"
+                  height="340"
+                  loading="lazy"
+                  onerror="handleImgFallback(this, 'Visual 3')"
+                  class="w-full h-full object-cover warm-editorial-photo"
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-espresso-950/80 via-transparent to-transparent flex items-end p-4">
+                  <span id="craft-3-title" class="text-ivory-50 text-xs font-medium tracking-wide">Espresso Kalibrasi Harian</span>
+                </div>
+              </button>
+
+              <!-- Craft / Promo Card 4 -->
+              <button
+                type="button"
+                data-gallery-idx="6"
+                data-sc-craft
+                style="--sc-c-i: 3; --sc-c-dir: 1;"
+                aria-label="Perbesar foto 4"
+                class="w-full min-w-full sm:min-w-[calc(50%-10px)] lg:min-w-0 lg:w-auto shrink-0 snap-center group relative rounded-xl overflow-hidden aspect-[4/3] bg-ivory-200 text-left cursor-pointer"
+              >
+                <img
+                  id="craft-4-img"
+                  src="craft-fresh-pastry.jpg"
+                  alt="Kudapan & Roti Hangat"
+                  width="450"
+                  height="340"
+                  loading="lazy"
+                  onerror="handleImgFallback(this, 'Visual 4')"
+                  class="w-full h-full object-cover warm-editorial-photo"
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-espresso-950/80 via-transparent to-transparent flex items-end p-4">
+                  <span id="craft-4-title" class="text-ivory-50 text-xs font-medium tracking-wide">Kudapan &amp; Roti Hangat</span>
+                </div>
+              </button>
+
+            </div>
+
+            <div id="momen-dots" class="lg:hidden mt-3 flex items-center justify-center gap-1.5" aria-hidden="true">
+              <span class="w-4 h-1 rounded-full bg-amber-brand transition-all"></span>
+              <span class="w-1.5 h-1 rounded-full bg-stone-300 transition-all"></span>
+              <span class="w-1.5 h-1 rounded-full bg-stone-300 transition-all"></span>
+              <span class="w-1.5 h-1 rounded-full bg-stone-300 transition-all"></span>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ==================================================================
+             CTA RESERVASI / BANNER BAWAH (#promo) — OPSIONAL
+             ================================================================== -->
+        <div
+          id="promo"
+          data-sc-act="promo"
+          data-sc-device="clip-reveal"
+          class="mt-8 sm:mt-12 rounded-2xl bg-espresso-900 text-ivory-50 p-5 sm:px-10 sm:py-10 border border-espresso-800 shadow-lg"
+        >
+          <div class="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-5 sm:gap-8">
+            <div class="max-w-2xl">
+              <span id="promo-kicker" class="text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.18em] text-amber-brand block">
+                RESERVASI MEJA &amp; KOMUNITAS
+              </span>
+              <h2 id="promo-heading" class="font-serif text-xl sm:text-3xl font-semibold text-ivory-50 leading-snug mt-1.5">
+                Butuh ruang untuk rapat tim, acara komunitas, atau WFC grup?
+              </h2>
+              <p id="promo-desc" class="text-xs sm:text-sm text-stone-300 mt-1.5 leading-relaxed">
+                Hubungi kami langsung melalui WhatsApp untuk mengamankan meja dan menyiapkan paket sajian kopi terbaik bagi grup Anda.
+              </p>
+            </div>
+
+            <div class="shrink-0">
+              <a
+                id="promo-wa-cta"
+                href="https://wa.me/6285691895114?text=Halo%20Tentang%20Kopi%20Sukmajaya%20Depok%2C%20saya%20ingin%20booking%20tempat%20untuk%20grup%2Frapat."
+                target="_blank"
+                rel="noopener noreferrer"
+                class="w-full sm:w-auto bg-amber-brand hover:bg-amber-hover text-espresso-950 font-semibold text-xs sm:text-sm px-5 h-11 sm:min-h-[48px] rounded-lg inline-flex items-center justify-center gap-2 transition-colors shadow-sm"
+              >
+                <svg class="w-4 h-4 fill-current shrink-0" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824zm-3.423-14.416c-6.627 0-12 5.373-12 12 0 2.124.556 4.119 1.528 5.847l-1.528 5.581 5.714-1.499c1.682.912 3.607 1.433 5.654 1.433 6.627 0 12-5.373 12-12s-5.373-12-12.368-11.362z"/>
+                </svg>
+                <span id="promo-btn-label">Reservasi via WhatsApp</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         LOKASI & JAM BUKA (#lokasi)
+         ====================================================================== -->
+    <section
+      id="lokasi"
+      data-sc-act="lokasi"
+      data-sc-device="parallax-planes"
+      aria-labelledby="lokasi-heading"
+      class="py-10 sm:py-16 lg:py-20 bg-ivory-100 overflow-hidden"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-7 lg:gap-12 items-start">
+          
+          <!-- Left Column (5 Cols) -->
+          <div data-sc-loc-depth="0.35" class="lg:col-span-5">
+            <span id="lokasi-kicker" class="text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.18em] text-amber-brand block">
+              KUNJUNGI KAMI
+            </span>
+            <h2 id="lokasi-heading" class="font-serif text-2xl sm:text-4xl font-semibold text-stone-900 tracking-tight mt-1">
+              Lokasi &amp; Jam Buka
+            </h2>
+
+            <div class="mt-5 sm:mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-5 sm:gap-6">
+              <!-- Address Block -->
+              <div class="pt-4 sm:pt-6 border-t border-ivory-300">
+                <h3 class="text-[11px] font-bold uppercase tracking-wider text-stone-500">Alamat Kedai</h3>
+                <p id="lokasi-addr-1" class="text-sm sm:text-base font-bold text-stone-900 mt-1.5">
+                  Jl. Bahagia Raya No. 4 (Samping Polsek Sukmajaya)
+                </p>
+                <p id="lokasi-addr-2" class="text-xs sm:text-sm text-stone-600 mt-1 leading-relaxed">
+                  Kel. Sukamaju, Kec. Sukmajaya, Kota Depok, Jawa Barat 16417
+                </p>
+                <p id="lokasi-wa-line" class="text-xs text-stone-500 mt-2">
+                  WhatsApp: <a href="https://wa.me/6285691895114" target="_blank" rel="noopener noreferrer" class="font-semibold text-stone-800 hover:underline tabular-nums">+62 856-9189-5114</a>
+                </p>
+              </div>
+
+              <!-- Operating Hours Ledger (Fleksibel 1 atau 2 Jadwal) -->
+              <div class="pt-4 sm:pt-6 border-t border-ivory-300">
+                <div class="flex items-center justify-between">
+                  <h3 class="text-[11px] font-bold uppercase tracking-wider text-stone-500">Jam Operasional</h3>
+                  <span id="lokasi-hours-badge" class="text-[11px] font-medium text-amber-brand">Buka Setiap Hari</span>
+                </div>
+
+                <dl class="mt-2.5 divide-y divide-ivory-300/70 text-xs sm:text-sm">
+                  <div id="lokasi-hours-row-1" class="py-2 flex items-center justify-between">
+                    <dt id="lokasi-hours-label-1" class="text-stone-700">Senin – Kamis</dt>
+                    <dd id="lokasi-hours-val-1" class="font-semibold text-stone-900 tabular-nums">11.00 – 22.00 WIB</dd>
+                  </div>
+                  <div id="lokasi-hours-row-2" class="py-2 flex items-center justify-between">
+                    <dt id="lokasi-hours-label-2" class="text-stone-700">Jumat – Minggu</dt>
+                    <dd id="lokasi-hours-val-2" class="font-semibold text-stone-900 tabular-nums">11.00 – 23.00 WIB</dd>
+                  </div>
+                </dl>
+              </div>
+            </div>
+
+            <!-- Direct Action Link -->
+            <div class="mt-5 sm:mt-8">
+              <a
+                href="https://maps.google.com/?cid=7088790801722791724"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 h-11 sm:min-h-[46px] rounded-lg bg-espresso-950 hover:bg-espresso-800 text-ivory-50 text-xs font-semibold transition-colors"
+              >
+                <span id="lokasi-maps-btn-label">Petunjuk Arah di Google Maps</span>
+                <span aria-hidden="true">↗</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Right Column (7 Cols): Clean Map Frame -->
+          <div data-sc-loc-depth="0.65" class="lg:col-span-7 w-full">
+            <div class="relative rounded-xl overflow-hidden border border-ivory-300 shadow-md bg-ivory-200 h-[250px] sm:h-[380px]">
+              <iframe
+                title="Peta Lokasi Kedai"
+                src="https://www.google.com/maps?q=Tentang+Kopi+Sukmajaya,+Jl.+Bahagia+Raya+No.4,+Sukamaju,+Kec.+Sukmajaya,+Kota+Depok&output=embed"
+                class="w-full h-full border-0 contrast-[0.98] sepia-[0.08]"
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                allowfullscreen
+              ></iframe>
+
+              <a
+                href="https://maps.google.com/?cid=7088790801722791724"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="absolute bottom-3 left-3 sm:bottom-4 sm:left-4 bg-espresso-950/90 backdrop-blur-sm text-ivory-50 px-3.5 py-2 rounded-lg flex items-center gap-2 text-[11px] sm:text-xs font-medium hover:bg-amber-brand hover:text-espresso-950 transition-colors shadow-lg"
+              >
+                <span class="w-2 h-2 rounded-full bg-amber-brand shrink-0" aria-hidden="true"></span>
+                <span class="truncate">Tentang Kopi · Jl. Bahagia Raya No. 4 ↗</span>
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========================================================================
+       FOOTER
+       ======================================================================== -->
+  <footer class="bg-espresso-950 text-ivory-50 border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-9 sm:py-12">
+      <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 sm:gap-8">
+        
+        <!-- Left: Brand Identity -->
+        <div class="flex items-center gap-3">
+          <a href="#hero" class="w-10 h-10 rounded-full overflow-hidden border border-white/25 bg-white flex items-center justify-center shrink-0 shadow-sm" aria-label="Logo Kafe">
+            <img
+              src="logo.jpg"
+              alt="Logo Kafe"
+              width="40"
+              height="40"
+              loading="lazy"
+              onerror="handleImgFallback(this, 'TK')"
+              class="w-full h-full object-contain p-0.5"
+            />
+          </a>
+          <div>
+            <a href="#hero" class="font-bold text-sm sm:text-base tracking-[0.14em] uppercase text-ivory-50">
+              TENTANG KOPI
+            </a>
+            <p class="text-[11px] sm:text-xs text-stone-400 mt-0.5">
+              Secangkir Kopi, Sejuta Cerita · Jl. Bahagia Raya No. 4, Sukmajaya, Depok
+            </p>
+          </div>
+        </div>
+
+        <!-- Center: Anchor Links -->
+        <nav aria-label="Navigasi Footer" class="flex items-center whitespace-nowrap shrink-0 gap-5 sm:gap-7 text-xs text-stone-300">
+          <a href="#menu" data-nav-label="1" class="hover:text-ivory-50 transition-colors">Menu</a>
+          <a href="#suasana" data-nav-label="2" class="hover:text-ivory-50 transition-colors">Suasana</a>
+          <a href="#tentang" data-nav-label="3" class="hover:text-ivory-50 transition-colors">Cerita &amp; Ulasan</a>
+          <a href="#lokasi" data-nav-label="4" class="hover:text-ivory-50 transition-colors">Lokasi</a>
+        </nav>
+
+        <!-- Right: Official Channels -->
+        <div class="flex items-center gap-2.5">
+          <a
+            href="https://www.instagram.com/tentangkopidepok/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Instagram resmi"
+            title="Instagram"
+            class="w-9 h-9 rounded-lg border border-white/15 hover:border-amber-brand hover:text-amber-brand flex items-center justify-center text-stone-300 transition-colors"
+          >
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+            </svg>
+          </a>
+
+          <a
+            href="https://www.tiktok.com/@tentangkopidepok"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="TikTok resmi"
+            title="TikTok"
+            class="w-9 h-9 rounded-lg border border-white/15 hover:border-amber-brand hover:text-amber-brand flex items-center justify-center text-stone-300 transition-colors"
+          >
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1-.1z"/>
+            </svg>
+          </a>
+
+          <a
+            id="footer-order-icon"
+            href="https://gofood.co.id/jakarta/restaurant/tentang-kopi-sukmajaya-f95616be-e5a2-4c9c-bc15-4b75093b2e9b"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Pesan Online"
+            title="Pesan Online"
+            class="w-9 h-9 rounded-lg border border-white/15 hover:border-amber-brand hover:text-amber-brand flex items-center justify-center text-stone-300 transition-colors"
+          >
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+            </svg>
+          </a>
+        </div>
+
+      </div>
+
+      <!-- Footer Bottom Bar (Copyright & Watermark bisa diubah/dihapus dari Super Admin) -->
+      <div class="mt-7 pt-5 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] text-stone-500">
+        <p id="footer-copy-text">© 2026 Tentang Kopi Sukmajaya Depok. All rights reserved.</p>
+        <p id="footer-note-text">Desain Landing Page (Mockup Presentasi) · Sukmajaya, Depok</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========================================================================
+       MODAL 1: FULL MENU CATALOG / PRINTABLE & DOWNLOADABLE PDF SHEET
+       ======================================================================== -->
+  <div
+    id="full-menu-modal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="full-menu-modal-title"
+    class="fixed inset-0 z-50 hidden bg-black/75 backdrop-blur-sm items-center justify-center p-4"
+  >
+    <div id="printable-menu-sheet" class="bg-ivory-50 text-stone-900 rounded-2xl max-w-3xl w-full max-h-[88vh] flex flex-col overflow-hidden shadow-2xl border border-ivory-200">
+      <div class="px-5 sm:px-6 py-4 bg-espresso-950 text-ivory-50 flex items-center justify-between shrink-0">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-full overflow-hidden border border-white/20 bg-white flex items-center justify-center shrink-0">
+            <img src="logo.jpg" alt="Logo Kafe" width="36" height="36" onerror="handleImgFallback(this, 'TK')" class="w-full h-full object-contain p-0.5" />
+          </div>
+          <div>
+            <span id="modal-menu-kicker" class="text-[10px] font-semibold uppercase tracking-widest text-amber-brand block">KATALOG MENU LENGKAP</span>
+            <h3 id="full-menu-modal-title" class="font-serif text-base sm:text-lg font-medium">Tentang Kopi — Sukmajaya, Depok</h3>
+          </div>
+        </div>
+        <button
+          type="button"
+          id="close-pdf-menu-btn"
+          aria-label="Tutup katalog menu"
+          class="no-print w-9 h-9 rounded-lg bg-white/10 hover:bg-white/20 flex items-center justify-center text-ivory-50"
+        >
+          ✕
+        </button>
+      </div>
+
+      <div id="full-menu-modal-body" class="p-5 sm:p-6 overflow-y-auto space-y-6 divide-y divide-ivory-200 flex-1">
+        <!-- Populated by JS -->
+      </div>
+
+      <div class="no-print px-5 sm:px-6 py-3.5 bg-ivory-100 border-t border-ivory-200 flex flex-wrap items-center justify-between gap-2.5 shrink-0">
+        <div class="flex flex-wrap items-center gap-2">
+          <button
+            type="button"
+            id="btn-print-menu"
+            class="px-3.5 h-9 rounded-lg border border-stone-300 bg-white hover:border-stone-900 text-xs font-semibold text-stone-900 inline-flex items-center gap-1.5 transition-colors"
+          >
+            <span>Cetak / PDF</span>
+          </button>
+          <button
+            type="button"
+            id="btn-download-menu-file"
+            class="px-3.5 h-9 rounded-lg bg-espresso-950 hover:bg-espresso-800 text-ivory-50 text-xs font-semibold inline-flex items-center gap-1.5 transition-colors"
+          >
+            <span>Unduh File (.html)</span>
+            <span aria-hidden="true">↓</span>
+          </button>
+        </div>
+
+        <a
+          id="modal-order-cta"
+          href="https://gofood.co.id/jakarta/restaurant/tentang-kopi-sukmajaya-f95616be-e5a2-4c9c-bc15-4b75093b2e9b"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="px-4 h-9 rounded-lg bg-amber-brand hover:bg-amber-hover text-espresso-950 text-xs font-semibold inline-flex items-center gap-1.5"
+        >
+          <span id="modal-order-cta-label">Pesan di GoFood</span>
+          <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       MODAL 2: AMBIENCE & CRAFT PHOTO LIGHTBOX
+       ======================================================================== -->
+  <div
+    id="gallery-modal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="gallery-modal-title"
+    class="fixed inset-0 z-50 hidden bg-black/85 backdrop-blur-sm items-center justify-center p-3 sm:p-6"
+  >
+    <div class="bg-espresso-950 text-ivory-50 rounded-2xl max-w-4xl w-full max-h-[90vh] flex flex-col overflow-hidden border border-white/15 shadow-2xl">
+      <!-- Top Bar -->
+      <div class="px-5 sm:px-6 py-3.5 border-b border-white/10 flex items-center justify-between gap-4 shrink-0">
+        <div class="min-w-0">
+          <span id="modal-gallery-kicker" class="text-[10px] font-semibold uppercase tracking-widest text-amber-brand block">GALERI RUANG &amp; SEDUHAN</span>
+          <h3 id="gallery-modal-title" class="font-serif text-sm sm:text-base font-medium truncate">Indoor (AC) — Tentang Kopi Sukmajaya</h3>
+        </div>
+        <button
+          type="button"
+          id="close-gallery-btn"
+          aria-label="Tutup galeri foto"
+          class="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-white/10 hover:bg-white/20 flex items-center justify-center text-ivory-50 shrink-0"
+        >
+          ✕
+        </button>
+      </div>
+
+      <!-- Constrained Image Container -->
+      <div class="relative w-full bg-black flex-1 min-h-0 flex items-center justify-center overflow-hidden">
+        <img
+          id="gallery-modal-img"
+          src="ambience-indoor-ac.jpg"
+          alt="Suasana ruang"
+          class="w-full max-h-[58vh] sm:max-h-[64vh] object-cover warm-editorial-photo"
+        />
+      </div>
+
+      <!-- Bottom Bar -->
+      <div
+        id="gallery-modal-footer"
+        class="px-4 sm:px-6 py-3.5 bg-espresso-900 border-t border-white/10 flex flex-row items-center justify-between gap-3 sm:gap-4 shrink-0 transition-all"
+      >
+        <div id="gallery-desc-wrap" class="flex-1 min-w-0">
+          <p
+            id="gallery-modal-desc"
+            class="text-xs sm:text-sm text-stone-300 truncate sm:whitespace-normal sm:overflow-visible leading-relaxed cursor-pointer sm:cursor-default"
+          >
+            Ruang dalam ber-AC dengan pencahayaan hangat, Wi-Fi, dan stopkontak di setiap sudut meja.
+          </p>
+          <button
+            type="button"
+            id="gallery-desc-toggle"
+            aria-expanded="false"
+            class="sm:hidden mt-0.5 inline-flex items-center gap-1 text-[11px] font-semibold text-amber-brand hover:underline"
+          >
+            <span id="gallery-desc-toggle-text">Selengkapnya</span>
+            <span id="gallery-desc-toggle-icon" aria-hidden="true">▾</span>
+          </button>
+        </div>
+
+        <div id="gallery-nav-btns" class="flex items-center gap-2 shrink-0">
+          <button
+            type="button"
+            id="gallery-prev-btn"
+            class="px-3 sm:px-4 h-9 sm:h-10 rounded-lg border border-white/20 hover:bg-white/10 text-xs font-medium whitespace-nowrap"
+          >
+            ← Sebelumnya
+          </button>
+          <button
+            type="button"
+            id="gallery-next-btn"
+            class="px-3 sm:px-4 h-9 sm:h-10 rounded-lg border border-white/20 hover:bg-white/10 text-xs font-medium whitespace-nowrap"
+          >
+            Selanjutnya →
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- TEMPEL KODE TAHAP 2 TEPAT DI BAWAH BARIS INI -->
+
+<!-- ========================================================================
+       APPLICATION DATA, MULTI-CAFE SUPABASE SYNC & SCROLL CRAFT ENGINE SCRIPT
+       ======================================================================== -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
+  <script>
+    const ACTIVE_CAFE_SLUG = window.getActiveCafeSlug
+      ? window.getActiveCafeSlug()
+      : "tentang-kopi";
+
+    let GOFOOD_ORDER_URL =
+      (window.TENTANG_KOPI_CONFIG && window.TENTANG_KOPI_CONFIG.GOFOOD_ORDER_URL) ||
+      "https://gofood.co.id/jakarta/restaurant/tentang-kopi-sukmajaya-f95616be-e5a2-4c9c-bc15-4b75093b2e9b";
+
+    // State Kontrol CTA & Copywriting Kartu Menu
+    let activeCtaConfig = {
+      enableOnlineOrder: true,
+      enableWaCta: true,
+      enablePdfBar: true,
+      enablePromoBanner: true,
+      orderBtnNav: "Pesan Online",
+      orderBtnMain: "Pesan di GoFood",
+      heroBtnMenu: "Lihat Menu",
+      spotlightAvailOrder: "Tersedia di kedai & GoFood",
+      spotlightAvailCatalog: "✦ Tersedia untuk Dine-In & Takeaway",
+      pdfBtnText: "Katalog PDF",
+      menuBarTitle: "Ingin pesan antar ke rumah/kantor atau simpan daftar menu lengkap?",
+      menuBarDesc: "Tersedia untuk dine-in, takeaway, maupun pesan antar praktis melalui GoFood."
+    };
+
+    // Profil Default (Tentang Kopi Sukmajaya Depok)
+    let activeCafeProfile = {
+      slug: "tentang-kopi",
+      name: "TENTANG KOPI",
+      branch: "Sukmajaya, Depok",
+      hero_headline_1: "Secangkir Kopi,",
+      hero_headline_2: "Sejuta Cerita.",
+      hero_description:
+        "Tempat singgah di Sukmajaya untuk menikmati seduhan Arabika Nusantara, menyelesaikan pekerjaan, atau berbincang santai.",
+      whatsapp_number: "6285691895114",
+      gofood_url: GOFOOD_ORDER_URL,
+      instagram_url: "https://www.instagram.com/tentangkopidepok/",
+      tiktok_url: "https://www.tiktok.com/@tentangkopidepok",
+      address_line_1: "Jl. Bahagia Raya No. 4 (Samping Polsek Sukmajaya)",
+      address_line_2: "Kel. Sukamaju, Kec. Sukmajaya, Kota Depok, Jawa Barat 16417",
+      maps_link: "https://maps.google.com/?cid=7088790801722791724",
+      maps_embed_url:
+        "https://www.google.com/maps?q=Tentang+Kopi+Sukmajaya,+Jl.+Bahagia+Raya+No.4,+Sukamaju,+Kec.+Sukmajaya,+Kota+Depok&output=embed",
+      hours_weekday: "11.00 – 22.00 WIB",
+      hours_weekend: "11.00 – 23.00 WIB",
+      logo_url: "logo.jpg",
+      hero_image_url: "hero-signature-latte.jpg",
+      indoor_image_url: "ambience-indoor-ac.jpg",
+      outdoor_image_url: "ambience-outdoor-terrace.jpg",
+      bar_image_url: "ambience-coffee-bar.jpg",
+      custom_config: {}
+    };
+
+    const defaultCategoryNames = {
+      "signature-coffee": "Signature Coffee",
+      "non-coffee": "Non-Coffee",
+      "manual-brew": "Manual Brew",
+      "pastry": "Light Bites & Pastry"
+    };
+
+    let menuCategories = [
+      { id: "signature-coffee", name: "Signature Coffee" },
+      { id: "non-coffee", name: "Non-Coffee" },
+      { id: "manual-brew", name: "Manual Brew" },
+      { id: "pastry", name: "Light Bites & Pastry" }
+    ];
+
+    function formatPublicCategoryName(catId) {
+      if (!catId) return "Lainnya";
+      if (defaultCategoryNames[catId]) return defaultCategoryNames[catId];
+      return String(catId)
+        .replace(/-/g, " ")
+        .replace(/\b\w/g, (c) => c.toUpperCase());
+    }
+
+    function syncCategoriesFromItems() {
+      const uniqueIds = [...new Set(menuItems.map((i) => i.categoryId).filter(Boolean))];
+      if (uniqueIds.length === 0) return;
+
+      menuCategories = uniqueIds.map((id) => ({
+        id,
+        name: formatPublicCategoryName(id)
+      }));
+
+      if (activeCategory !== "ALL" && !uniqueIds.includes(activeCategory)) {
+        activeCategory = uniqueIds[0];
+      }
+    }
+
+    // Data katalog bawaan (Fallback transparan jika database tidak dapat dijangkau)
+    const fallbackMenuItems = [
+      {
+        id: "sig-1",
+        name: "Espresso Latte",
+        categoryId: "signature-coffee",
+        price: 32000,
+        isAvailable: true,
+        isPromo: false,
+        promoPrice: null,
+        description: "Perpaduan double shot espresso Arabika, fresh milk bertekstur lembut, dan sentuhan tipis karamel.",
+        attributes: ["Iced", "Dairy"],
+        badge: "Signature Unggulan",
+        imageUrl: "menu-espresso-latte.jpg"
+      },
+      {
+        id: "sig-2",
+        name: "Caramel Macchiato",
+        categoryId: "signature-coffee",
+        price: 36000,
+        isAvailable: true,
+        isPromo: false,
+        promoPrice: null,
+        description: "Espresso di atas susu segar dingin dengan sirup vanila dan saus karamel legit.",
+        attributes: ["Iced", "Dairy"],
+        badge: null,
+        imageUrl: "menu-caramel-macchiato.jpg"
+      },
+      {
+        id: "sig-3",
+        name: "Americano",
+        categoryId: "signature-coffee",
+        price: 28000,
+        isAvailable: true,
+        isPromo: false,
+        promoPrice: null,
+        description: "Ekstraksi espresso 100% Arabika dengan air mineral murni yang ringan dan menyegarkan.",
+        attributes: ["Hot / Iced", "Black"],
+        badge: null,
+        imageUrl: "menu-americano.jpg"
+      },
+      {
+        id: "sig-4",
+        name: "Matcha Espresso Fusion",
+        categoryId: "signature-coffee",
+        price: 34000,
+        isAvailable: true,
+        isPromo: false,
+        promoPrice: null,
+        description: "Kombinasi matcha Jepang pekat, susu segar, dan satu shot espresso hangat.",
+        attributes: ["Iced", "Fusion"],
+        badge: null,
+        imageUrl: "menu-matcha-espresso.jpg"
+      },
+      {
+        id: "non-1",
+        name: "Brown Sugar Boba Milk",
+        categoryId: "non-coffee",
+        price: 23500,
+        isAvailable: true,
+        isPromo: false,
+        promoPrice: null,
+        description: "Susu segar creamy dengan saus karamel gula aren hangat dan pearl boba kenyal.",
+        attributes: ["Iced", "Dairy"],
+        badge: "Favorit GoFood",
+        imageUrl: "menu-brown-sugar-boba.jpg"
+      },
+      {
+        id: "non-2",
+        name: "Salted Caramel Boba Milk",
+        categoryId: "non-coffee",
+        price: 28000,
+        isAvailable: true,
+        isPromo: false,
+        promoPrice: null,
+        description: "Susu segar, teh pilihan, saus salted caramel gurih-manis, dan boba kenyal.",
+        attributes: ["Iced", "Dairy"],
+        badge: null,
+        imageUrl: "menu-salted-caramel-boba.jpg"
+      },
+      {
+        id: "non-3",
+        name: "Honey Earl Grey Macchiato",
+        categoryId: "non-coffee",
+        price: 23500,
+        isAvailable: true,
+        isPromo: false,
+        promoPrice: null,
+        description: "Seduhan teh Earl Grey beraroma bergamot, madu murni, dan lapisan krim macchiato lembut.",
+        attributes: ["Iced", "Tea Macchiato"],
+        badge: null,
+        imageUrl: "menu-earl-grey-macchiato.jpg"
+      },
+      {
+        id: "non-4",
+        name: "Ice Red Velvet Latte",
+        categoryId: "non-coffee",
+        price: 22000,
+        isAvailable: true,
+        isPromo: false,
+        promoPrice: null,
+        description: "Paduan red velvet lembut dengan susu segar dingin yang creamy dan manis seimbang.",
+        attributes: ["Iced", "Dairy"],
+        badge: null,
+        imageUrl: "menu-red-velvet-latte.jpg"
+      },
+      {
+        id: "brew-1",
+        name: "V60 Aceh Gayo",
+        categoryId: "manual-brew",
+        price: 30000,
+        isAvailable: true,
+        isPromo: false,
+        promoPrice: null,
+        description: "Single origin Arabica Gayo dengan notes floral, jeruk segar, dan akhir rasa bersih.",
+        attributes: ["Hot / Iced", "Filter"],
+        badge: "Pilihan Barista",
+        imageUrl: "menu-v60-gayo.jpg"
+      },
+      {
+        id: "brew-2",
+        name: "Japanese Iced Coffee",
+        categoryId: "manual-brew",
+        price: 32000,
+        isAvailable: true,
+        isPromo: false,
+        promoPrice: null,
+        description: "Seduhan pour-over langsung di atas es kristal untuk mengunci aroma buah segar.",
+        attributes: ["Iced", "Filter"],
+        badge: null,
+        imageUrl: "menu-japanese-iced-coffee.jpg"
+      },
+      {
+        id: "brew-3",
+        name: "Vietnam Drip Susu",
+        categoryId: "manual-brew",
+        price: 26000,
+        isAvailable: true,
+        isPromo: false,
+        promoPrice: null,
+        description: "Ekstraksi kopi pekat perlahan di atas lapisan susu kental manis legit.",
+        attributes: ["Hot / Iced", "Sweet"],
+        badge: null,
+        imageUrl: "menu-vietnam-drip.jpg"
+      },
+      {
+        id: "brew-4",
+        name: "French Press Flores Bajawa",
+        categoryId: "manual-brew",
+        price: 30000,
+        isAvailable: true,
+        isPromo: false,
+        promoPrice: null,
+        description: "Seduhan full-bodied dengan karakter cokelat hitam dan kacang panggang khas Flores.",
+        attributes: ["Hot", "Full Body"],
+        badge: null,
+        imageUrl: "menu-french-press-flores.jpg"
+      },
+      {
+        id: "pas-1",
+        name: "Egg Tentang Toast",
+        categoryId: "pastry",
+        price: 24000,
+        isAvailable: true,
+        isPromo: false,
+        promoPrice: null,
+        description: "Roti brioche panggang mentega tebal dengan isian telur lembut dan saus spesial Tentang Kopi.",
+        attributes: ["Warm", "Savory Toast"],
+        badge: "Teman Kopi Terbaik",
+        imageUrl: "menu-egg-toast.jpg"
+      },
+      {
+        id: "pas-2",
+        name: "Butter Croissant",
+        categoryId: "pastry",
+        price: 24000,
+        isAvailable: true,
+        isPromo: false,
+        promoPrice: null,
+        description: "Croissant Prancis berlapis renyah dan harum mentega, disajikan hangat setiap hari.",
+        attributes: ["Warm", "Fresh Baked"],
+        badge: null,
+        imageUrl: "menu-butter-croissant.jpg"
+      },
+      {
+        id: "pas-3",
+        name: "Pain au Chocolat",
+        categoryId: "pastry",
+        price: 28000,
+        isAvailable: true,
+        isPromo: false,
+        promoPrice: null,
+        description: "Danish pastry berlapis renyah dengan isian cokelat hitam lumer di bagian tengah.",
+        attributes: ["Warm", "Sweet"],
+        badge: null,
+        imageUrl: "menu-pain-au-chocolat.jpg"
+      },
+      {
+        id: "pas-4",
+        name: "Cinnamon Roll Glaze",
+        categoryId: "pastry",
+        price: 26000,
+        isAvailable: true,
+        isPromo: false,
+        promoPrice: null,
+        description: "Gulungan roti lembut beraroma kayu manis dengan lapisan cream cheese glaze.",
+        attributes: ["Warm", "Sweet"],
+        badge: null,
+        imageUrl: "menu-cinnamon-roll.jpg"
+      }
+    ];
+
+    const MENU_CACHE_KEY = `tentang_kopi_live_cache_${ACTIVE_CAFE_SLUG}`;
+    let menuItems = [...fallbackMenuItems];
+    let menuDataSourceState = "loading";
+    let menuStatusNotice = "";
+    let publicRealtimeChannel = null;
+
+    const ambiencePhotos = [
+      {
+        title: "Indoor (AC) — Tentang Kopi Sukmajaya",
+        desc: "Ruang dalam ber-AC yang tenang dengan meja kayu luas untuk bekerja maupun bersantai.",
+        imageUrl: "ambience-indoor-ac.jpg"
+      },
+      {
+        title: "Outdoor (Smoking) — Teras Teduh",
+        desc: "Area duduk semi-terbuka dengan sirkulasi udara sejuk dan suasana santai di Sukmajaya.",
+        imageUrl: "ambience-outdoor-terrace.jpg"
+      },
+      {
+        title: "Coffee Bar & Espresso Station",
+        desc: "Meja seduh terbuka tempat barista mengekstraksi biji kopi pilihan setiap hari.",
+        imageUrl: "ambience-coffee-bar.jpg"
+      },
+      {
+        title: "Microfoam & Latte Art",
+        desc: "Sajian latte hangat dengan tekstur susu microfoam lembut.",
+        imageUrl: "craft-latte-art.jpg"
+      },
+      {
+        title: "Seduhan Manual Brew",
+        desc: "Seduhan pour-over untuk menonjolkan karakter asli kopi Nusantara.",
+        imageUrl: "craft-manual-brew.jpg"
+      },
+      {
+        title: "Espresso Kalibrasi Harian",
+        desc: "Sajian cappuccino hangat untuk menemani perbincangan sore.",
+        imageUrl: "craft-espresso-calibration.jpg"
+      },
+      {
+        title: "Kudapan & Roti Hangat",
+        desc: "Pilihan toast, croissant, dan roti hangat sebagai pendamping minum kopi.",
+        imageUrl: "craft-fresh-pastry.jpg"
+      }
+    ];
+
+    function formatRupiah(num) {
+      const parsed = Number(num);
+      if (!Number.isFinite(parsed)) return "Rp -";
+      return "Rp " + Math.round(parsed).toLocaleString("id-ID");
+    }
+
+    function escapeHtml(str) {
+      return String(str ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    window.handleImgFallback = function (img, label = "Kafe") {
+      if (!img || img.dataset.fallbackDone === "true") return;
+      img.dataset.fallbackDone = "true";
+      const clean = encodeURIComponent(label);
+      img.src = `https://placehold.co/600x450/181310/FAF7F2?text=${clean}`;
+    };
+
+    // Helper Konversi HEX ke RGB Triplet untuk Tailwind CSS Variables
+    function parseHexToRgbObj(hex, fallback = [17, 14, 12]) {
+      const clean = String(hex || "").trim().replace("#", "");
+      if (!/^[0-9A-Fa-f]{6}$/.test(clean)) {
+        return { r: fallback[0], g: fallback[1], b: fallback[2] };
+      }
+      return {
+        r: parseInt(clean.substring(0, 2), 16),
+        g: parseInt(clean.substring(2, 4), 16),
+        b: parseInt(clean.substring(4, 6), 16)
+      };
+    }
+
+    function lightenRgb({ r, g, b }, add = 14) {
+      return `${Math.min(255, r + add)} ${Math.min(255, g + add)} ${Math.min(255, b + add)}`;
+    }
+
+    function applyBrandThemeToCSS(theme) {
+      if (!theme) return;
+      const root = document.documentElement;
+      const d950 = parseHexToRgbObj(theme.bgDark || "#110E0C", [17, 14, 12]);
+      const d900 = parseHexToRgbObj(theme.bgDarkSec || "#181310", [24, 19, 16]);
+      const acc = parseHexToRgbObj(theme.accent || "#C88A2B", [200, 138, 43]);
+      const accHov = parseHexToRgbObj(theme.accentHover || "#B5791E", [181, 121, 30]);
+      const l50 = parseHexToRgbObj(theme.bgLight || "#FAF7F2", [250, 247, 242]);
+      const l100 = parseHexToRgbObj(theme.bgLightSec || "#F2ECE1", [242, 236, 225]);
+
+      root.style.setProperty("--rgb-dark-950", `${d950.r} ${d950.g} ${d950.b}`);
+      root.style.setProperty("--rgb-dark-900", `${d900.r} ${d900.g} ${d900.b}`);
+      root.style.setProperty("--rgb-dark-800", lightenRgb(d900, 14));
+      root.style.setProperty("--rgb-dark-700", lightenRgb(d900, 28));
+      root.style.setProperty("--rgb-accent", `${acc.r} ${acc.g} ${acc.b}`);
+      root.style.setProperty("--rgb-accent-hover", `${accHov.r} ${accHov.g} ${accHov.b}`);
+      root.style.setProperty("--rgb-light-50", `${l50.r} ${l50.g} ${l50.b}`);
+      root.style.setProperty("--rgb-light-100", `${l100.r} ${l100.g} ${l100.b}`);
+
+      root.style.setProperty("--hex-dark-950", theme.bgDark || "#110E0C");
+      root.style.setProperty("--hex-dark-900", theme.bgDarkSec || "#181310");
+      root.style.setProperty("--hex-accent", theme.accent || "#C88A2B");
+      root.style.setProperty("--hex-light-50", theme.bgLight || "#FAF7F2");
+    }
+
+    function setElText(id, val) {
+      const el = document.getElementById(id);
+      if (el && val !== undefined && val !== null && val !== "") {
+        el.textContent = val;
+      }
+    }
+
+    // Terapkan Seluruh Profil Kafe + Custom Config Super Admin (Bagian 1 s/d 10) ke DOM
+    function applyCafeProfileToDOM(profile) {
+      if (!profile) return;
+      activeCafeProfile = { ...activeCafeProfile, ...profile };
+      const cc = activeCafeProfile.custom_config || {};
+
+      // Terapkan Tema Warna Brand
+      if (cc.theme) {
+        applyBrandThemeToCSS(cc.theme);
+      }
+
+      // Sinkronisasi Konfigurasi CTA & Opsionalitas Tombol Order
+      if (cc.ctaConfig) {
+        activeCtaConfig = { ...activeCtaConfig, ...cc.ctaConfig };
+      }
+
+      const hasValidOrderUrl = Boolean(activeCafeProfile.gofood_url && activeCafeProfile.gofood_url.trim() !== "");
+      GOFOOD_ORDER_URL = hasValidOrderUrl ? activeCafeProfile.gofood_url.trim() : GOFOOD_ORDER_URL;
+      const showOrder = activeCtaConfig.enableOnlineOrder !== false;
+      const showWa = activeCtaConfig.enableWaCta !== false;
+      const showPdfBar = activeCtaConfig.enablePdfBar !== false;
+      const showPromoBanner = activeCtaConfig.enablePromoBanner !== false;
+
+      const brandUpper = (activeCafeProfile.name || "TENTANG KOPI").toUpperCase();
+      const branchText = activeCafeProfile.branch || "Sukmajaya, Depok";
+      const h1Line1 = activeCafeProfile.hero_headline_1 || "Secangkir Kopi,";
+      const h1Line2 = activeCafeProfile.hero_headline_2 || "Sejuta Cerita.";
+
+      document.title = `${brandUpper} — ${h1Line1} ${h1Line2} | ${branchText}`;
+
+      const metaDescEl = document.getElementById("dynamic-meta-desc") || document.querySelector("meta[name='description']");
+      if (metaDescEl) {
+        metaDescEl.setAttribute(
+          "content",
+          `${activeCafeProfile.name} ${branchText} (${activeCafeProfile.address_line_1 || ""}) — ${activeCafeProfile.hero_description || ""}`
+        );
+      }
+
+      // 1. Update Brand & Cabang di Navbar, Modal & Footer
+      const headerBrandSpans = document.querySelectorAll("#header a[href='#hero'] span");
+      if (headerBrandSpans.length >= 2) {
+        headerBrandSpans[0].textContent = brandUpper;
+        headerBrandSpans[1].textContent = branchText;
+      }
+
+      const footerBrandLink = document.querySelector("footer a[href='#hero']:not([aria-label])");
+      if (footerBrandLink) {
+        footerBrandLink.textContent = brandUpper;
+        const footerSub = footerBrandLink.nextElementSibling;
+        if (footerSub) {
+          footerSub.textContent = `${h1Line1} ${h1Line2} · ${activeCafeProfile.address_line_1 || ""}, ${branchText}`;
+        }
+      }
+
+      setElText("full-menu-modal-title", `${activeCafeProfile.name} — ${branchText}`);
+
+      // 2. Update Logo & Favicon
+      if (activeCafeProfile.logo_url) {
+        const fav = document.getElementById("dynamic-favicon");
+        if (fav) fav.href = activeCafeProfile.logo_url;
+        document.querySelectorAll("img[src='logo.jpg'], #header img, footer img, #printable-menu-sheet img").forEach((img) => {
+          delete img.dataset.fallbackDone;
+          img.src = activeCafeProfile.logo_url;
+        });
+      }
+
+      // 3. Update Hero Section & Adaptive Hero CTA Layout
+      setElText("hero-status-branch", branchText);
+
+      const heroTitleEl = document.getElementById("hero-title");
+      if (heroTitleEl) {
+        heroTitleEl.innerHTML = `${escapeHtml(h1Line1)}<br /><span class="italic font-normal text-amber-brand">${escapeHtml(h1Line2)}</span>`;
+      }
+
+      setElText("hero-desc-text", activeCafeProfile.hero_description);
+
+      if (activeCafeProfile.hero_image_url) {
+        document.querySelectorAll("#hero img").forEach((img) => {
+          delete img.dataset.fallbackDone;
+          img.src = activeCafeProfile.hero_image_url;
+        });
+      }
+
+      if (cc.heroExtra) {
+        setElText("hero-card-kicker", cc.heroExtra.cardKicker);
+        setElText("hero-card-title", cc.heroExtra.cardTitle);
+        setElText("hero-card-badge", cc.heroExtra.cardBadge);
+        if (cc.heroExtra.subLeft) {
+          document.querySelectorAll("[data-hero-sub-left]").forEach((el) => { el.textContent = cc.heroExtra.subLeft; });
+        }
+        if (cc.heroExtra.subRight) {
+          document.querySelectorAll("[data-hero-sub-right]").forEach((el) => { el.textContent = cc.heroExtra.subRight; });
+        }
+      }
+
+      // 4. Update 3 Pilar USP & Header Menu
+      if (Array.isArray(cc.usp) && cc.usp.length === 3) {
+        [1, 2, 3].forEach((n, idx) => {
+          setElText(`usp-${n}-title`, cc.usp[idx]?.title);
+          setElText(`usp-${n}-desc`, cc.usp[idx]?.desc);
+        });
+      }
+
+      if (cc.menuHeader) {
+        setElText("menu-kicker", cc.menuHeader.kicker);
+        setElText("menu-heading", cc.menuHeader.title);
+        setElText("menu-subdesc", cc.menuHeader.desc);
+      }
+
+      // 5. Update Section Suasana, 3 Foto Ruang + Deskripsi Lightbox & 4 Fasilitas
+      const bentoIndoorImg = document.querySelector("[data-gallery-idx='0'] img");
+      if (bentoIndoorImg && activeCafeProfile.indoor_image_url) {
+        delete bentoIndoorImg.dataset.fallbackDone;
+        bentoIndoorImg.src = activeCafeProfile.indoor_image_url;
+        ambiencePhotos[0].imageUrl = activeCafeProfile.indoor_image_url;
+        ambiencePhotos[0].title = `Indoor (AC) — ${activeCafeProfile.name}`;
+      }
+
+      const bentoOutdoorImg = document.querySelector("[data-gallery-idx='1'] img");
+      if (bentoOutdoorImg && activeCafeProfile.outdoor_image_url) {
+        delete bentoOutdoorImg.dataset.fallbackDone;
+        bentoOutdoorImg.src = activeCafeProfile.outdoor_image_url;
+        ambiencePhotos[1].imageUrl = activeCafeProfile.outdoor_image_url;
+      }
+
+      const bentoBarImg = document.querySelector("[data-gallery-idx='2'] img");
+      if (bentoBarImg && activeCafeProfile.bar_image_url) {
+        delete bentoBarImg.dataset.fallbackDone;
+        bentoBarImg.src = activeCafeProfile.bar_image_url;
+        ambiencePhotos[2].imageUrl = activeCafeProfile.bar_image_url;
+      }
+
+      if (cc.ambience) {
+        setElText("suasana-kicker", cc.ambience.kicker);
+        setElText("suasana-heading", cc.ambience.title);
+        setElText("suasana-desc", cc.ambience.desc);
+
+        if (Array.isArray(cc.ambience.spaces) && cc.ambience.spaces.length === 3) {
+          const sp = cc.ambience.spaces;
+          setElText("space-1-kicker", sp[0]?.kicker);
+          setElText("space-1-title", sp[0]?.title);
+          const sp1SubEl = document.getElementById("space-1-sub");
+          if (sp1SubEl && sp[0]?.subtitle !== undefined) {
+            sp1SubEl.textContent = sp[0].subtitle;
+            sp1SubEl.classList.toggle("hidden", !sp[0].subtitle);
+          }
+          if (sp[0]?.title) ambiencePhotos[0].title = `${sp[0].title} — ${activeCafeProfile.name}`;
+          if (sp[0]?.lightboxDesc) ambiencePhotos[0].desc = sp[0].lightboxDesc;
+
+          setElText("space-2-kicker", sp[1]?.kicker);
+          setElText("space-2-title", sp[1]?.title);
+          if (sp[1]?.title) ambiencePhotos[1].title = `${sp[1].title} — ${activeCafeProfile.name}`;
+          if (sp[1]?.lightboxDesc) ambiencePhotos[1].desc = sp[1].lightboxDesc;
+
+          setElText("space-3-kicker", sp[2]?.kicker);
+          setElText("space-3-title", sp[2]?.title);
+          if (sp[2]?.title) ambiencePhotos[2].title = `${sp[2].title} — ${activeCafeProfile.name}`;
+          if (sp[2]?.lightboxDesc) ambiencePhotos[2].desc = sp[2].lightboxDesc;
+        }
+
+        if (Array.isArray(cc.ambience.facilities) && cc.ambience.facilities.length === 4) {
+          [1, 2, 3, 4].forEach((n, idx) => {
+            setElText(`fac-${n}-title`, cc.ambience.facilities[idx]?.title);
+            setElText(`fac-${n}-desc`, cc.ambience.facilities[idx]?.desc);
+          });
+        }
+      }
+
+      // 6. Update Section Ulasan & 3 Kartu Testimoni
+      if (cc.reviews) {
+        setElText("reviews-score-num", cc.reviews.score);
+        setElText("reviews-kicker", cc.reviews.kicker);
+        setElText("reviews-heading", cc.reviews.title);
+        setElText("reviews-desc", cc.reviews.desc);
+
+        if (Array.isArray(cc.reviews.items) && cc.reviews.items.length === 3) {
+          [1, 2, 3].forEach((n, idx) => {
+            setElText(`rev-${n}-quote`, cc.reviews.items[idx]?.quote);
+            setElText(`rev-${n}-author`, cc.reviews.items[idx]?.author);
+            setElText(`rev-${n}-role`, cc.reviews.items[idx]?.role);
+          });
+        }
+      }
+
+      // 7. Update Section Multi-Fungsi (Cerita Seduhan / 4 Kartu Promo) + Lightbox Array
+      if (cc.momen) {
+        setElText("momen-kicker", cc.momen.kicker);
+        setElText("momen-heading", cc.momen.title);
+
+        if (Array.isArray(cc.momen.cards) && cc.momen.cards.length === 4) {
+          [1, 2, 3, 4].forEach((n, idx) => {
+            const cardData = cc.momen.cards[idx];
+            if (!cardData) return;
+            setElText(`craft-${n}-title`, cardData.title);
+            const cImg = document.getElementById(`craft-${n}-img`);
+            if (cImg && cardData.imageUrl) {
+              delete cImg.dataset.fallbackDone;
+              cImg.src = cardData.imageUrl;
+              cImg.alt = cardData.title || `Visual ${n}`;
+            }
+            const galleryIdx = idx + 3;
+            if (ambiencePhotos[galleryIdx]) {
+              if (cardData.title) ambiencePhotos[galleryIdx].title = cardData.title;
+              if (cardData.desc) ambiencePhotos[galleryIdx].desc = cardData.desc;
+              if (cardData.imageUrl) ambiencePhotos[galleryIdx].imageUrl = cardData.imageUrl;
+            }
+          });
+        }
+      }
+
+      // 8. Update Banner Reservasi Bawah (#promo)
+      const promoSection = document.getElementById("promo");
+      if (promoSection) {
+        promoSection.classList.toggle("hidden", !showPromoBanner);
+      }
+      if (cc.promoBanner) {
+        setElText("promo-kicker", cc.promoBanner.kicker);
+        setElText("promo-heading", cc.promoBanner.title);
+        setElText("promo-desc", cc.promoBanner.desc);
+        setElText("promo-btn-label", cc.promoBanner.btnText);
+      }
+
+      // 9. Update Label Navigasi, Modal, Lokasi & Footer
+      if (cc.navLabels) {
+        [1, 2, 3, 4].forEach((n) => {
+          const val = cc.navLabels[`nav${n}`];
+          if (val) {
+            document.querySelectorAll(`[data-nav-label='${n}']`).forEach((el) => {
+              el.textContent = val;
+            });
+          }
+        });
+      }
+
+      if (cc.lokasiExtra) {
+        setElText("lokasi-kicker", cc.lokasiExtra.kicker);
+        setElText("lokasi-heading", cc.lokasiExtra.title);
+        setElText("lokasi-maps-btn-label", cc.lokasiExtra.btnText);
+        setElText("modal-menu-kicker", cc.lokasiExtra.modalMenuKicker);
+        setElText("modal-gallery-kicker", cc.lokasiExtra.modalGalleryKicker);
+        setElText("btn-open-gallery-label", cc.lokasiExtra.btnGallery);
+      }
+
+      if (cc.footer) {
+        setElText("footer-copy-text", cc.footer.copyright);
+        const fNoteEl = document.getElementById("footer-note-text");
+        if (fNoteEl && cc.footer.note !== undefined) {
+          fNoteEl.textContent = cc.footer.note;
+          fNoteEl.classList.toggle("hidden", !cc.footer.note);
+        }
+      }
+
+      // 10. Update Alamat, Jam Operasional Fleksibel (1 atau 2 Baris) & Peta di #lokasi
+      setElText("lokasi-addr-1", activeCafeProfile.address_line_1);
+      setElText("lokasi-addr-2", activeCafeProfile.address_line_2);
+
+      const hoursCfg = cc.hours || {};
+      setElText("lokasi-hours-badge", hoursCfg.badgeText || "Buka Setiap Hari");
+      setElText("lokasi-hours-label-1", hoursCfg.label1 || "Senin – Kamis");
+      setElText("lokasi-hours-val-1", activeCafeProfile.hours_weekday || "11.00 – 22.00 WIB");
+
+      const row2El = document.getElementById("lokasi-hours-row-2");
+      const label2Text = hoursCfg.label2 !== undefined ? hoursCfg.label2 : "Jumat – Minggu";
+      const val2Text = activeCafeProfile.hours_weekend !== undefined && activeCafeProfile.hours_weekend !== null ? activeCafeProfile.hours_weekend : "";
+
+      if (row2El) {
+        if (!label2Text && !val2Text) {
+          row2El.classList.add("hidden");
+        } else {
+          row2El.classList.remove("hidden");
+          setElText("lokasi-hours-label-2", label2Text);
+          setElText("lokasi-hours-val-2", val2Text);
+        }
+      }
+
+      if (activeCafeProfile.maps_link) {
+        document.querySelectorAll("a[href*='maps.google.com']").forEach((a) => {
+          a.href = activeCafeProfile.maps_link;
+        });
+      }
+      const mapOverlayLabel = document.querySelector("#lokasi [data-sc-loc-depth='0.65'] a span.truncate");
+      if (mapOverlayLabel) {
+        mapOverlayLabel.textContent = `${activeCafeProfile.name} · ${activeCafeProfile.address_line_1 || branchText} ↗`;
+      }
+      const mapIframe = document.querySelector("#lokasi iframe");
+      if (mapIframe && activeCafeProfile.maps_embed_url) {
+        mapIframe.src = activeCafeProfile.maps_embed_url;
+      }
+
+      // 11. Update Link Kontak & Terapkan Visibilitas Adaptif untuk Tombol Order & WA
+      const cleanWa = (activeCafeProfile.whatsapp_number || "6285691895114").replace(/[^0-9]/g, "");
+      const waGreeting = encodeURIComponent(
+        `Halo ${activeCafeProfile.name} (${branchText}), saya ingin bertanya mengenai menu dan reservasi tempat.`
+      );
+
+      document.querySelectorAll("a[href*='gofood.co.id'], #nav-order-cta, #mobile-order-cta, #hero-order-cta, #menu-bar-order-cta, #footer-order-icon, #modal-order-cta").forEach((a) => {
+        if (a) a.href = GOFOOD_ORDER_URL;
+      });
+
+      document.querySelectorAll("a[href*='wa.me']").forEach((a) => {
+        a.href = `https://wa.me/${cleanWa}?text=${waGreeting}`;
+        if (a.classList.contains("tabular-nums")) {
+          a.textContent = `+${cleanWa}`;
+        }
+      });
+
+      if (activeCafeProfile.instagram_url) {
+        document.querySelectorAll("a[href*='instagram.com']").forEach((a) => {
+          a.href = activeCafeProfile.instagram_url;
+        });
+      }
+
+      if (activeCafeProfile.tiktok_url) {
+        document.querySelectorAll("a[href*='tiktok.com']").forEach((a) => {
+          a.href = activeCafeProfile.tiktok_url;
+        });
+      }
+
+      // Update Teks Tombol CTA
+      setElText("nav-order-cta-label", activeCtaConfig.orderBtnNav);
+      setElText("mobile-order-cta-label", activeCtaConfig.orderBtnMain);
+      setElText("hero-order-cta-label", activeCtaConfig.orderBtnMain);
+      setElText("menu-bar-order-label", activeCtaConfig.orderBtnMain);
+      setElText("modal-order-cta-label", activeCtaConfig.orderBtnMain);
+      setElText("hero-menu-cta-label", activeCtaConfig.heroBtnMenu);
+      setElText("pdf-btn-label", activeCtaConfig.pdfBtnText);
+      setElText("menu-bar-title", activeCtaConfig.menuBarTitle);
+      setElText("menu-bar-desc", activeCtaConfig.menuBarDesc);
+
+      // Terapkan Visibilitas & Layout Adaptif Navbar, Drawer HP, Hero, Bar Menu & Footer
+      const navOrderBtn = document.getElementById("nav-order-cta");
+      if (navOrderBtn) navOrderBtn.classList.toggle("hidden", !showOrder);
+
+      const navWaBtn = document.getElementById("nav-wa-cta");
+      if (navWaBtn) navWaBtn.classList.toggle("hidden", !showWa);
+
+      const lokasiWaLine = document.getElementById("lokasi-wa-line");
+      if (lokasiWaLine) lokasiWaLine.classList.toggle("hidden", !showWa);
+
+      const footerOrderIcon = document.getElementById("footer-order-icon");
+      if (footerOrderIcon) footerOrderIcon.classList.toggle("hidden", !showOrder);
+
+      const modalOrderCta = document.getElementById("modal-order-cta");
+      if (modalOrderCta) modalOrderCta.classList.toggle("hidden", !showOrder);
+
+      // Drawer HP Adaptif
+      const mobileDrawerGrid = document.getElementById("mobile-drawer-cta-grid");
+      const mobileOrderBtn = document.getElementById("mobile-order-cta");
+      const mobileWaBtn = document.getElementById("mobile-wa-cta");
+      if (mobileOrderBtn) mobileOrderBtn.classList.toggle("hidden", !showOrder);
+      if (mobileWaBtn) mobileWaBtn.classList.toggle("hidden", !showWa);
+      if (mobileDrawerGrid) {
+        if (!showOrder && !showWa) {
+          mobileDrawerGrid.classList.add("hidden");
+        } else {
+          mobileDrawerGrid.classList.remove("hidden");
+          mobileDrawerGrid.className = (showOrder && showWa)
+            ? "mt-2.5 grid grid-cols-2 gap-2"
+            : "mt-2.5 grid grid-cols-1 gap-2";
+        }
+      }
+
+      // Hero CTA Adaptif (Jika tombol Order disembunyikan, tombol Lihat Menu otomatis rapi tanpa ruang kosong)
+      const heroCtaContainer = document.getElementById("hero-cta-container");
+      const heroOrderBtn = document.getElementById("hero-order-cta");
+      if (heroOrderBtn) heroOrderBtn.classList.toggle("hidden", !showOrder);
+      if (heroCtaContainer) {
+        heroCtaContainer.className = showOrder
+          ? "mt-5 sm:mt-9 grid grid-cols-2 sm:flex sm:flex-row sm:items-center gap-2.5 sm:gap-4"
+          : "mt-5 sm:mt-9 grid grid-cols-1 sm:flex sm:flex-row sm:items-center gap-2.5 sm:gap-4";
+      }
+
+      // Bar Bawah Menu Adaptif
+      const menuBottomBar = document.getElementById("menu-bottom-bar");
+      const menuBarActions = document.getElementById("menu-bar-actions");
+      const openPdfBtn = document.getElementById("btn-open-pdf-menu");
+      const menuBarOrderBtn = document.getElementById("menu-bar-order-cta");
+
+      if (openPdfBtn) openPdfBtn.classList.toggle("hidden", !showPdfBar);
+      if (menuBarOrderBtn) menuBarOrderBtn.classList.toggle("hidden", !showOrder);
+
+      if (menuBottomBar) {
+        menuBottomBar.classList.toggle("hidden", !showPdfBar && !showOrder);
+      }
+      if (menuBarActions) {
+        menuBarActions.className = (showPdfBar && showOrder)
+          ? "grid grid-cols-2 sm:flex sm:flex-wrap items-center gap-2.5 sm:gap-3 shrink-0"
+          : "grid grid-cols-1 sm:flex sm:flex-wrap items-center gap-2.5 sm:gap-3 shrink-0";
+      }
+
+      updateOperatingStatus();
+    }
+
+    function renderPriceBlock(item, size = "row") {
+      const isSpotlight = size === "spotlight";
+      if (item.isPromo && item.promoPrice !== null && item.promoPrice < item.price) {
+        return `
+          <div class="text-right shrink-0">
+            <span class="block text-[11px] sm:text-xs text-stone-400 line-through tabular-nums leading-none">
+              ${formatRupiah(item.price)}
+            </span>
+            <span class="${
+              isSpotlight ? "text-base sm:text-xl" : "text-xs sm:text-base"
+            } font-bold text-stone-900 tabular-nums leading-tight mt-0.5 block">
+              ${formatRupiah(item.promoPrice)}
+            </span>
+          </div>
+        `;
+      }
+      return `
+        <span class="${
+          isSpotlight ? "text-base sm:text-xl" : "text-xs sm:text-base"
+        } font-bold text-stone-900 tabular-nums shrink-0">
+          ${formatRupiah(item.price)}
+        </span>
+      `;
+    }
+
+    function updateOperatingStatus() {
+      const dotEl = document.getElementById("hero-status-dot");
+      const textEl = document.getElementById("hero-status-text");
+      if (!dotEl || !textEl) return;
+
+      const cc = activeCafeProfile.custom_config || {};
+      const hoursCfg = cc.hours || {};
+
+      // Jika Super Admin atau Owner mengisi teks badge Hero kustom, tampilkan langsung
+      if (hoursCfg.customHeroStatus && hoursCfg.customHeroStatus.trim() !== "") {
+        dotEl.className = "w-2 h-2 rounded-full bg-[#22C55E]";
+        textEl.textContent = hoursCfg.customHeroStatus.trim();
+        return;
+      }
+
+      try {
+        const now = new Date();
+        const formatter = new Intl.DateTimeFormat("en-US", {
+          timeZone: "Asia/Jakarta",
+          weekday: "short",
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: false
+        });
+        const parts = formatter.formatToParts(now);
+        const map = {};
+        parts.forEach((p) => { map[p.type] = p.value; });
+
+        const weekday = map.weekday;
+        const hour = parseInt(map.hour, 10);
+        const minute = parseInt(map.minute, 10);
+        const currentMins = (hour === 24 ? 0 : hour) * 60 + minute;
+
+        const isExtendedDay = weekday === "Fri" || weekday === "Sat" || weekday === "Sun";
+        const openMins = 11 * 60;
+        const closeMins = isExtendedDay ? 23 * 60 : 22 * 60;
+        const rangeLabel = (isExtendedDay && activeCafeProfile.hours_weekend)
+          ? activeCafeProfile.hours_weekend
+          : (activeCafeProfile.hours_weekday || "11.00 – 22.00 WIB");
+
+        const isOpen = currentMins >= openMins && currentMins < closeMins;
+
+        if (isOpen) {
+          dotEl.className = "w-2 h-2 rounded-full bg-[#22C55E]";
+          textEl.textContent = `Buka Hari Ini · ${rangeLabel}`;
+        } else {
+          dotEl.className = "w-2 h-2 rounded-full bg-amber-brand";
+          textEl.textContent = `Jam Operasional · ${rangeLabel}`;
+        }
+      } catch (e) {
+        textEl.textContent = `Buka · ${activeCafeProfile.hours_weekday || "11.00 – 22.00 WIB"}`;
+      }
+    }
+
+    let activeCategory = "signature-coffee";
+
+    function bindMenuPointerRespond() {
+      const spotlight = document.querySelector(".sc-spotlight-card");
+      if (!spotlight || window.matchMedia("(max-width: 768px)").matches) return;
+
+      spotlight.addEventListener("pointermove", (e) => {
+        const rect = spotlight.getBoundingClientRect();
+        const nx = (e.clientX - rect.left) / (rect.width || 1) - 0.5;
+        const ny = (e.clientY - rect.top) / (rect.height || 1) - 0.5;
+        spotlight.style.setProperty("--sc-rx", `${(-ny * 7).toFixed(2)}deg`);
+        spotlight.style.setProperty("--sc-ry", `${(nx * 8).toFixed(2)}deg`);
+      });
+
+      spotlight.addEventListener("pointerleave", () => {
+        spotlight.style.setProperty("--sc-rx", "0deg");
+        spotlight.style.setProperty("--sc-ry", "0deg");
+      });
+    }
+
+    function bindHeroPointerRespond() {
+      const heroCard = document.getElementById("hero-figure-card");
+      if (!heroCard || window.matchMedia("(max-width: 768px)").matches) return;
+
+      heroCard.addEventListener("pointermove", (e) => {
+        const rect = heroCard.getBoundingClientRect();
+        const nx = (e.clientX - rect.left) / (rect.width || 1) - 0.5;
+        const ny = (e.clientY - rect.top) / (rect.height || 1) - 0.5;
+        heroCard.style.setProperty("--sc-hero-rx", `${(-ny * 6).toFixed(2)}deg`);
+        heroCard.style.setProperty("--sc-hero-ry", `${(nx * 7).toFixed(2)}deg`);
+      });
+
+      heroCard.addEventListener("pointerleave", () => {
+        heroCard.style.setProperty("--sc-hero-rx", "0deg");
+        heroCard.style.setProperty("--sc-hero-ry", "0deg");
+      });
+    }
+
+    function renderDataSourceNoticeHtml() {
+      if (menuDataSourceState === "live" || menuDataSourceState === "loading") return "";
+      if (menuDataSourceState === "cached") {
+        return `
+          <div class="mb-5 p-3 rounded-xl bg-amber-soft/70 border border-amber-brand/40 flex flex-wrap items-center justify-between gap-2 text-xs text-espresso-900">
+            <span><strong>Mode Cache Sesi Terakhir:</strong> ${escapeHtml(menuStatusNotice)}</span>
+            <button type="button" onclick="window.refreshPublicMenu()" class="font-semibold underline hover:text-amber-hover shrink-0">↻ Hubungkan Ulang</button>
+          </div>
+        `;
+      }
+      if (menuDataSourceState === "fallback") {
+        return `
+          <div class="mb-5 p-3 rounded-xl bg-ivory-100 border border-ivory-300 flex flex-wrap items-center justify-between gap-2 text-xs text-stone-700">
+            <span><strong>Info Katalog:</strong> ${escapeHtml(menuStatusNotice)}</span>
+            <button type="button" onclick="window.refreshPublicMenu()" class="font-semibold text-stone-900 underline hover:text-amber-brand shrink-0">↻ Muat Ulang</button>
+          </div>
+        `;
+      }
+      return "";
+    }
+
+    function renderMenuSection(triggerSwitchAnim = false) {
+      syncCategoriesFromItems();
+      const tablistEl = document.getElementById("menu-tablist");
+      const contentEl = document.getElementById("menu-content-area");
+      const viewAllBtn = document.getElementById("btn-view-all-menu");
+      const viewAllLabel = document.getElementById("view-all-menu-label");
+      const statusEl = document.getElementById("menu-filter-status");
+      if (!tablistEl || !contentEl) return;
+
+      const showOrder = activeCtaConfig.enableOnlineOrder !== false;
+
+      tablistEl.innerHTML = menuCategories
+        .map((cat) => {
+          const isActive = activeCategory === cat.id;
+          return `
+            <button
+              type="button"
+              role="tab"
+              id="tab-${cat.id}"
+              aria-selected="${isActive ? 'true' : 'false'}"
+              tabindex="${isActive ? '0' : '-1'}"
+              data-tab-id="${cat.id}"
+              class="pb-3 pt-1 text-xs sm:text-sm font-semibold whitespace-nowrap border-b-2 transition-colors ${
+                isActive
+                  ? 'border-espresso-950 text-stone-900'
+                  : 'border-transparent text-stone-500 hover:text-stone-800'
+              }"
+            >
+              ${escapeHtml(cat.name)}
+            </button>
+          `;
+        })
+        .join("");
+
+      const isShowingAll = activeCategory === "ALL";
+      if (viewAllLabel && viewAllBtn) {
+        viewAllLabel.textContent = isShowingAll ? "Kembali ke Kategori" : "Tampilkan Semua Menu";
+        viewAllBtn.setAttribute("aria-pressed", isShowingAll ? "true" : "false");
+      }
+
+      if (menuDataSourceState === "loading") {
+        contentEl.innerHTML = `
+          <div class="py-12 px-4 rounded-2xl border border-ivory-200 bg-ivory-100/60 text-center space-y-2">
+            <p class="font-serif text-base sm:text-lg font-medium text-stone-800 animate-pulse">Memuat kurasi menu terbaru...</p>
+          </div>
+        `;
+        return;
+      }
+
+      if (menuDataSourceState === "empty_db" || menuItems.length === 0) {
+        contentEl.innerHTML = `
+          <div class="py-12 px-4 rounded-2xl border border-ivory-200 bg-ivory-100/60 text-center space-y-3">
+            <p class="font-serif text-base sm:text-lg font-semibold text-stone-900">Katalog Menu Sedang Diperbarui</p>
+            <button type="button" onclick="window.refreshPublicMenu()" class="inline-flex items-center gap-1.5 px-4 h-9 rounded-lg bg-espresso-950 text-ivory-50 text-xs font-semibold">↻ Muat Ulang Menu</button>
+          </div>
+        `;
+        return;
+      }
+
+      const noticeHtml = renderDataSourceNoticeHtml();
+
+      if (!isShowingAll) {
+        const activeCatObj = menuCategories.find((c) => c.id === activeCategory);
+        const categoryItems = menuItems.filter((item) => item.categoryId === activeCategory);
+
+        if (statusEl) {
+          statusEl.textContent = `Menampilkan sajian pilihan ${activeCatObj ? activeCatObj.name : ""}`;
+        }
+
+        if (categoryItems.length === 0) {
+          contentEl.innerHTML = `
+            ${noticeHtml}
+            <div class="py-10 px-4 rounded-2xl border border-ivory-200 bg-ivory-100/50 text-center">
+              <p class="font-serif text-base font-medium text-stone-800">Belum ada menu pada kategori ini.</p>
+            </div>
+          `;
+        } else {
+          const spotlight = categoryItems.find((i) => i.isAvailable) || categoryItems[0];
+          const supporting = categoryItems.filter((i) => i.id !== spotlight.id);
+
+          const supportingRowsHtml = supporting
+            .map((item, idx) => {
+              const safeName = escapeHtml(item.name);
+              const safeDesc = escapeHtml(item.description);
+              const safeImg = escapeHtml(item.imageUrl);
+              const safeAttrs = (item.attributes || []).map(escapeHtml).join(" · ");
+
+              return `
+                <article style="--sc-row-i: ${idx};" class="sc-menu-row py-3.5 sm:py-5 first:pt-0 last:pb-0 flex items-start sm:items-center gap-3.5 sm:gap-5 group ${
+                  item.isAvailable ? "" : "opacity-75"
+                }">
+                  <div class="relative w-16 h-16 sm:w-24 sm:h-24 rounded-xl overflow-hidden bg-ivory-200 shrink-0 border border-ivory-200">
+                    <img
+                      src="${safeImg}"
+                      alt="${safeName}"
+                      width="120"
+                      height="120"
+                      loading="lazy"
+                      onerror="handleImgFallback(this, '${safeName}')"
+                      class="w-full h-full object-cover object-center warm-editorial-photo group-hover:scale-105 transition-transform duration-300 ${
+                        item.isAvailable ? "" : "grayscale"
+                      }"
+                    />
+                    ${
+                      !item.isAvailable
+                        ? `<span class="absolute inset-0 bg-espresso-950/60 flex items-center justify-center">
+                             <span class="px-2 py-0.5 rounded bg-espresso-950/90 text-ivory-50 text-[9px] font-bold uppercase tracking-wider">Habis</span>
+                           </span>`
+                        : ""
+                    }
+                  </div>
+
+                  <div class="flex-1 min-w-0">
+                    <div class="flex items-baseline justify-between gap-2">
+                      <div class="flex flex-wrap items-center gap-1.5 min-w-0">
+                        <h3 class="font-serif text-sm sm:text-lg font-semibold text-stone-900 break-words">${safeName}</h3>
+                        ${
+                          item.isPromo && item.isAvailable
+                            ? `<span class="px-2 py-0.5 rounded-full bg-[#EA580C] text-ivory-50 text-[10px] font-bold shrink-0">Promo</span>`
+                            : ""
+                        }
+                        ${
+                          !item.isAvailable
+                            ? `<span class="px-2 py-0.5 rounded-full bg-stone-200 text-stone-600 text-[10px] font-semibold shrink-0">Habis</span>`
+                            : ""
+                        }
+                      </div>
+                      ${renderPriceBlock(item, "row")}
+                    </div>
+                    <p class="text-xs sm:text-sm text-stone-600 mt-1 leading-relaxed break-words">${safeDesc}</p>
+                    <p class="text-[10px] sm:text-[11px] font-medium text-stone-500 mt-1.5 sm:mt-2 tracking-wide">${safeAttrs}</p>
+                  </div>
+                </article>
+              `;
+            })
+            .join("");
+
+          const safeSpotName = escapeHtml(spotlight.name);
+          const safeSpotDesc = escapeHtml(spotlight.description);
+          const safeSpotImg = escapeHtml(spotlight.imageUrl);
+          const safeSpotAttrs = (spotlight.attributes || []).map(escapeHtml).join(" · ");
+
+          // Footer Kartu Spotlight Adaptif: Rapi baik saat Tombol Order Aktif maupun Mode Katalog Murni
+          let spotlightFooterHtml = "";
+          if (!spotlight.isAvailable) {
+            spotlightFooterHtml = `
+              <div class="mt-4 sm:mt-6 pt-3.5 sm:pt-5 border-t border-ivory-200 flex items-center justify-between gap-3">
+                <span class="text-[11px] sm:text-xs text-stone-500 font-medium">Sementara sedang habis</span>
+                <span class="inline-flex items-center justify-center text-xs font-semibold text-stone-500 bg-ivory-200 px-4 py-2 rounded-lg select-none">Habis</span>
+              </div>
+            `;
+          } else if (showOrder) {
+            spotlightFooterHtml = `
+              <div class="mt-4 sm:mt-6 pt-3.5 sm:pt-5 border-t border-ivory-200 flex items-center justify-between gap-3">
+                <span class="text-[11px] sm:text-xs text-stone-600 font-medium">${escapeHtml(activeCtaConfig.spotlightAvailOrder)}</span>
+                <a
+                  href="${escapeHtml(GOFOOD_ORDER_URL)}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center gap-1.5 text-xs font-semibold text-espresso-950 bg-amber-brand hover:bg-amber-hover px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-lg transition-colors shrink-0"
+                >
+                  <span>${escapeHtml(activeCtaConfig.orderBtnMain)}</span>
+                  <span aria-hidden="true">↗</span>
+                </a>
+              </div>
+            `;
+          } else {
+            spotlightFooterHtml = `
+              <div class="mt-4 sm:mt-6 pt-3.5 sm:pt-4 border-t border-ivory-200 flex items-center justify-between gap-2">
+                <span class="text-[11px] sm:text-xs text-amber-brand font-semibold tracking-wide">${escapeHtml(activeCtaConfig.spotlightAvailCatalog)}</span>
+                <span class="text-[11px] text-stone-500 font-medium">Tersedia Hari Ini</span>
+              </div>
+            `;
+          }
+
+          contentEl.innerHTML = `
+            ${noticeHtml}
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-start">
+              <article class="sc-spotlight-card lg:col-span-5 bg-ivory-100 rounded-2xl overflow-hidden border border-ivory-200 shadow-sm flex flex-col justify-between h-full">
+                <div class="relative aspect-[16/10] sm:aspect-[4/3] w-full overflow-hidden bg-ivory-200 shrink-0">
+                  <img
+                    src="${safeSpotImg}"
+                    alt="${safeSpotName}"
+                    width="640"
+                    height="480"
+                    loading="lazy"
+                    onerror="handleImgFallback(this, '${safeSpotName}')"
+                    class="sc-spotlight-img w-full h-full object-cover object-center warm-editorial-photo ${
+                      spotlight.isAvailable ? "" : "grayscale"
+                    }"
+                  />
+                  ${
+                    spotlight.badge
+                      ? `<span class="absolute top-3 left-3 sm:top-4 sm:left-4 bg-espresso-950/90 backdrop-blur-sm text-amber-brand text-[10px] font-semibold uppercase tracking-[0.14em] px-2.5 py-1 rounded-md">${escapeHtml(spotlight.badge)}</span>`
+                      : ""
+                  }
+                  ${
+                    spotlight.isPromo && spotlight.isAvailable
+                      ? `<span class="absolute top-3 right-3 sm:top-4 sm:right-4 bg-[#EA580C] text-ivory-50 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full shadow-sm">Promo</span>`
+                      : ""
+                  }
+                  ${
+                    !spotlight.isAvailable
+                      ? `<div class="absolute inset-0 bg-espresso-950/60 backdrop-blur-[2px] flex items-center justify-center">
+                           <span class="px-4 py-1.5 rounded-full bg-espresso-950/90 border border-white/25 text-ivory-50 text-xs font-semibold">✕ Sold Out</span>
+                         </div>`
+                      : ""
+                  }
+                </div>
+
+                <div class="p-4 sm:p-7 flex-1 flex flex-col justify-between">
+                  <div>
+                    <div class="flex items-baseline justify-between gap-3">
+                      <h3 class="font-serif text-lg sm:text-2xl font-semibold text-stone-900 break-words">${safeSpotName}</h3>
+                      ${renderPriceBlock(spotlight, "spotlight")}
+                    </div>
+                    <p class="text-[11px] sm:text-xs font-medium text-stone-500 mt-0.5 tracking-wide">${safeSpotAttrs}</p>
+                    <p class="text-xs sm:text-sm text-stone-700 mt-2 sm:mt-3 leading-relaxed break-words">${safeSpotDesc}</p>
+                  </div>
+
+                  ${spotlightFooterHtml}
+                </div>
+              </article>
+
+              <div class="lg:col-span-7 divide-y divide-ivory-200 lg:pt-2">
+                ${supportingRowsHtml}
+              </div>
+            </div>
+          `;
+        }
+      } else {
+        if (statusEl) {
+          statusEl.textContent = `Menampilkan seluruh katalog sajian dari semua kategori`;
+        }
+
+        contentEl.innerHTML = `
+          ${noticeHtml}
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8 sm:gap-y-12">
+            ${menuCategories
+              .map((cat) => {
+                const items = menuItems.filter((i) => i.categoryId === cat.id);
+                const rows = items.length
+                  ? items
+                      .map((item, idx) => {
+                        const safeName = escapeHtml(item.name);
+                        const safeDesc = escapeHtml(item.description);
+                        const safeImg = escapeHtml(item.imageUrl);
+                        const safeAttrs = (item.attributes || []).map(escapeHtml).join(" · ");
+
+                        return `
+                          <article style="--sc-row-i: ${idx};" class="sc-menu-row py-3.5 first:pt-0 last:pb-0 flex items-start sm:items-center gap-3.5 ${
+                            item.isAvailable ? "" : "opacity-70"
+                          }">
+                            <div class="relative w-14 h-14 sm:w-16 sm:h-16 rounded-lg overflow-hidden shrink-0 bg-ivory-200">
+                              <img src="${safeImg}" alt="${safeName}" width="64" height="64" loading="lazy" onerror="handleImgFallback(this, '${safeName}')" class="w-full h-full object-cover warm-editorial-photo ${item.isAvailable ? "" : "grayscale"}" />
+                            </div>
+                            <div class="flex-1 min-w-0">
+                              <div class="flex items-baseline justify-between gap-2">
+                                <div class="flex flex-wrap items-center gap-1.5 min-w-0">
+                                  <h4 class="font-serif text-sm sm:text-base font-semibold text-stone-900 break-words">${safeName}</h4>
+                                  ${item.isPromo && item.isAvailable ? `<span class="px-1.5 py-0.5 rounded bg-[#EA580C] text-ivory-50 text-[9px] font-bold shrink-0">Promo</span>` : ""}
+                                  ${!item.isAvailable ? `<span class="px-1.5 py-0.5 rounded bg-stone-200 text-stone-600 text-[9px] font-semibold shrink-0">Habis</span>` : ""}
+                                </div>
+                                ${renderPriceBlock(item, "row")}
+                              </div>
+                              <p class="text-xs text-stone-600 mt-1 leading-relaxed break-words">${safeDesc}</p>
+                              <p class="text-[10px] sm:text-[11px] text-stone-500 mt-1">${safeAttrs}</p>
+                            </div>
+                          </article>
+                        `;
+                      })
+                      .join("")
+                  : `<p class="py-3 text-xs text-stone-500 italic">Belum ada menu di kategori ini.</p>`;
+
+                return `
+                  <div>
+                    <h3 class="text-xs font-bold uppercase tracking-[0.16em] text-amber-brand pb-2.5 border-b border-stone-900">${escapeHtml(cat.name)}</h3>
+                    <div class="mt-2.5 divide-y divide-ivory-200">${rows}</div>
+                  </div>
+                `;
+              })
+              .join("")}
+          </div>
+        `;
+      }
+
+      if (triggerSwitchAnim) {
+        contentEl.classList.remove("sc-tab-animating");
+        void contentEl.offsetWidth;
+        contentEl.classList.add("sc-tab-animating");
+      }
+
+      bindMenuPointerRespond();
+
+      const tabButtons = Array.from(tablistEl.querySelectorAll("[data-tab-id]"));
+      tabButtons.forEach((btn, idx) => {
+        btn.addEventListener("click", () => {
+          activeCategory = btn.getAttribute("data-tab-id");
+          renderMenuSection(true);
+        });
+
+        btn.addEventListener("keydown", (e) => {
+          let targetIdx = null;
+          if (e.key === "ArrowRight") targetIdx = (idx + 1) % tabButtons.length;
+          if (e.key === "ArrowLeft") targetIdx = (idx - 1 + tabButtons.length) % tabButtons.length;
+          if (e.key === "Home") targetIdx = 0;
+          if (e.key === "End") targetIdx = tabButtons.length - 1;
+
+          if (targetIdx !== null) {
+            e.preventDefault();
+            activeCategory = tabButtons[targetIdx].getAttribute("data-tab-id");
+            renderMenuSection(true);
+            const newlyRenderedBtn = document.getElementById(`tab-${activeCategory}`);
+            if (newlyRenderedBtn) newlyRenderedBtn.focus();
+          }
+        });
+      });
+    }
+
+    function renderFullMenuModalContent() {
+      const container = document.getElementById("full-menu-modal-body");
+      if (!container) return;
+
+      container.innerHTML = menuCategories
+        .map((cat) => {
+          const items = menuItems.filter((i) => i.categoryId === cat.id);
+          const rows = items
+            .map((item) => {
+              const priceHtml =
+                item.isPromo && item.promoPrice !== null && item.promoPrice < item.price
+                  ? `<span class="text-stone-400 line-through font-normal mr-1.5">${formatRupiah(item.price)}</span>${formatRupiah(item.promoPrice)}`
+                  : formatRupiah(item.price);
+
+              return `
+                <div class="py-2.5 flex items-start justify-between gap-4 ${item.isAvailable ? "" : "opacity-60"}">
+                  <div>
+                    <h5 class="text-xs sm:text-sm font-bold text-stone-900">
+                      ${escapeHtml(item.name)}
+                      ${!item.isAvailable ? '<span class="ml-1.5 text-[10px] font-semibold text-red-700">(Habis)</span>' : ""}
+                      ${item.isPromo && item.isAvailable ? '<span class="ml-1.5 text-[10px] font-semibold text-[#EA580C]">(Promo)</span>' : ""}
+                    </h5>
+                    <p class="text-[11px] sm:text-xs text-stone-600 mt-0.5">${escapeHtml(item.description)}</p>
+                    <p class="text-[10px] text-stone-400 mt-0.5">${(item.attributes || []).map(escapeHtml).join(" · ")}</p>
+                  </div>
+                  <span class="text-xs sm:text-sm font-bold text-stone-900 tabular-nums shrink-0">${priceHtml}</span>
+                </div>
+              `;
+            })
+            .join("");
+
+          return `
+            <div class="pt-4 first:pt-0">
+              <h4 class="text-xs font-bold uppercase tracking-widest text-amber-brand mb-2">${escapeHtml(cat.name)}</h4>
+              <div class="divide-y divide-ivory-200">${rows}</div>
+            </div>
+          `;
+        })
+        .join("");
+    }
+
+    function downloadStandaloneMenuCatalog() {
+      const sectionsHtml = menuCategories
+        .map((cat) => {
+          const items = menuItems.filter((i) => i.categoryId === cat.id);
+          const rows = items
+            .map((item) => {
+              const displayPrice =
+                item.isPromo && item.promoPrice !== null && item.promoPrice < item.price
+                  ? `<s>${formatRupiah(item.price)}</s> ${formatRupiah(item.promoPrice)}`
+                  : formatRupiah(item.price);
+              const statusNote = !item.isAvailable ? " [HABIS]" : item.isPromo ? " [PROMO]" : "";
+              return `
+                <tr>
+                  <td style="padding:10px 0;border-bottom:1px solid #E5DCCB;">
+                    <strong>${escapeHtml(item.name)}${statusNote}</strong><br/>
+                    <small style="color:#57534E;">${escapeHtml(item.description)} (${(item.attributes || []).map(escapeHtml).join(" · ")})</small>
+                  </td>
+                  <td style="padding:10px 0;border-bottom:1px solid #E5DCCB;text-align:right;font-weight:bold;white-space:nowrap;">
+                    ${displayPrice}
+                  </td>
+                </tr>`;
+            })
+            .join("");
+          return `<h2 style="font-size:13px;text-transform:uppercase;letter-spacing:1.5px;color:#C88A2B;margin-top:24px;border-bottom:1px solid #1C1917;padding-bottom:6px;">${escapeHtml(cat.name)}</h2>
+                  <table style="width:100%;border-collapse:collapse;font-size:13px;">${rows}</table>`;
+        })
+        .join("");
+
+      const orderInfoMeta = activeCtaConfig.enableOnlineOrder !== false
+        ? ` · Order Online: ${escapeHtml(GOFOOD_ORDER_URL)}`
+        : "";
+
+      const htmlDoc = `<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Katalog Menu ${escapeHtml(activeCafeProfile.name)} — ${escapeHtml(activeCafeProfile.branch)}</title>
+<style>
+  body { font-family: Georgia, serif; max-width: 700px; margin: 40px auto; padding: 0 24px; color: #1C1917; background: #FAF7F2; line-height: 1.5; }
+  h1 { margin-bottom: 4px; font-size: 24px; text-transform: uppercase; }
+  .meta { font-family: sans-serif; font-size: 12px; color: #57534E; margin-bottom: 24px; }
+</style>
+</head>
+<body>
+  <h1>${escapeHtml(activeCafeProfile.name)} — ${escapeHtml(activeCafeProfile.branch)}</h1>
+  <div class="meta">${escapeHtml(activeCafeProfile.address_line_1 || "")}${orderInfoMeta}</div>
+  ${sectionsHtml}
+</body>
+</html>`;
+
+      const blob = new Blob([htmlDoc], { type: "text/html;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `Katalog-Menu-${ACTIVE_CAFE_SLUG}.html`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    // Ambil Profil Kafe & Daftar Menu dari Supabase berdasarkan ?kafe=slug
+    async function loadPublicCafeAndMenuFromSupabase(isInitial = false) {
+      const supabase = window.getSupabaseClient ? window.getSupabaseClient() : null;
+
+      if (isInitial) {
+        menuDataSourceState = "loading";
+        renderMenuSection(false);
+      }
+
+      if (!window.isSupabaseConfigured() || !supabase) {
+        menuItems = [...fallbackMenuItems];
+        menuDataSourceState = "fallback";
+        menuStatusNotice = "Menampilkan data katalog bawaan (Konfigurasi Supabase belum dihubungkan).";
+        renderMenuSection(false);
+        renderFullMenuModalContent();
+        return;
+      }
+
+      try {
+        // 1. Ambil Profil Kafe & Custom Config
+        const { data: cafeRow } = await supabase
+          .from("cafes")
+          .select("*")
+          .eq("slug", ACTIVE_CAFE_SLUG)
+          .maybeSingle();
+
+        if (cafeRow) {
+          applyCafeProfileToDOM(cafeRow);
+        }
+
+        // 2. Ambil Daftar Menu untuk Kafe Tersebut
+        const { data, error } = await supabase
+          .from("menu_items")
+          .select("*")
+          .eq("cafe_slug", ACTIVE_CAFE_SLUG)
+          .order("category", { ascending: true })
+          .order("sort_order", { ascending: true })
+          .order("created_at", { ascending: true });
+
+        if (error) throw error;
+
+        if (!data || data.length === 0) {
+          menuItems = [];
+          menuDataSourceState = "empty_db";
+          menuStatusNotice = "";
+        } else {
+          menuItems = data.map(window.normalizeMenuItem);
+          menuDataSourceState = "live";
+          menuStatusNotice = "";
+          try {
+            localStorage.setItem(
+              MENU_CACHE_KEY,
+              JSON.stringify({ savedAt: new Date().toISOString(), items: menuItems })
+            );
+          } catch (e) {}
+        }
+      } catch (err) {
+        let restored = false;
+        try {
+          const rawCache = localStorage.getItem(MENU_CACHE_KEY);
+          if (rawCache) {
+            const parsed = JSON.parse(rawCache);
+            if (parsed && Array.isArray(parsed.items) && parsed.items.length > 0) {
+              menuItems = parsed.items;
+              menuDataSourceState = "cached";
+              menuStatusNotice = "Menampilkan data menu dari kunjungan terakhir.";
+              restored = true;
+            }
+          }
+        } catch (e) {}
+
+        if (!restored) {
+          menuItems = [...fallbackMenuItems];
+          menuDataSourceState = "fallback";
+          menuStatusNotice = "Server database sedang tidak dapat dijangkau. Menampilkan katalog referensi bawaan.";
+        }
+      }
+
+      renderMenuSection(false);
+      renderFullMenuModalContent();
+    }
+
+    function subscribePublicRealtime() {
+      const supabase = window.getSupabaseClient ? window.getSupabaseClient() : null;
+      if (!supabase || !window.isSupabaseConfigured()) return;
+
+      if (publicRealtimeChannel) {
+        supabase.removeChannel(publicRealtimeChannel);
+      }
+
+      publicRealtimeChannel = supabase
+        .channel(`public-sync-${ACTIVE_CAFE_SLUG}`)
+        .on(
+          "postgres_changes",
+          { event: "*", schema: "public", table: "menu_items", filter: `cafe_slug=eq.${ACTIVE_CAFE_SLUG}` },
+          () => loadPublicCafeAndMenuFromSupabase(false)
+        )
+        .on(
+          "postgres_changes",
+          { event: "*", schema: "public", table: "cafes", filter: `slug=eq.${ACTIVE_CAFE_SLUG}` },
+          () => loadPublicCafeAndMenuFromSupabase(false)
+        )
+        .subscribe();
+    }
+
+    window.refreshPublicMenu = function () {
+      loadPublicCafeAndMenuFromSupabase(true);
+    };
+
+    function openModal(modalEl) {
+      if (!modalEl) return;
+      modalEl.classList.remove("hidden");
+      modalEl.classList.add("flex");
+    }
+
+    function closeModal(modalEl) {
+      if (!modalEl) return;
+      modalEl.classList.add("hidden");
+      modalEl.classList.remove("flex");
+    }
+
+    function initMobileSnapSlider(sliderId, prevBtnId, nextBtnId, dotsContainerId) {
+      const slider = document.getElementById(sliderId);
+      const prevBtn = document.getElementById(prevBtnId);
+      const nextBtn = document.getElementById(nextBtnId);
+      const dotsContainer = document.getElementById(dotsContainerId);
+      if (!slider) return;
+
+      const updateDots = () => {
+        if (!dotsContainer) return;
+        const slideWidth = slider.clientWidth || 1;
+        const activeIdx = Math.round(slider.scrollLeft / slideWidth);
+        const dots = Array.from(dotsContainer.children);
+        dots.forEach((dot, idx) => {
+          dot.className =
+            idx === activeIdx
+              ? "w-4 h-1 rounded-full bg-amber-brand transition-all"
+              : "w-1.5 h-1 rounded-full bg-stone-300 transition-all";
+        });
+      };
+
+      slider.addEventListener("scroll", updateDots, { passive: true });
+
+      if (prevBtn) {
+        prevBtn.addEventListener("click", () => {
+          const w = slider.clientWidth;
+          if (slider.scrollLeft <= 10) {
+            slider.scrollTo({ left: slider.scrollWidth, behavior: "smooth" });
+          } else {
+            slider.scrollBy({ left: -w, behavior: "smooth" });
+          }
+        });
+      }
+
+      if (nextBtn) {
+        nextBtn.addEventListener("click", () => {
+          const w = slider.clientWidth;
+          if (slider.scrollLeft + w >= slider.scrollWidth - 10) {
+            slider.scrollTo({ left: 0, behavior: "smooth" });
+          } else {
+            slider.scrollBy({ left: w, behavior: "smooth" });
+          }
+        });
+      }
+    }
+
+    function initScrollCraftEngine() {
+      const acts = Array.from(document.querySelectorAll("[data-sc-act]"));
+      if (!acts.length) return;
+
+      const activeActs = new Set(acts);
+      const stateMap = new Map();
+
+      acts.forEach((act) => {
+        stateMap.set(act, { p: 0, targetP: 0, enter: 1, targetEnter: 1, wave: 0, targetWave: 0 });
+      });
+
+      let rafId = null;
+
+      if ("IntersectionObserver" in window) {
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) activeActs.add(entry.target);
+              else activeActs.delete(entry.target);
+            });
+            startLoop();
+          },
+          { rootMargin: "35% 0px 35% 0px" }
+        );
+        acts.forEach((act) => io.observe(act));
+      }
+
+      function clamp01(v) {
+        return v < 0 ? 0 : v > 1 ? 1 : v;
+      }
+
+      function computeTargets() {
+        const scrollY = window.scrollY || window.pageYOffset || 0;
+        const vh = window.innerHeight || 1;
+
+        if (scrollY <= 2) {
+          acts.forEach((act) => {
+            const st = stateMap.get(act);
+            const rect = act.getBoundingClientRect();
+            st.targetP = 0;
+            st.targetWave = 0;
+            st.targetEnter = rect.top < vh * 0.92 ? 1 : 0;
+          });
+          return;
+        }
+
+        const targets = activeActs.size ? activeActs : acts;
+        targets.forEach((act) => {
+          const st = stateMap.get(act);
+          const rect = act.getBoundingClientRect();
+          const actId = act.getAttribute("data-sc-act");
+
+          if (actId === "hero") {
+            st.targetP = clamp01(scrollY / Math.max(1, rect.height * 0.72));
+            st.targetEnter = 1;
+            st.targetWave = 0;
+          } else {
+            const totalSpan = Math.max(1, vh + rect.height);
+            const rawP = clamp01((vh - rect.top) / totalSpan);
+            const enterWindow = Math.min(vh * 0.66, Math.max(300, rect.height * 0.75));
+            const enterP = clamp01((vh * 0.92 - rect.top) / enterWindow);
+
+            st.targetP = rawP;
+            st.targetEnter = enterP;
+            st.targetWave = Math.sin(rawP * Math.PI);
+          }
+        });
+      }
+
+      function tick() {
+        computeTargets();
+        const scrollY = window.scrollY || window.pageYOffset || 0;
+        const lerpFactor = scrollY <= 2 ? 0.28 : 0.14;
+        let stillMoving = false;
+
+        const targets = activeActs.size ? activeActs : acts;
+        targets.forEach((act) => {
+          const st = stateMap.get(act);
+          st.p += (st.targetP - st.p) * lerpFactor;
+          st.enter += (st.targetEnter - st.enter) * lerpFactor;
+          st.wave += (st.targetWave - st.wave) * lerpFactor;
+
+          if (Math.abs(st.targetP - st.p) < 0.0008) st.p = st.targetP;
+          else stillMoving = true;
+
+          if (Math.abs(st.targetEnter - st.enter) < 0.0008) st.enter = st.targetEnter;
+          else stillMoving = true;
+
+          if (Math.abs(st.targetWave - st.wave) < 0.0008) st.wave = st.targetWave;
+          else stillMoving = true;
+
+          act.style.setProperty("--sc-p", st.p.toFixed(4));
+          act.style.setProperty("--sc-enter", st.enter.toFixed(4));
+          act.style.setProperty("--sc-wave", st.wave.toFixed(4));
+        });
+
+        if (stillMoving) rafId = window.requestAnimationFrame(tick);
+        else rafId = null;
+      }
+
+      function startLoop() {
+        if (!rafId) rafId = window.requestAnimationFrame(tick);
+      }
+
+      computeTargets();
+      acts.forEach((act) => {
+        const st = stateMap.get(act);
+        st.p = st.targetP;
+        st.enter = st.targetEnter;
+        st.wave = st.targetWave;
+        act.style.setProperty("--sc-p", st.p.toFixed(4));
+        act.style.setProperty("--sc-enter", st.enter.toFixed(4));
+        act.style.setProperty("--sc-wave", st.wave.toFixed(4));
+      });
+
+      window.addEventListener("scroll", startLoop, { passive: true });
+      window.addEventListener("resize", startLoop, { passive: true });
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      updateOperatingStatus();
+      setInterval(updateOperatingStatus, 60000);
+      loadPublicCafeAndMenuFromSupabase(true);
+      subscribePublicRealtime();
+      bindHeroPointerRespond();
+      initScrollCraftEngine();
+
+      initMobileSnapSlider("reviews-slider", "reviews-prev-btn", "reviews-next-btn", "reviews-dots");
+      initMobileSnapSlider("momen-slider", "momen-prev-btn", "momen-next-btn", "momen-dots");
+
+      const viewAllBtn = document.getElementById("btn-view-all-menu");
+      if (viewAllBtn) {
+        viewAllBtn.addEventListener("click", () => {
+          activeCategory = activeCategory === "ALL" ? (menuCategories[0]?.id || "signature-coffee") : "ALL";
+          renderMenuSection(true);
+        });
+      }
+
+      const mobileBtn = document.getElementById("mobile-menu-btn");
+      const mobileDrawer = document.getElementById("mobile-menu-drawer");
+      const openIcon = document.getElementById("hamburger-open-icon");
+      const closeIcon = document.getElementById("hamburger-close-icon");
+
+      function closeMobileMenu() {
+        if (!mobileDrawer || !mobileBtn) return;
+        mobileDrawer.classList.add("hidden");
+        mobileBtn.setAttribute("aria-expanded", "false");
+        if (openIcon) openIcon.classList.remove("hidden");
+        if (closeIcon) closeIcon.classList.add("hidden");
+      }
+
+      if (mobileBtn && mobileDrawer) {
+        mobileBtn.addEventListener("click", () => {
+          const expanded = mobileBtn.getAttribute("aria-expanded") === "true";
+          if (expanded) closeMobileMenu();
+          else {
+            mobileDrawer.classList.remove("hidden");
+            mobileBtn.setAttribute("aria-expanded", "true");
+            if (openIcon) openIcon.classList.add("hidden");
+            if (closeIcon) closeIcon.classList.remove("hidden");
+          }
+        });
+        document.querySelectorAll("[data-mobile-nav-link]").forEach((link) => {
+          link.addEventListener("click", closeMobileMenu);
+        });
+      }
+
+      const pdfModal = document.getElementById("full-menu-modal");
+      const openPdfBtn = document.getElementById("btn-open-pdf-menu");
+      const closePdfBtn = document.getElementById("close-pdf-menu-btn");
+      const printMenuBtn = document.getElementById("btn-print-menu");
+      const downloadMenuBtn = document.getElementById("btn-download-menu-file");
+
+      if (openPdfBtn && pdfModal) openPdfBtn.addEventListener("click", () => openModal(pdfModal));
+      if (closePdfBtn && pdfModal) closePdfBtn.addEventListener("click", () => closeModal(pdfModal));
+      if (printMenuBtn) printMenuBtn.addEventListener("click", () => window.print());
+      if (downloadMenuBtn) downloadMenuBtn.addEventListener("click", downloadStandaloneMenuCatalog);
+
+      let currentGalleryIndex = 0;
+      let isGalleryDescExpanded = false;
+      const galleryModal = document.getElementById("gallery-modal");
+      const openGalleryBtn = document.getElementById("btn-open-gallery");
+      const closeGalleryBtn = document.getElementById("close-gallery-btn");
+      const galleryTitle = document.getElementById("gallery-modal-title");
+      const galleryImg = document.getElementById("gallery-modal-img");
+      const galleryDesc = document.getElementById("gallery-modal-desc");
+      const galleryFooter = document.getElementById("gallery-modal-footer");
+      const galleryNavBtns = document.getElementById("gallery-nav-btns");
+      const galleryDescToggle = document.getElementById("gallery-desc-toggle");
+      const galleryDescToggleText = document.getElementById("gallery-desc-toggle-text");
+      const galleryDescToggleIcon = document.getElementById("gallery-desc-toggle-icon");
+      const prevGalleryBtn = document.getElementById("gallery-prev-btn");
+      const nextGalleryBtn = document.getElementById("gallery-next-btn");
+
+      function setGalleryDescExpanded(expanded) {
+        isGalleryDescExpanded = expanded;
+        if (!galleryFooter || !galleryDesc || !galleryNavBtns) return;
+        if (expanded) {
+          galleryFooter.className = "px-4 sm:px-6 py-3.5 bg-espresso-900 border-t border-white/10 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 sm:gap-4 shrink-0 transition-all";
+          galleryDesc.className = "text-xs sm:text-sm text-stone-200 whitespace-normal break-words leading-relaxed cursor-pointer sm:cursor-default";
+          galleryNavBtns.className = "flex items-center justify-end gap-2 shrink-0 pt-2 sm:pt-0 border-t border-white/10 sm:border-t-0";
+          if (galleryDescToggleText) galleryDescToggleText.textContent = "Sembunyikan";
+          if (galleryDescToggleIcon) galleryDescToggleIcon.textContent = "▴";
+          if (galleryDescToggle) galleryDescToggle.setAttribute("aria-expanded", "true");
+        } else {
+          galleryFooter.className = "px-4 sm:px-6 py-3.5 bg-espresso-900 border-t border-white/10 flex flex-row items-center justify-between gap-3 sm:gap-4 shrink-0 transition-all";
+          galleryDesc.className = "text-xs sm:text-sm text-stone-300 truncate sm:whitespace-normal sm:overflow-visible leading-relaxed cursor-pointer sm:cursor-default";
+          galleryNavBtns.className = "flex items-center gap-2 shrink-0";
+          if (galleryDescToggleText) galleryDescToggleText.textContent = "Selengkapnya";
+          if (galleryDescToggleIcon) galleryDescToggleIcon.textContent = "▾";
+          if (galleryDescToggle) galleryDescToggle.setAttribute("aria-expanded", "false");
+        }
+      }
+
+      if (galleryDescToggle) galleryDescToggle.addEventListener("click", () => setGalleryDescExpanded(!isGalleryDescExpanded));
+      if (galleryDesc) {
+        galleryDesc.addEventListener("click", () => {
+          if (window.matchMedia("(max-width: 639px)").matches) setGalleryDescExpanded(!isGalleryDescExpanded);
+        });
+      }
+
+      function showGallerySlide(idx) {
+        currentGalleryIndex = (idx + ambiencePhotos.length) % ambiencePhotos.length;
+        const item = ambiencePhotos[currentGalleryIndex];
+        setGalleryDescExpanded(false);
+        if (galleryTitle) galleryTitle.textContent = item.title;
+        if (galleryImg) {
+          delete galleryImg.dataset.fallbackDone;
+          galleryImg.src = item.imageUrl;
+          galleryImg.alt = item.title;
+        }
+        if (galleryDesc) galleryDesc.textContent = item.desc;
+      }
+
+      if (openGalleryBtn && galleryModal) {
+        openGalleryBtn.addEventListener("click", () => {
+          showGallerySlide(0);
+          openModal(galleryModal);
+        });
+      }
+
+      document.querySelectorAll("[data-gallery-idx]").forEach((card) => {
+        card.addEventListener("click", () => {
+          const idx = parseInt(card.getAttribute("data-gallery-idx") || "0", 10);
+          showGallerySlide(idx);
+          openModal(galleryModal);
+        });
+        card.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            const idx = parseInt(card.getAttribute("data-gallery-idx") || "0", 10);
+            showGallerySlide(idx);
+            openModal(galleryModal);
+          }
+        });
+      });
+
+      if (closeGalleryBtn && galleryModal) closeGalleryBtn.addEventListener("click", () => closeModal(galleryModal));
+      if (prevGalleryBtn) prevGalleryBtn.addEventListener("click", () => showGallerySlide(currentGalleryIndex - 1));
+      if (nextGalleryBtn) nextGalleryBtn.addEventListener("click", () => showGallerySlide(currentGalleryIndex + 1));
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          closeMobileMenu();
+          closeModal(pdfModal);
+          closeModal(galleryModal);
+        }
+        if (galleryModal && !galleryModal.classList.contains("hidden")) {
+          if (e.key === "ArrowLeft") showGallerySlide(currentGalleryIndex - 1);
+          if (e.key === "ArrowRight") showGallerySlide(currentGalleryIndex + 1);
+        }
+      });
+
+      [pdfModal, galleryModal].forEach((modal) => {
+        if (!modal) return;
+        modal.addEventListener("click", (e) => {
+          if (e.target === modal) closeModal(modal);
+        });
+      });
+    });
+  </script>
+</body>
+</html>

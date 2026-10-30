@@ -1,0 +1,2770 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard — Kelola Menu & Profil Kafe Online</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" type="image/jpeg" href="logo.jpg" id="dynamic-favicon" />
+
+  <!-- Google Fonts: Fraunces & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['"Fraunces"', 'Georgia', 'serif'],
+            sans: ['"Plus Jakarta Sans"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+          },
+          colors: {
+            espresso: {
+              950: '#110E0C',
+              900: '#181310',
+              800: '#241D18',
+              700: '#332922',
+              600: '#4A3728',
+            },
+            ivory: {
+              50: '#FAF7F2',
+              100: '#F2ECE1',
+              200: '#E5DCCB',
+              300: '#D5C7B2',
+            },
+            stone: {
+              900: '#1C1917',
+              700: '#44403C',
+              600: '#57534E',
+              500: '#78716C',
+              400: '#A8A29E',
+            },
+            amber: {
+              brand: '#C88A2B',
+              hover: '#B5791E',
+              soft: '#F5E6C8',
+            },
+            promo: {
+              orange: '#EA580C',
+              soft: '#FFEDD5',
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    html {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #F2ECE1;
+      color: #1C1917;
+      -webkit-font-smoothing: antialiased;
+    }
+    .tabular-nums { font-variant-numeric: tabular-nums; }
+    .warm-editorial-photo { filter: sepia(8%) saturate(96%) contrast(103%) brightness(98%); }
+    a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+      outline: 2px solid #C88A2B;
+      outline-offset: 2px;
+    }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #FAF7F2; }
+    ::-webkit-scrollbar-thumb { background: #D5C7B2; border-radius: 9999px; }
+  </style>
+</head>
+<body class="min-h-screen bg-ivory-100 text-stone-900 selection:bg-espresso-900 selection:text-ivory-50">
+
+  <!-- Banner Peringatan jika supabase-config.js belum diisi -->
+  <div id="config-warning-banner" class="hidden bg-amber-soft border-b border-amber-brand/40 px-4 py-3 text-xs text-espresso-900">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+      <p>
+        <strong>Konfigurasi Supabase Belum Diisi:</strong> Masukkan <code>SUPABASE_URL</code> dan <code>SUPABASE_ANON_KEY</code> Anda di dalam <code>supabase-config.js</code>.
+      </p>
+      <a href="index.html" class="font-semibold underline hover:text-amber-hover shrink-0">← Kembali ke Landing Page</a>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       VIEW 1: HALAMAN LOGIN ADMIN
+       ======================================================================== -->
+  <main id="auth-view" class="min-h-screen flex items-center justify-center p-4 sm:p-6 relative overflow-hidden bg-espresso-950">
+    <div class="absolute inset-0 z-0 pointer-events-none">
+      <img
+        src="ambience-coffee-bar.jpg"
+        alt=""
+        aria-hidden="true"
+        onerror="this.style.display='none'"
+        class="w-full h-full object-cover warm-editorial-photo opacity-25 scale-105 blur-[2px]"
+      />
+      <div class="absolute inset-0 bg-gradient-to-t from-espresso-950 via-espresso-950/80 to-espresso-900/75"></div>
+    </div>
+
+    <section aria-labelledby="login-heading" class="relative z-10 w-full max-w-[420px] bg-ivory-50 text-stone-900 rounded-2xl shadow-2xl border border-ivory-200 overflow-hidden">
+      <div class="p-6 sm:p-8">
+        <div class="flex flex-col items-center text-center">
+          <div class="w-14 h-14 rounded-full overflow-hidden border-2 border-ivory-300 bg-white flex items-center justify-center shadow-sm mb-3">
+            <img src="logo.jpg" alt="Logo Kafe" width="56" height="56" onerror="handleImgFallback(this, 'TK')" class="w-full h-full object-contain p-1" />
+          </div>
+          <span class="font-bold text-sm tracking-[0.16em] uppercase text-espresso-950">PORTAL MANAJEMEN KAFE</span>
+          <span class="text-[11px] text-stone-500 mt-0.5">Sistem Menu &amp; Profil Online</span>
+
+          <h1 id="login-heading" class="font-serif text-2xl sm:text-[26px] font-semibold text-stone-900 mt-5">
+            Masuk ke Dashboard
+          </h1>
+          <p class="text-xs text-stone-600 mt-1">
+            Silakan login menggunakan akun Administrator atau Owner Kafe.
+          </p>
+        </div>
+
+        <div id="auth-alert" role="alert" class="hidden mt-5 p-3.5 rounded-xl bg-red-50 border border-red-200 text-xs text-red-800 leading-relaxed"></div>
+
+        <form id="login-form" class="mt-6 space-y-4" novalidate>
+          <div>
+            <label for="login-email" class="block text-xs font-semibold text-stone-700 mb-1.5">Email</label>
+            <input
+              type="email"
+              id="login-email"
+              required
+              autocomplete="email"
+              placeholder="admin@tentangkopi.id"
+              class="w-full h-11 px-3.5 rounded-xl bg-white border border-ivory-300 text-sm text-stone-900 placeholder:text-stone-400 focus:border-amber-brand"
+            />
+          </div>
+
+          <div>
+            <label for="login-password" class="block text-xs font-semibold text-stone-700 mb-1.5">Password</label>
+            <div class="relative">
+              <input
+                type="password"
+                id="login-password"
+                required
+                autocomplete="current-password"
+                placeholder="••••••••"
+                class="w-full h-11 pl-3.5 pr-10 rounded-xl bg-white border border-ivory-300 text-sm text-stone-900 placeholder:text-stone-400 focus:border-amber-brand"
+              />
+              <button
+                type="button"
+                id="toggle-password-btn"
+                aria-label="Tampilkan password"
+                class="absolute right-2.5 top-1/2 -translate-y-1/2 w-7 h-7 rounded-lg text-stone-400 hover:text-stone-700 flex items-center justify-center text-xs"
+              >
+                👁
+              </button>
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            id="login-submit-btn"
+            class="w-full h-11 rounded-xl bg-espresso-700 hover:bg-espresso-800 text-ivory-50 font-semibold text-sm flex items-center justify-center gap-2 transition-colors shadow-sm disabled:opacity-60"
+          >
+            <span id="login-submit-text">Masuk</span>
+          </button>
+        </form>
+
+        <div class="mt-5 text-center">
+          <a href="index.html" class="inline-flex items-center gap-1.5 text-xs font-medium text-stone-600 hover:text-espresso-900">
+            <span>← Kembali ke Website Publik</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="px-6 py-3.5 bg-ivory-100 border-t border-ivory-200 text-center">
+        <p class="text-[11px] text-stone-500">Dilindungi Supabase Auth &amp; Row Level Security (RLS)</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- ========================================================================
+       VIEW 2: DASHBOARD UTAMA (Tampil setelah Login)
+       ======================================================================== -->
+  <div id="dashboard-view" class="hidden min-h-screen flex flex-col bg-ivory-100">
+
+    <!-- ======================================================================
+         SUPER ADMIN OUTREACH BAR (HANYA MUNCUL JIKA ROLE = 'super_admin')
+         Pemilik kafe (role = 'owner') TIDAK AKAN melihat bar ini.
+         ====================================================================== -->
+    <div id="super-admin-bar" class="hidden bg-espresso-900 text-ivory-50 border-b border-amber-brand/30 px-4 sm:px-8 py-2.5 text-xs">
+      <div class="max-w-[1440px] mx-auto flex flex-wrap items-center justify-between gap-3">
+        <div class="flex flex-wrap items-center gap-2.5">
+          <span class="px-2 py-0.5 rounded bg-amber-brand text-espresso-950 font-bold text-[10px] uppercase tracking-wider">
+            Mode Super Admin (Outreach)
+          </span>
+          <label for="sa-cafe-switcher" class="text-stone-300 font-medium">Pilih Kafe Target:</label>
+          <select
+            id="sa-cafe-switcher"
+            class="h-8 px-2.5 rounded-lg bg-espresso-800 border border-white/20 text-ivory-50 font-semibold text-xs focus:border-amber-brand"
+          ></select>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-2">
+          <button
+            type="button"
+            id="btn-copy-outreach-link"
+            class="h-8 px-3 rounded-lg border border-white/20 hover:bg-white/10 text-ivory-100 font-medium inline-flex items-center gap-1.5 transition-colors"
+          >
+            <span>🔗 Copy Link Pitching</span>
+          </button>
+          <button
+            type="button"
+            id="btn-open-duplicate-modal"
+            class="h-8 px-3 rounded-lg bg-amber-brand hover:bg-amber-hover text-espresso-950 font-bold inline-flex items-center gap-1.5 transition-colors"
+          >
+            <span>+ Duplikat untuk Kafe Baru</span>
+          </button>
+          <button
+            type="button"
+            id="btn-delete-cafe"
+            class="hidden h-8 px-2.5 rounded-lg border border-red-400/40 hover:bg-red-500/20 text-red-300 font-medium transition-colors"
+            title="Hapus profil kafe prospek ini"
+          >
+            Hapus Kafe
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex-1 flex flex-col lg:flex-row">
+      <!-- Backdrop Mobile -->
+      <div id="sidebar-backdrop" class="fixed inset-0 z-30 bg-black/60 hidden lg:hidden" aria-hidden="true"></div>
+
+      <!-- SIDEBAR KIRI -->
+      <aside
+        id="admin-sidebar"
+        class="fixed lg:static inset-y-0 left-0 z-40 w-64 bg-espresso-950 text-ivory-50 flex flex-col justify-between shrink-0 -translate-x-full lg:translate-x-0 transition-transform duration-200 border-r border-white/10"
+      >
+        <div>
+          <!-- Identitas Kafe Aktif -->
+          <div class="h-20 px-5 flex items-center justify-between border-b border-white/10">
+            <a id="sidebar-public-link" href="index.html" target="_blank" class="flex items-center gap-3 min-w-0">
+              <div class="w-10 h-10 rounded-full overflow-hidden border border-white/25 bg-white flex items-center justify-center shrink-0">
+                <img id="sidebar-cafe-logo" src="logo.jpg" alt="Logo" width="40" height="40" onerror="handleImgFallback(this, 'TK')" class="w-full h-full object-contain p-0.5" />
+              </div>
+              <div class="min-w-0">
+                <span id="sidebar-cafe-name" class="font-bold text-xs sm:text-sm tracking-[0.1em] uppercase text-ivory-50 block truncate">TENTANG KOPI</span>
+                <span id="sidebar-cafe-branch" class="text-[11px] text-stone-400 mt-0.5 block truncate">Sukmajaya, Depok</span>
+              </div>
+            </a>
+            <button type="button" id="close-sidebar-btn" class="lg:hidden w-8 h-8 rounded-lg text-stone-400 hover:text-ivory-50">✕</button>
+          </div>
+
+          <!-- Menu Sidebar -->
+          <nav class="p-3.5 space-y-1.5 text-xs sm:text-sm font-medium">
+            <button
+              type="button"
+              data-nav-tab="menu"
+              class="w-full px-3.5 py-2.5 rounded-xl bg-espresso-600/90 text-ivory-50 flex items-center gap-3 text-left transition-colors"
+            >
+              <span>☕</span>
+              <span>Dashboard &amp; Menu</span>
+            </button>
+
+            <button
+              type="button"
+              id="sidebar-promo-shortcut"
+              class="w-full px-3.5 py-2.5 rounded-xl text-stone-300 hover:bg-white/5 hover:text-ivory-50 flex items-center justify-between text-left transition-colors"
+            >
+              <span class="flex items-center gap-3">
+                <span>🏷️</span>
+                <span>Promo Diskon</span>
+              </span>
+              <span id="sidebar-promo-badge" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-brand/20 text-amber-brand tabular-nums">0</span>
+            </button>
+
+            <button
+              type="button"
+              data-nav-tab="settings"
+              class="w-full px-3.5 py-2.5 rounded-xl text-stone-300 hover:bg-white/5 hover:text-ivory-50 flex items-center gap-3 text-left transition-colors"
+            >
+              <span>⚙️</span>
+              <span>Pengaturan Kafe</span>
+            </button>
+          </nav>
+        </div>
+
+        <!-- Info Akun & Logout -->
+        <div class="p-4 border-t border-white/10 bg-espresso-900/60">
+          <div class="flex items-center justify-between gap-2">
+            <div class="min-w-0">
+              <div class="flex items-center gap-1.5">
+                <p id="admin-role-label" class="text-xs font-semibold text-ivory-50 truncate">Admin Kafe</p>
+              </div>
+              <p id="admin-user-email" class="text-[11px] text-stone-400 truncate">admin@tentangkopi.id</p>
+            </div>
+            <button
+              type="button"
+              id="logout-btn"
+              title="Keluar"
+              aria-label="Keluar dari Dashboard"
+              class="w-9 h-9 rounded-xl border border-white/15 hover:border-red-400 hover:bg-red-500/10 text-stone-300 hover:text-red-300 flex items-center justify-center shrink-0"
+            >
+              ↪
+            </button>
+          </div>
+        </div>
+      </aside>
+
+      <!-- KONTEN UTAMA -->
+      <div class="flex-1 flex flex-col min-w-0">
+        <!-- Header Bar -->
+        <header class="sticky top-0 z-20 h-16 sm:h-20 bg-ivory-50/95 backdrop-blur-md border-b border-ivory-200 px-4 sm:px-8 flex items-center justify-between gap-4">
+          <div class="flex items-center gap-3 min-w-0">
+            <button type="button" id="open-sidebar-btn" class="lg:hidden w-10 h-10 rounded-xl border border-ivory-300 bg-white flex items-center justify-center">☰</button>
+            <div class="min-w-0">
+              <h1 id="header-page-title" class="font-serif text-lg sm:text-2xl font-semibold text-stone-900 truncate">Dashboard</h1>
+              <p id="header-page-subtitle" class="text-xs text-stone-500 hidden sm:block truncate">
+                Mengelola katalog aktif untuk <strong id="header-cafe-label" class="text-stone-800">TENTANG KOPI</strong>
+              </p>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+            <div class="hidden md:inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-medium">
+              <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+              <span>Website Online</span>
+            </div>
+
+            <a
+              id="header-view-public-btn"
+              href="index.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="h-9 sm:h-10 px-3 sm:px-4 rounded-xl border border-ivory-300 bg-white hover:border-stone-900 text-xs font-semibold text-stone-800 inline-flex items-center gap-1.5 transition-colors"
+            >
+              <span>Lihat Website Publik</span>
+              <span>↗</span>
+            </a>
+
+            <button
+              type="button"
+              id="btn-add-menu-top"
+              class="h-9 sm:h-10 px-3.5 sm:px-4 rounded-xl bg-espresso-700 hover:bg-espresso-800 text-ivory-50 text-xs font-semibold inline-flex items-center gap-1.5 transition-colors"
+            >
+              <span>+ Tambah Menu</span>
+            </button>
+          </div>
+        </header>
+
+        <!-- ====================================================================
+             TAB PANEL 1: DASHBOARD & KELOLA MENU
+             ==================================================================== -->
+        <main id="tab-panel-menu" class="flex-1 p-4 sm:p-6 lg:p-8 max-w-[1440px] w-full mx-auto space-y-6">
+          
+          <!-- Banner Operasional -->
+          <section class="relative rounded-2xl overflow-hidden bg-espresso-900 text-ivory-50 border border-espresso-800 shadow-md">
+            <div class="absolute inset-0 pointer-events-none">
+              <img id="banner-bg-img" src="craft-espresso-calibration.jpg" alt="" onerror="this.style.display='none'" class="w-full h-full object-cover warm-editorial-photo opacity-35" />
+              <div class="absolute inset-0 bg-gradient-to-r from-espresso-950 via-espresso-950/85 to-espresso-950/40"></div>
+            </div>
+
+            <div class="relative z-10 p-5 sm:p-7 flex flex-col md:flex-row md:items-center justify-between gap-6">
+              <div class="max-w-xl">
+                <span class="text-[10px] font-semibold uppercase tracking-[0.18em] text-amber-brand block">PANEL MANAJEMEN MENU ONLINE</span>
+                <h2 class="font-serif text-xl sm:text-3xl font-semibold text-ivory-50 mt-1">Kelola Menu, Tarik Lebih Banyak Pelanggan</h2>
+                <p class="text-xs sm:text-sm text-stone-300 mt-1.5 leading-relaxed">
+                  Perbarui menu, upload foto sajian, atur harga promo diskon, dan pantau ketersediaan menu dari satu tempat.
+                </p>
+              </div>
+
+              <div class="bg-espresso-950/85 backdrop-blur-md border border-white/15 rounded-xl p-4 sm:p-5 min-w-[220px] flex flex-col justify-between gap-3">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs text-stone-300 font-medium">Menu Aktif</span>
+                  <span class="text-amber-brand font-bold">☕</span>
+                </div>
+                <div>
+                  <div id="banner-active-count" class="font-serif text-2xl sm:text-3xl font-semibold text-ivory-50 tabular-nums">0</div>
+                  <p id="banner-total-subtitle" class="text-[11px] text-stone-400 mt-0.5 tabular-nums">dari 0 total menu</p>
+                </div>
+                <button type="button" id="btn-banner-add-menu" class="w-full h-9 rounded-lg bg-amber-brand hover:bg-amber-hover text-espresso-950 font-semibold text-xs">
+                  + Tambah Menu Baru
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- 4 Kartu Metrik Menu -->
+          <section class="grid grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-5">
+            <div class="bg-ivory-50 rounded-2xl p-4 sm:p-5 border border-ivory-200">
+              <span class="text-xs font-medium text-stone-500">Total Item Menu</span>
+              <p id="stat-total-menu" class="font-serif text-2xl sm:text-3xl font-semibold text-stone-900 mt-2 tabular-nums">0</p>
+              <p id="stat-category-count" class="text-[11px] text-stone-500 mt-1">0 kategori kurasi</p>
+            </div>
+            <div class="bg-ivory-50 rounded-2xl p-4 sm:p-5 border border-ivory-200">
+              <span class="text-xs font-medium text-stone-500">Menu Tersedia</span>
+              <p id="stat-available-menu" class="font-serif text-2xl sm:text-3xl font-semibold text-emerald-700 mt-2 tabular-nums">0</p>
+              <p class="text-[11px] text-stone-500 mt-1">Tampil aktif di publik</p>
+            </div>
+            <div class="bg-ivory-50 rounded-2xl p-4 sm:p-5 border border-ivory-200">
+              <span class="text-xs font-medium text-stone-500">Status Habis (Sold Out)</span>
+              <p id="stat-soldout-menu" class="font-serif text-2xl sm:text-3xl font-semibold text-red-600 mt-2 tabular-nums">0</p>
+              <p class="text-[11px] text-stone-500 mt-1">Ditandai habis sementara</p>
+            </div>
+            <div class="bg-ivory-50 rounded-2xl p-4 sm:p-5 border border-ivory-200">
+              <span class="text-xs font-medium text-stone-500">Promo Harga Coret</span>
+              <p id="stat-promo-menu" class="font-serif text-2xl sm:text-3xl font-semibold text-amber-hover mt-2 tabular-nums">0</p>
+              <p class="text-[11px] text-stone-500 mt-1">Sedang diskon aktif</p>
+            </div>
+          </section>
+
+          <!-- Tabel Menu (Lebar Penuh) & Kartu Ringkasan Sistem -->
+          <div class="grid grid-cols-1 xl:grid-cols-12 gap-6 items-start">
+            
+            <!-- Tabel Menu (12 Cols Full Width agar tidak ada kolom yang kepotong) -->
+            <section class="xl:col-span-12 bg-ivory-50 rounded-2xl border border-ivory-200 overflow-hidden">
+              <div class="p-4 sm:p-6 border-b border-ivory-200 space-y-4">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <div>
+                    <h2 class="font-serif text-lg sm:text-xl font-semibold text-stone-900">Menu Terbaru</h2>
+                    <p class="text-xs text-stone-500 mt-0.5">Kelola menu, kategori, foto, harga promo, dan status ketersediaan dengan cepat.</p>
+                  </div>
+                  <input
+                    type="search"
+                    id="menu-search-input"
+                    placeholder="🔍 Cari menu..."
+                    class="w-full sm:w-64 h-9 px-3.5 rounded-xl bg-white border border-ivory-300 text-xs text-stone-900"
+                  />
+                </div>
+
+                <div class="flex flex-wrap items-center justify-between gap-2">
+                  <div id="category-filter-pills" class="flex flex-wrap items-center gap-1.5">
+                    <button type="button" data-cat-filter="ALL" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-espresso-700 text-ivory-50">Semua</button>
+                  </div>
+                  <span id="table-count-label" class="text-[11px] text-stone-500 tabular-nums">0 menu</span>
+                </div>
+              </div>
+
+              <div id="table-state-container" class="hidden p-10 text-center"></div>
+
+              <div id="table-wrapper" class="w-full">
+                <table class="w-full text-left border-collapse">
+                  <thead class="hidden md:table-header-group">
+                    <tr class="border-b border-ivory-200 text-[11px] font-semibold uppercase tracking-wider text-stone-500 bg-ivory-100/60">
+                      <th class="py-3.5 pl-6 pr-3 w-[44%]">Nama &amp; Deskripsi Menu</th>
+                      <th class="py-3.5 px-3">Kategori</th>
+                      <th class="py-3.5 px-3">Harga</th>
+                      <th class="py-3.5 px-3">Status</th>
+                      <th class="py-3.5 px-3">Promo</th>
+                      <th class="py-3.5 pl-3 pr-6 text-right">Aksi</th>
+                    </tr>
+                  </thead>
+                  <tbody id="menu-table-body" class="divide-y divide-ivory-200 text-xs sm:text-sm"></tbody>
+                </table>
+              </div>
+            </section>
+
+            <!-- Ringkasan Sistem (12 Cols di Bawah Tabel) -->
+            <aside class="xl:col-span-12 space-y-5">
+              <div class="bg-ivory-50 rounded-2xl border border-ivory-200 overflow-hidden grid grid-cols-1 md:grid-cols-12">
+                <div class="md:col-span-5 relative min-h-[180px] bg-espresso-900 overflow-hidden">
+                  <img id="card-cafe-ambience" src="ambience-indoor-ac.jpg" alt="Suasana Kafe" onerror="handleImgFallback(this, 'Kafe')" class="w-full h-full object-cover warm-editorial-photo" />
+                  <div class="absolute inset-0 bg-gradient-to-t from-espresso-950/90 via-espresso-950/30 to-transparent"></div>
+                  <div class="absolute bottom-4 left-5 right-5 text-ivory-50">
+                    <h3 id="card-cafe-name" class="font-serif text-xl font-semibold leading-tight">Tentang Kopi</h3>
+                    <p id="card-cafe-branch" class="text-xs text-stone-300 mt-0.5">Sukmajaya, Depok</p>
+                  </div>
+                </div>
+
+                <div class="md:col-span-7 p-5 sm:p-6 flex flex-col justify-between space-y-4">
+                  <div>
+                    <div class="flex items-center justify-between mb-3">
+                      <h4 class="text-xs font-bold uppercase tracking-wider text-stone-700">Ringkasan Sistem</h4>
+                      <button type="button" id="btn-manual-refresh" class="text-xs font-semibold text-amber-brand hover:underline">↻ Refresh</button>
+                    </div>
+
+                    <dl class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 divide-y sm:divide-y-0 divide-ivory-200 text-xs">
+                      <div class="py-2 flex items-center justify-between border-b border-ivory-200">
+                        <dt class="text-stone-600">🗄️ Database</dt>
+                        <dd id="sys-db-status" class="font-semibold text-emerald-700">● Connected</dd>
+                      </div>
+                      <div class="py-2 flex items-center justify-between border-b border-ivory-200">
+                        <dt class="text-stone-600">⚡ Realtime</dt>
+                        <dd id="sys-realtime-status" class="font-semibold text-emerald-700">● Active</dd>
+                      </div>
+                      <div class="py-2 flex items-center justify-between border-b border-ivory-200 sm:border-b-0">
+                        <dt class="text-stone-600">🏷️ Kode Kafe (Slug)</dt>
+                        <dd id="sys-cafe-slug" class="font-mono font-semibold text-stone-800">tentang-kopi</dd>
+                      </div>
+                      <div class="py-2 flex items-center justify-between">
+                        <dt class="text-stone-600">🕒 Last Updated</dt>
+                        <dd id="sys-last-updated" class="font-medium text-stone-800 tabular-nums">Baru saja</dd>
+                      </div>
+                    </dl>
+                  </div>
+
+                  <div class="pt-2 grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                    <button
+                      type="button"
+                      id="btn-open-settings-quick"
+                      class="w-full h-10 rounded-xl border border-ivory-300 bg-white hover:border-stone-900 text-stone-800 font-semibold text-xs flex items-center justify-center gap-2 transition-colors"
+                    >
+                      <span>⚙️ Edit Profil, WA &amp; Foto Kafe</span>
+                    </button>
+
+                    <button
+                      type="button"
+                      id="btn-reset-default"
+                      class="w-full h-10 rounded-xl bg-ivory-200/80 hover:bg-ivory-300 text-stone-800 font-semibold text-xs flex items-center justify-center gap-2 transition-colors"
+                    >
+                      <span>↻ Reset Data Default (16 Menu)</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </aside>
+
+          </div>
+        </main>
+
+        <!-- ====================================================================
+             TAB PANEL 2: PENGATURAN PROFIL, KONTAK & SUPER ADMIN WEBSITE BUILDER
+             ==================================================================== -->
+        <main id="tab-panel-settings" class="hidden flex-1 p-4 sm:p-6 lg:p-8 max-w-5xl w-full mx-auto space-y-6">
+          <div class="bg-ivory-50 rounded-2xl border border-ivory-200 p-5 sm:p-8 shadow-2xs">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-5 border-b border-ivory-200">
+              <div>
+                <span class="text-[10px] font-bold uppercase tracking-widest text-amber-brand block">IDENTITAS &amp; KONTAK WEBSITE</span>
+                <h2 class="font-serif text-xl sm:text-2xl font-semibold text-stone-900 mt-0.5">Pengaturan Profil Kafe</h2>
+                <p class="text-xs text-stone-500 mt-0.5">
+                  Ubah nama kafe, nomor WhatsApp, link GoFood, alamat, jam operasional, hingga foto utama tanpa menyentuh kode HTML.
+                </p>
+              </div>
+              <button
+                type="button"
+                id="btn-back-to-menu"
+                class="h-9 px-3.5 rounded-xl border border-ivory-300 bg-white hover:bg-ivory-100 text-xs font-semibold text-stone-700 self-start sm:self-auto"
+              >
+                ← Kembali ke Daftar Menu
+              </button>
+            </div>
+
+            <form id="cafe-settings-form" class="mt-6 space-y-8">
+              <!-- ============================================================
+                   BAGIAN 1 — 4: PENGATURAN UMUM (TAMPIL UNTUK OWNER & SUPER ADMIN)
+                   ============================================================ -->
+              <!-- Bagian 1: Identitas & Teks Hero -->
+              <div>
+                <h3 class="text-xs font-bold uppercase tracking-wider text-stone-500 mb-3">1. Nama Kafe &amp; Headline Hero</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-xs font-semibold text-stone-700 mb-1">Nama Kafe (Brand Utama)</label>
+                    <input type="text" id="set-name" required class="w-full h-10 px-3.5 rounded-xl bg-white border border-ivory-300 text-sm" placeholder="TENTANG KOPI" />
+                  </div>
+                  <div>
+                    <label class="block text-xs font-semibold text-stone-700 mb-1">Lokasi Singkat / Cabang</label>
+                    <input type="text" id="set-branch" required class="w-full h-10 px-3.5 rounded-xl bg-white border border-ivory-300 text-sm" placeholder="Sukmajaya, Depok" />
+                  </div>
+                  <div>
+                    <label class="block text-xs font-semibold text-stone-700 mb-1">Headline Hero Baris 1</label>
+                    <input type="text" id="set-hero-1" class="w-full h-10 px-3.5 rounded-xl bg-white border border-ivory-300 text-sm" placeholder="Secangkir Kopi," />
+                  </div>
+                  <div>
+                    <label class="block text-xs font-semibold text-stone-700 mb-1">Headline Hero Baris 2 (Italic Aksen)</label>
+                    <input type="text" id="set-hero-2" class="w-full h-10 px-3.5 rounded-xl bg-white border border-ivory-300 text-sm" placeholder="Sejuta Cerita." />
+                  </div>
+                  <div class="sm:col-span-2">
+                    <label class="block text-xs font-semibold text-stone-700 mb-1">Deskripsi Singkat Hero</label>
+                    <textarea id="set-hero-desc" rows="2" class="w-full p-3 rounded-xl bg-white border border-ivory-300 text-xs sm:text-sm"></textarea>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Bagian 2: Kontak, Pemesanan & Sosial Media -->
+              <div class="pt-6 border-t border-ivory-200">
+                <h3 class="text-xs font-bold uppercase tracking-wider text-stone-500 mb-3">2. Kontak Pemesanan &amp; Sosial Media</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-xs font-semibold text-stone-700 mb-1">Nomor WhatsApp (Awali 62, tanpa +)</label>
+                    <input type="text" id="set-wa" class="w-full h-10 px-3.5 rounded-xl bg-white border border-ivory-300 text-sm tabular-nums" placeholder="6285691895114" />
+                  </div>
+                  <div>
+                    <label class="block text-xs font-semibold text-stone-700 mb-1">Link Order Online (GoFood / GrabFood / ShopeeFood / WA)</label>
+                    <input type="url" id="set-gofood" class="w-full h-10 px-3.5 rounded-xl bg-white border border-ivory-300 text-xs" placeholder="https://gofood.co.id/..." />
+                  </div>
+                  <div>
+                    <label class="block text-xs font-semibold text-stone-700 mb-1">Link Instagram</label>
+                    <input type="url" id="set-ig" class="w-full h-10 px-3.5 rounded-xl bg-white border border-ivory-300 text-xs" placeholder="https://www.instagram.com/..." />
+                  </div>
+                  <div>
+                    <label class="block text-xs font-semibold text-stone-700 mb-1">Link TikTok</label>
+                    <input type="url" id="set-tiktok" class="w-full h-10 px-3.5 rounded-xl bg-white border border-ivory-300 text-xs" placeholder="https://www.tiktok.com/@..." />
+                  </div>
+                </div>
+              </div>
+
+              <!-- Bagian 3: Alamat, Jam Operasional Fleksibel & Peta -->
+              <div class="pt-6 border-t border-ivory-200">
+                <h3 class="text-xs font-bold uppercase tracking-wider text-stone-500 mb-3">3. Alamat, Jam Operasional Fleksibel &amp; Google Maps</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-xs font-semibold text-stone-700 mb-1">Alamat Baris 1 (Jalan &amp; Patokan)</label>
+                    <input type="text" id="set-addr-1" class="w-full h-10 px-3.5 rounded-xl bg-white border border-ivory-300 text-xs sm:text-sm" />
+                  </div>
+                  <div>
+                    <label class="block text-xs font-semibold text-stone-700 mb-1">Alamat Baris 2 (Kelurahan, Kecamatan, Kota)</label>
+                    <input type="text" id="set-addr-2" class="w-full h-10 px-3.5 rounded-xl bg-white border border-ivory-300 text-xs sm:text-sm" />
+                  </div>
+
+                  <!-- Baris Jam 1 (Label Hari + Jam) -->
+                  <div class="p-3.5 rounded-xl bg-ivory-100/70 border border-ivory-200 space-y-2.5">
+                    <span class="text-[11px] font-bold uppercase tracking-wider text-amber-brand block">Jadwal Operasional Baris 1</span>
+                    <div>
+                      <label class="block text-[11px] font-semibold text-stone-700 mb-1">Nama Hari Baris 1 (Bebas ganti: Setiap Hari / Senin – Jumat)</label>
+                      <input type="text" id="set-hours-label-1" class="w-full h-9 px-3 rounded-lg bg-white border border-ivory-300 text-xs" placeholder="Senin – Kamis (atau Setiap Hari)" />
+                    </div>
+                    <div>
+                      <label class="block text-[11px] font-semibold text-stone-700 mb-1">Jam Buka Baris 1</label>
+                      <input type="text" id="set-hours-weekday" class="w-full h-9 px-3 rounded-lg bg-white border border-ivory-300 text-xs tabular-nums" placeholder="11.00 – 22.00 WIB" />
+                    </div>
+                  </div>
+
+                  <!-- Baris Jam 2 (Label Hari + Jam, boleh dikosongkan jika buka setiap hari dengan jam sama) -->
+                  <div class="p-3.5 rounded-xl bg-ivory-100/70 border border-ivory-200 space-y-2.5">
+                    <span class="text-[11px] font-bold uppercase tracking-wider text-amber-brand block">Jadwal Operasional Baris 2 (Opsional)</span>
+                    <div>
+                      <label class="block text-[11px] font-semibold text-stone-700 mb-1">Nama Hari Baris 2 (Kosongkan jika hanya 1 jadwal)</label>
+                      <input type="text" id="set-hours-label-2" class="w-full h-9 px-3 rounded-lg bg-white border border-ivory-300 text-xs" placeholder="Jumat – Minggu (atau Libur Nasional)" />
+                    </div>
+                    <div>
+                      <label class="block text-[11px] font-semibold text-stone-700 mb-1">Jam Buka Baris 2 (Kosongkan jika sama)</label>
+                      <input type="text" id="set-hours-weekend" class="w-full h-9 px-3 rounded-lg bg-white border border-ivory-300 text-xs tabular-nums" placeholder="11.00 – 23.00 WIB" />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label class="block text-xs font-semibold text-stone-700 mb-1">Label Status Jadwal (Di samping judul Jam Operasional)</label>
+                    <input type="text" id="set-hours-badge" class="w-full h-10 px-3.5 rounded-xl bg-white border border-ivory-300 text-xs" placeholder="Buka Setiap Hari" />
+                  </div>
+                  <div>
+                    <label class="block text-xs font-semibold text-stone-700 mb-1">Teks Badge Jam di Atas Hero (Kosongkan = Otomatis)</label>
+                    <input type="text" id="set-hero-status-custom" class="w-full h-10 px-3.5 rounded-xl bg-white border border-ivory-300 text-xs" placeholder="Contoh: Buka Setiap Hari · 08.00 – 22.00 WIB" />
+                  </div>
+
+                  <div>
+                    <label class="block text-xs font-semibold text-stone-700 mb-1">Link Klik Google Maps</label>
+                    <input type="url" id="set-maps-link" class="w-full h-10 px-3.5 rounded-xl bg-white border border-ivory-300 text-xs" />
+                  </div>
+                  <div>
+                    <label class="block text-xs font-semibold text-stone-700 mb-1">URL Embed Iframe Google Maps</label>
+                    <input type="url" id="set-maps-embed" class="w-full h-10 px-3.5 rounded-xl bg-white border border-ivory-300 text-xs" />
+                  </div>
+                </div>
+              </div>
+
+              <!-- Bagian 4: Upload Foto Logo, Hero & Suasana Kafe -->
+              <div class="pt-6 border-t border-ivory-200">
+                <h3 class="text-xs font-bold uppercase tracking-wider text-stone-500 mb-3">
+                  4. Foto Brand &amp; Suasana Kedai (Bisa Upload Langsung dari HP/Laptop)
+                </h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <!-- Logo -->
+                  <div class="p-3.5 rounded-xl bg-ivory-100 border border-ivory-200 space-y-2">
+                    <label class="block text-xs font-semibold text-stone-800">Logo Kafe</label>
+                    <input type="text" id="set-logo-url" class="w-full h-8 px-2.5 rounded-lg bg-white border border-ivory-300 text-xs" />
+                    <label class="inline-flex items-center justify-center w-full h-8 rounded-lg bg-espresso-800 hover:bg-espresso-900 text-ivory-50 text-[11px] font-semibold cursor-pointer">
+                      <span>📤 Upload Logo Baru</span>
+                      <input type="file" accept="image/*" data-upload-target="set-logo-url" class="hidden" />
+                    </label>
+                  </div>
+
+                  <!-- Hero Image -->
+                  <div class="p-3.5 rounded-xl bg-ivory-100 border border-ivory-200 space-y-2">
+                    <label class="block text-xs font-semibold text-stone-800">Foto Utama (Hero)</label>
+                    <input type="text" id="set-hero-img" class="w-full h-8 px-2.5 rounded-lg bg-white border border-ivory-300 text-xs" />
+                    <label class="inline-flex items-center justify-center w-full h-8 rounded-lg bg-espresso-800 hover:bg-espresso-900 text-ivory-50 text-[11px] font-semibold cursor-pointer">
+                      <span>📤 Upload Foto Hero</span>
+                      <input type="file" accept="image/*" data-upload-target="set-hero-img" class="hidden" />
+                    </label>
+                  </div>
+
+                  <!-- Indoor AC -->
+                  <div class="p-3.5 rounded-xl bg-ivory-100 border border-ivory-200 space-y-2">
+                    <label class="block text-xs font-semibold text-stone-800">Foto Suasana 1 (Utama/Besar)</label>
+                    <input type="text" id="set-indoor-img" class="w-full h-8 px-2.5 rounded-lg bg-white border border-ivory-300 text-xs" />
+                    <label class="inline-flex items-center justify-center w-full h-8 rounded-lg bg-espresso-800 hover:bg-espresso-900 text-ivory-50 text-[11px] font-semibold cursor-pointer">
+                      <span>📤 Upload Foto Ruang 1</span>
+                      <input type="file" accept="image/*" data-upload-target="set-indoor-img" class="hidden" />
+                    </label>
+                  </div>
+
+                  <!-- Outdoor -->
+                  <div class="p-3.5 rounded-xl bg-ivory-100 border border-ivory-200 space-y-2">
+                    <label class="block text-xs font-semibold text-stone-800">Foto Suasana 2 (Kanan Atas)</label>
+                    <input type="text" id="set-outdoor-img" class="w-full h-8 px-2.5 rounded-lg bg-white border border-ivory-300 text-xs" />
+                    <label class="inline-flex items-center justify-center w-full h-8 rounded-lg bg-espresso-800 hover:bg-espresso-900 text-ivory-50 text-[11px] font-semibold cursor-pointer">
+                      <span>📤 Upload Foto Ruang 2</span>
+                      <input type="file" accept="image/*" data-upload-target="set-outdoor-img" class="hidden" />
+                    </label>
+                  </div>
+
+                  <!-- Coffee Bar -->
+                  <div class="p-3.5 rounded-xl bg-ivory-100 border border-ivory-200 space-y-2">
+                    <label class="block text-xs font-semibold text-stone-800">Foto Suasana 3 (Kanan Bawah)</label>
+                    <input type="text" id="set-bar-img" class="w-full h-8 px-2.5 rounded-lg bg-white border border-ivory-300 text-xs" />
+                    <label class="inline-flex items-center justify-center w-full h-8 rounded-lg bg-espresso-800 hover:bg-espresso-900 text-ivory-50 text-[11px] font-semibold cursor-pointer">
+                      <span>📤 Upload Foto Ruang 3</span>
+                      <input type="file" accept="image/*" data-upload-target="set-bar-img" class="hidden" />
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <!-- ============================================================
+                   PANEL EKSKLUSIF SUPER ADMIN: FULL WEBSITE BUILDER & CMS
+                   (DISEMBUNYIKAN 100% DARI AKUN OWNER KAFE)
+                   ============================================================ -->
+              <div id="super-admin-cms-panel" class="hidden pt-8 border-t-2 border-amber-brand/50 space-y-8">
+                
+                <div class="p-4 sm:p-5 rounded-2xl bg-espresso-950 text-ivory-50 border border-amber-brand/40 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <div>
+                    <span class="px-2 py-0.5 rounded bg-amber-brand text-espresso-950 font-bold text-[10px] uppercase tracking-wider">
+                      ⚡ EKSKLUSIF SUPER ADMIN (AGENCY BUILDER)
+                    </span>
+                    <h3 class="font-serif text-lg sm:text-xl font-semibold mt-1.5">Full Customizer: Warna Brand, Copywriting, Ulasan, Galeri &amp; Kontrol CTA</h3>
+                    <p class="text-xs text-stone-300 mt-0.5">
+                      Seluruh pengaturan di bawah ini hanya bisa dilihat oleh Anda (Super Admin) untuk mempersonalisasi website tiap klien kafe secara menyeluruh.
+                    </p>
+                  </div>
+                </div>
+
+                <!-- BAGIAN 5: IDENTITAS VISUAL & WARNA BRAND -->
+                <div class="p-5 rounded-2xl bg-ivory-100/80 border border-ivory-300 space-y-4">
+                  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                    <div>
+                      <h4 class="text-xs font-bold uppercase tracking-wider text-espresso-900">5. Identitas Visual &amp; Warna Brand (Theme Switcher)</h4>
+                      <p class="text-[11px] text-stone-600">Pilih preset tema instan atau sesuaikan warna HEX sesuai warna logo kafe target.</p>
+                    </div>
+                    <select id="cms-theme-preset" class="h-9 px-3 rounded-xl bg-white border border-ivory-300 text-xs font-semibold text-stone-900">
+                      <option value="espresso">☕ Default: Warm Espresso &amp; Gold</option>
+                      <option value="matcha">🍵 Artisan Matcha &amp; Sage Green</option>
+                      <option value="kopitiam">🏮 Heritage Kopitiam (Maroon &amp; Jade)</option>
+                      <option value="terracotta">🥐 Terracotta Bakery &amp; Roastery</option>
+                      <option value="charcoal">🥩 Modern Charcoal &amp; Crimson Bistro</option>
+                      <option value="ocean">🌊 Nordic Minimalist Navy &amp; Sky</option>
+                      <option value="custom">🎨 Custom Warna Bebas (Pilih di Bawah)</option>
+                    </select>
+                  </div>
+
+                  <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 pt-2">
+                    <div class="p-2.5 rounded-xl bg-white border border-ivory-200">
+                      <label class="block text-[10px] font-bold uppercase text-stone-500 mb-1">Gelap Utama</label>
+                      <div class="flex items-center gap-2">
+                        <input type="color" id="cms-color-dark" value="#110E0C" class="w-7 h-7 rounded cursor-pointer border-0 p-0" />
+                        <input type="text" id="cms-color-dark-hex" value="#110E0C" class="w-full text-xs font-mono uppercase bg-transparent focus:outline-none" />
+                      </div>
+                    </div>
+                    <div class="p-2.5 rounded-xl bg-white border border-ivory-200">
+                      <label class="block text-[10px] font-bold uppercase text-stone-500 mb-1">Gelap Kedua</label>
+                      <div class="flex items-center gap-2">
+                        <input type="color" id="cms-color-dark-sec" value="#181310" class="w-7 h-7 rounded cursor-pointer border-0 p-0" />
+                        <input type="text" id="cms-color-dark-sec-hex" value="#181310" class="w-full text-xs font-mono uppercase bg-transparent focus:outline-none" />
+                      </div>
+                    </div>
+                    <div class="p-2.5 rounded-xl bg-white border border-ivory-200">
+                      <label class="block text-[10px] font-bold uppercase text-stone-500 mb-1">Aksen / Tombol</label>
+                      <div class="flex items-center gap-2">
+                        <input type="color" id="cms-color-accent" value="#C88A2B" class="w-7 h-7 rounded cursor-pointer border-0 p-0" />
+                        <input type="text" id="cms-color-accent-hex" value="#C88A2B" class="w-full text-xs font-mono uppercase bg-transparent focus:outline-none" />
+                      </div>
+                    </div>
+                    <div class="p-2.5 rounded-xl bg-white border border-ivory-200">
+                      <label class="block text-[10px] font-bold uppercase text-stone-500 mb-1">Aksen Hover</label>
+                      <div class="flex items-center gap-2">
+                        <input type="color" id="cms-color-accent-hover" value="#B5791E" class="w-7 h-7 rounded cursor-pointer border-0 p-0" />
+                        <input type="text" id="cms-color-accent-hover-hex" value="#B5791E" class="w-full text-xs font-mono uppercase bg-transparent focus:outline-none" />
+                      </div>
+                    </div>
+                    <div class="p-2.5 rounded-xl bg-white border border-ivory-200">
+                      <label class="block text-[10px] font-bold uppercase text-stone-500 mb-1">Latar Terang 1</label>
+                      <div class="flex items-center gap-2">
+                        <input type="color" id="cms-color-light" value="#FAF7F2" class="w-7 h-7 rounded cursor-pointer border-0 p-0" />
+                        <input type="text" id="cms-color-light-hex" value="#FAF7F2" class="w-full text-xs font-mono uppercase bg-transparent focus:outline-none" />
+                      </div>
+                    </div>
+                    <div class="p-2.5 rounded-xl bg-white border border-ivory-200">
+                      <label class="block text-[10px] font-bold uppercase text-stone-500 mb-1">Latar Terang 2</label>
+                      <div class="flex items-center gap-2">
+                        <input type="color" id="cms-color-light-sec" value="#F2ECE1" class="w-7 h-7 rounded cursor-pointer border-0 p-0" />
+                        <input type="text" id="cms-color-light-sec-hex" value="#F2ECE1" class="w-full text-xs font-mono uppercase bg-transparent focus:outline-none" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- BAGIAN 6: CAPTION HERO, 3 USP KEUNGGULAN & HEADER MENU -->
+                <div class="p-5 rounded-2xl bg-ivory-100/80 border border-ivory-300 space-y-5">
+                  <div>
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-espresso-900">6. Caption Kartu Hero, 3 Pilar USP (Keunggulan) &amp; Header Menu</h4>
+                    <p class="text-[11px] text-stone-600">Sesuaikan nilai jual utama (USP) kafe target (misal: Kopi Klasik, Dimsum Hangat, WFC Friendly, Halal, dll.).</p>
+                  </div>
+
+                  <!-- Caption Kartu Foto Hero Desktop & Sub-caption -->
+                  <div class="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+                    <div>
+                      <label class="block text-[11px] font-semibold text-stone-700 mb-1">Kicker Foto Hero</label>
+                      <input type="text" id="cms-hero-card-kicker" class="w-full h-9 px-3 rounded-lg bg-white border border-ivory-300 text-xs" placeholder="Signature Cup" />
+                    </div>
+                    <div>
+                      <label class="block text-[11px] font-semibold text-stone-700 mb-1">Judul Foto Hero</label>
+                      <input type="text" id="cms-hero-card-title" class="w-full h-9 px-3 rounded-lg bg-white border border-ivory-300 text-xs" placeholder="Espresso & Creamy Milk" />
+                    </div>
+                    <div>
+                      <label class="block text-[11px] font-semibold text-stone-700 mb-1">Label Kanan Foto Hero</label>
+                      <input type="text" id="cms-hero-card-badge" class="w-full h-9 px-3 rounded-lg bg-white border border-ivory-300 text-xs" placeholder="SUKMAJAYA" />
+                    </div>
+                    <div>
+                      <label class="block text-[11px] font-semibold text-stone-700 mb-1">Teks Bawah Kiri Hero</label>
+                      <input type="text" id="cms-hero-sub-left" class="w-full h-9 px-3 rounded-lg bg-white border border-ivory-300 text-xs" placeholder="ARABIKA NUSANTARA" />
+                    </div>
+                    <div>
+                      <label class="block text-[11px] font-semibold text-stone-700 mb-1">Teks Bawah Kanan Hero</label>
+                      <input type="text" id="cms-hero-sub-right" class="w-full h-9 px-3 rounded-lg bg-white border border-ivory-300 text-xs" placeholder="RUANG SINGGAH" />
+                    </div>
+                  </div>
+
+                  <!-- 3 Pilar USP -->
+                  <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
+                    <div class="p-3.5 rounded-xl bg-white border border-ivory-200 space-y-2">
+                      <span class="text-[10px] font-bold uppercase tracking-wider text-amber-brand block">Pilar Keunggulan 1</span>
+                      <input type="text" id="cms-usp-1-title" class="w-full h-9 px-3 rounded-lg bg-ivory-50 border border-ivory-300 text-xs font-semibold" placeholder="100% Arabica Lokal" />
+                      <textarea id="cms-usp-1-desc" rows="2" class="w-full p-2.5 rounded-lg bg-ivory-50 border border-ivory-300 text-xs" placeholder="Deskripsi keunggulan 1..."></textarea>
+                    </div>
+                    <div class="p-3.5 rounded-xl bg-white border border-ivory-200 space-y-2">
+                      <span class="text-[10px] font-bold uppercase tracking-wider text-amber-brand block">Pilar Keunggulan 2</span>
+                      <input type="text" id="cms-usp-2-title" class="w-full h-9 px-3 rounded-lg bg-ivory-50 border border-ivory-300 text-xs font-semibold" placeholder="Nyaman untuk Bekerja" />
+                      <textarea id="cms-usp-2-desc" rows="2" class="w-full p-2.5 rounded-lg bg-ivory-50 border border-ivory-300 text-xs" placeholder="Deskripsi keunggulan 2..."></textarea>
+                    </div>
+                    <div class="p-3.5 rounded-xl bg-white border border-ivory-200 space-y-2">
+                      <span class="text-[10px] font-bold uppercase tracking-wider text-amber-brand block">Pilar Keunggulan 3</span>
+                      <input type="text" id="cms-usp-3-title" class="w-full h-9 px-3 rounded-lg bg-ivory-50 border border-ivory-300 text-xs font-semibold" placeholder="Pastry & Toast Hangat" />
+                      <textarea id="cms-usp-3-desc" rows="2" class="w-full p-2.5 rounded-lg bg-ivory-50 border border-ivory-300 text-xs" placeholder="Deskripsi keunggulan 3..."></textarea>
+                    </div>
+                  </div>
+
+                  <!-- Header Section Menu -->
+                  <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 border-t border-ivory-200">
+                    <div>
+                      <label class="block text-[11px] font-semibold text-stone-700 mb-1">Kicker Section Menu</label>
+                      <input type="text" id="cms-menu-kicker" class="w-full h-9 px-3 rounded-lg bg-white border border-ivory-300 text-xs" placeholder="KURASI SAJIAN" />
+                    </div>
+                    <div>
+                      <label class="block text-[11px] font-semibold text-stone-700 mb-1">Judul Section Menu</label>
+                      <input type="text" id="cms-menu-title" class="w-full h-9 px-3 rounded-lg bg-white border border-ivory-300 text-xs" placeholder="Menu Pilihan" />
+                    </div>
+                    <div>
+                      <label class="block text-[11px] font-semibold text-stone-700 mb-1">Subjudul Section Menu</label>
+                      <input type="text" id="cms-menu-desc" class="w-full h-9 px-3 rounded-lg bg-white border border-ivory-300 text-xs" placeholder="Diracik setiap hari dari bahan terbaik..." />
+                    </div>
+                  </div>
+                </div>
+
+                <!-- BAGIAN 7: SECTION SUASANA, DESKRIPSI 3 FOTO RUANG (LIGHTBOX) & 4 FASILITAS -->
+                <div class="p-5 rounded-2xl bg-ivory-100/80 border border-ivory-300 space-y-5">
+                  <div>
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-espresso-900">7. Section Suasana, Caption &amp; Deskripsi Lightbox 3 Foto Ruang + 4 Fasilitas</h4>
+                    <p class="text-[11px] text-stone-600">Ubah judul section suasana, judul &amp; deskripsi saat 3 foto ruang diklik (perbesar), serta 4 fasilitas di bawahnya.</p>
+                  </div>
+
+                  <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <div>
+                      <label class="block text-[11px] font-semibold text-stone-700 mb-1">Kicker Section Suasana</label>
+                      <input type="text" id="cms-amb-kicker" class="w-full h-9 px-3 rounded-lg bg-white border border-ivory-300 text-xs" placeholder="RUANG & KENYAMANAN" />
+                    </div>
+                    <div>
+                      <label class="block text-[11px] font-semibold text-stone-700 mb-1">Judul Section Suasana</label>
+                      <input type="text" id="cms-amb-title" class="w-full h-9 px-3 rounded-lg bg-white border border-ivory-300 text-xs" placeholder="Ruang yang Menginspirasi" />
+                    </div>
+                    <div>
+                      <label class="block text-[11px] font-semibold text-stone-700 mb-1">Deskripsi Section Suasana</label>
+                      <input type="text" id="cms-amb-desc" class="w-full h-9 px-3 rounded-lg bg-white border border-ivory-300 text-xs" placeholder="Dirancang dengan pencahayaan hangat..." />
+                    </div>
+                  </div>
+
+                  <!-- Detail 3 Kartu Bento Suasana + Deskripsi Lightbox -->
+                  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="p-3.5 rounded-xl bg-white border border-ivory-200 space-y-2">
+                      <span class="text-[10px] font-bold uppercase tracking-wider text-amber-brand block">Foto Ruang 1 (Utama Besar)</span>
+                      <input type="text" id="cms-space-1-kicker" class="w-full h-8 px-2.5 rounded-lg bg-ivory-50 border border-ivory-300 text-xs" placeholder="INDOOR LOUNGE" />
+                      <input type="text" id="cms-space-1-title" class="w-full h-8 px-2.5 rounded-lg bg-ivory-50 border border-ivory-300 text-xs font-semibold" placeholder="Area Indoor (Full AC)" />
+                      <input type="text" id="cms-space-1-sub" class="w-full h-8 px-2.5 rounded-lg bg-ivory-50 border border-ivory-300 text-xs" placeholder="Caption tampil di kartu depan..." />
+                      <textarea id="cms-space-1-lightbox" rows="2" class="w-full p-2 rounded-lg bg-ivory-50 border border-ivory-300 text-xs" placeholder="Deskripsi lengkap saat foto diperbesar (Lightbox)..."></textarea>
+                    </div>
+
+                    <div class="p-3.5 rounded-xl bg-white border border-ivory-200 space-y-2">
+                      <span class="text-[10px] font-bold uppercase tracking-wider text-amber-brand block">Foto Ruang 2 (Kanan Atas)</span>
+                      <input type="text" id="cms-space-2-kicker" class="w-full h-8 px-2.5 rounded-lg bg-ivory-50 border border-ivory-300 text-xs" placeholder="TERRACE AREA" />
+                      <input type="text" id="cms-space-2-title" class="w-full h-8 px-2.5 rounded-lg bg-ivory-50 border border-ivory-300 text-xs font-semibold" placeholder="Outdoor (Smoking)" />
+                      <textarea id="cms-space-2-lightbox" rows="3" class="w-full p-2 rounded-lg bg-ivory-50 border border-ivory-300 text-xs" placeholder="Deskripsi lengkap saat foto diperbesar (Lightbox)..."></textarea>
+                    </div>
+
+                    <div class="p-3.5 rounded-xl bg-white border border-ivory-200 space-y-2">
+                      <span class="text-[10px] font-bold uppercase tracking-wider text-amber-brand block">Foto Ruang 3 (Kanan Bawah)</span>
+                      <input type="text" id="cms-space-3-kicker" class="w-full h-8 px-2.5 rounded-lg bg-ivory-50 border border-ivory-300 text-xs" placeholder="SLOW BAR" />
+                      <input type="text" id="cms-space-3-title" class="w-full h-8 px-2.5 rounded-lg bg-ivory-50 border border-ivory-300 text-xs font-semibold" placeholder="Espresso & Brew Bar" />
+                      <textarea id="cms-space-3-lightbox" rows="3" class="w-full p-2 rounded-lg bg-ivory-50 border border-ivory-300 text-xs" placeholder="Deskripsi lengkap saat foto diperbesar (Lightbox)..."></textarea>
+                    </div>
+                  </div>
+
+                  <!-- 4 Poin Fasilitas -->
+                  <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 pt-2 border-t border-ivory-200">
+                    <div class="p-3 rounded-xl bg-white border border-ivory-200 space-y-1.5">
+                      <span class="text-[10px] font-bold uppercase text-stone-400 block">Fasilitas 1</span>
+                      <input type="text" id="cms-fac-1-title" class="w-full h-8 px-2.5 rounded-lg bg-ivory-50 border border-ivory-300 text-xs font-semibold" placeholder="Mushola Bersih" />
+                      <input type="text" id="cms-fac-1-desc" class="w-full h-8 px-2.5 rounded-lg bg-ivory-50 border border-ivory-300 text-[11px]" placeholder="Di dalam area kedai" />
+                    </div>
+                    <div class="p-3 rounded-xl bg-white border border-ivory-200 space-y-1.5">
+                      <span class="text-[10px] font-bold uppercase text-stone-400 block">Fasilitas 2</span>
+                      <input type="text" id="cms-fac-2-title" class="w-full h-8 px-2.5 rounded-lg bg-ivory-50 border border-ivory-300 text-xs font-semibold" placeholder="Area Parkir Memadai" />
+                      <input type="text" id="cms-fac-2-desc" class="w-full h-8 px-2.5 rounded-lg bg-ivory-50 border border-ivory-300 text-[11px]" placeholder="Akses motor & mobil" />
+                    </div>
+                    <div class="p-3 rounded-xl bg-white border border-ivory-200 space-y-1.5">
+                      <span class="text-[10px] font-bold uppercase text-stone-400 block">Fasilitas 3</span>
+                      <input type="text" id="cms-fac-3-title" class="w-full h-8 px-2.5 rounded-lg bg-ivory-50 border border-ivory-300 text-xs font-semibold" placeholder="Pet Friendly" />
+                      <input type="text" id="cms-fac-3-desc" class="w-full h-8 px-2.5 rounded-lg bg-ivory-50 border border-ivory-300 text-[11px]" placeholder="Area teras outdoor" />
+                    </div>
+                    <div class="p-3 rounded-xl bg-white border border-ivory-200 space-y-1.5">
+                      <span class="text-[10px] font-bold uppercase text-stone-400 block">Fasilitas 4</span>
+                      <input type="text" id="cms-fac-4-title" class="w-full h-8 px-2.5 rounded-lg bg-ivory-50 border border-ivory-300 text-xs font-semibold" placeholder="Toilet Terawat" />
+                      <input type="text" id="cms-fac-4-desc" class="w-full h-8 px-2.5 rounded-lg bg-ivory-50 border border-ivory-300 text-[11px]" placeholder="Bersih & nyaman" />
+                    </div>
+                  </div>
+                </div>
+
+                <!-- BAGIAN 8: ULASAN PELANGGAN & SKOR GOOGLE MAPS -->
+                <div class="p-5 rounded-2xl bg-ivory-100/80 border border-ivory-300 space-y-5">
+                  <div>
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-espresso-900">8. Ulasan Pelanggan &amp; Rating Google Maps</h4>
+                    <p class="text-[11px] text-stone-600">Masukkan rating asli Google Maps kafe target beserta 3 kutipan ulasan pelanggan terbaiknya.</p>
+                  </div>
+
+                  <div class="grid grid-cols-1 sm:grid-cols-4 gap-3">
+                    <div>
+                      <label class="block text-[11px] font-semibold text-stone-700 mb-1">Skor Rating (Contoh: 4.8)</label>
+                      <input type="text" id="cms-rev-score" class="w-full h-9 px-3 rounded-lg bg-white border border-ivory-300 text-xs font-bold tabular-nums" placeholder="4.5" />
+                    </div>
+                    <div>
+                      <label class="block text-[11px] font-semibold text-stone-700 mb-1">Kicker Ulasan</label>
+                      <input type="text" id="cms-rev-kicker" class="w-full h-9 px-3 rounded-lg bg-white border border-ivory-300 text-xs" placeholder="CATATAN PELANGGAN" />
+                    </div>
+                    <div>
+                      <label class="block text-[11px] font-semibold text-stone-700 mb-1">Judul Section Ulasan</label>
+                      <input type="text" id="cms-rev-title" class="w-full h-9 px-3 rounded-lg bg-white border border-ivory-300 text-xs" placeholder="Apa Kata Mereka" />
+                    </div>
+                    <div>
+                      <label class="block text-[11px] font-semibold text-stone-700 mb-1">Deskripsi Singkat Ulasan</label>
+                      <input type="text" id="cms-rev-desc" class="w-full h-9 px-3 rounded-lg bg-white border border-ivory-300 text-xs" placeholder="Kesan hangat dari teman-teman..." />
+                    </div>
+                  </div>
+
+                  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="p-3.5 rounded-xl bg-white border border-ivory-200 space-y-2">
+                      <span class="text-[10px] font-bold uppercase tracking-wider text-amber-brand block">Testimoni Pelanggan 1</span>
+                      <textarea id="cms-rev-1-quote" rows="3" class="w-full p-2.5 rounded-lg bg-ivory-50 border border-ivory-300 text-xs" placeholder="Isi testimoni pelanggan 1..."></textarea>
+                      <input type="text" id="cms-rev-1-author" class="w-full h-8 px-2.5 rounded-lg bg-ivory-50 border border-ivory-300 text-xs font-semibold" placeholder="Nama (Contoh: Rizky A.)" />
+                      <input type="text" id="cms-rev-1-role" class="w-full h-8 px-2.5 rounded-lg bg-ivory-50 border border-ivory-300 text-[11px]" placeholder="Label (Contoh: Local Guide · Depok)" />
+                    </div>
+
+                    <div class="p-3.5 rounded-xl bg-white border border-ivory-200 space-y-2">
+                      <span class="text-[10px] font-bold uppercase tracking-wider text-amber-brand block">Testimoni Pelanggan 2</span>
+                      <textarea id="cms-rev-2-quote" rows="3" class="w-full p-2.5 rounded-lg bg-ivory-50 border border-ivory-300 text-xs" placeholder="Isi testimoni pelanggan 2..."></textarea>
+                      <input type="text" id="cms-rev-2-author" class="w-full h-8 px-2.5 rounded-lg bg-ivory-50 border border-ivory-300 text-xs font-semibold" placeholder="Nama (Contoh: Dewi S.)" />
+                      <input type="text" id="cms-rev-2-role" class="w-full h-8 px-2.5 rounded-lg bg-ivory-50 border border-ivory-300 text-[11px]" placeholder="Label (Contoh: Pelanggan Setia)" />
+                    </div>
+
+                    <div class="p-3.5 rounded-xl bg-white border border-ivory-200 space-y-2">
+                      <span class="text-[10px] font-bold uppercase tracking-wider text-amber-brand block">Testimoni Pelanggan 3</span>
+                      <textarea id="cms-rev-3-quote" rows="3" class="w-full p-2.5 rounded-lg bg-ivory-50 border border-ivory-300 text-xs" placeholder="Isi testimoni pelanggan 3..."></textarea>
+                      <input type="text" id="cms-rev-3-author" class="w-full h-8 px-2.5 rounded-lg bg-ivory-50 border border-ivory-300 text-xs font-semibold" placeholder="Nama (Contoh: Andi P.)" />
+                      <input type="text" id="cms-rev-3-role" class="w-full h-8 px-2.5 rounded-lg bg-ivory-50 border border-ivory-300 text-[11px]" placeholder="Label (Contoh: Penikmat Kuliner)" />
+                    </div>
+                  </div>
+                </div>
+
+                <!-- BAGIAN 9: ALIH FUNGSI SECTION "CERITA / 4 KARTU VISUAL / POSTER PROMO" & BANNER BAWAH -->
+                <div class="p-5 rounded-2xl bg-ivory-100/80 border border-ivory-300 space-y-5">
+                  <div>
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-espresso-900">
+                      9. Section Multi-Fungsi (Cerita Seduhan / Highlight Menu / 4 Poster Promo) &amp; Banner CTA Bawah
+                    </h4>
+                    <p class="text-[11px] text-stone-600">
+                      Bisa dipakai untuk proses dapur/seduh, 4 menu andalan, atau diubah jadi <strong>Program Promo &amp; Event</strong> lengkap dengan upload foto &amp; deskripsi saat diklik!
+                    </p>
+                  </div>
+
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                      <label class="block text-[11px] font-semibold text-stone-700 mb-1">Kicker Section (Contoh: DI BALIK DAPUR / PROGRAM SPESIAL)</label>
+                      <input type="text" id="cms-momen-kicker" class="w-full h-9 px-3 rounded-lg bg-white border border-ivory-300 text-xs" placeholder="DI BALIK BAR · @TENTANGKOPIDEPOK" />
+                    </div>
+                    <div>
+                      <label class="block text-[11px] font-semibold text-stone-700 mb-1">Judul Section (Contoh: Cerita di Setiap Sajian / Promo Bulan Ini)</label>
+                      <input type="text" id="cms-momen-title" class="w-full h-9 px-3 rounded-lg bg-white border border-ivory-300 text-xs font-semibold" placeholder="Cerita di Setiap Seduhan" />
+                    </div>
+                  </div>
+
+                  <!-- 4 Kartu Foto + Upload + Judul + Deskripsi Lightbox -->
+                  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <!-- Kartu 1 -->
+                    <div class="p-3.5 rounded-xl bg-white border border-ivory-200 space-y-2">
+                      <span class="text-[10px] font-bold uppercase tracking-wider text-amber-brand block">Kartu Visual / Promo 1</span>
+                      <input type="text" id="cms-craft-1-title" class="w-full h-8 px-2.5 rounded-lg bg-ivory-50 border border-ivory-300 text-xs font-semibold" placeholder="Judul Kartu 1" />
+                      <input type="text" id="cms-craft-1-img" class="w-full h-8 px-2.5 rounded-lg bg-ivory-50 border border-ivory-300 text-xs" placeholder="craft-latte-art.jpg" />
+                      <label class="inline-flex items-center justify-center w-full h-8 rounded-lg bg-espresso-800 hover:bg-espresso-900 text-ivory-50 text-[11px] font-semibold cursor-pointer">
+                        <span>📤 Upload Foto 1</span>
+                        <input type="file" accept="image/*" data-upload-target="cms-craft-1-img" class="hidden" />
+                      </label>
+                      <textarea id="cms-craft-1-desc" rows="2" class="w-full p-2 rounded-lg bg-ivory-50 border border-ivory-300 text-[11px]" placeholder="Deskripsi saat foto diklik..."></textarea>
+                    </div>
+
+                    <!-- Kartu 2 -->
+                    <div class="p-3.5 rounded-xl bg-white border border-ivory-200 space-y-2">
+                      <span class="text-[10px] font-bold uppercase tracking-wider text-amber-brand block">Kartu Visual / Promo 2</span>
+                      <input type="text" id="cms-craft-2-title" class="w-full h-8 px-2.5 rounded-lg bg-ivory-50 border border-ivory-300 text-xs font-semibold" placeholder="Judul Kartu 2" />
+                      <input type="text" id="cms-craft-2-img" class="w-full h-8 px-2.5 rounded-lg bg-ivory-50 border border-ivory-300 text-xs" placeholder="craft-manual-brew.jpg" />
+                      <label class="inline-flex items-center justify-center w-full h-8 rounded-lg bg-espresso-800 hover:bg-espresso-900 text-ivory-50 text-[11px] font-semibold cursor-pointer">
+                        <span>📤 Upload Foto 2</span>
+                        <input type="file" accept="image/*" data-upload-target="cms-craft-2-img" class="hidden" />
+                      </label>
+                      <textarea id="cms-craft-2-desc" rows="2" class="w-full p-2 rounded-lg bg-ivory-50 border border-ivory-300 text-[11px]" placeholder="Deskripsi saat foto diklik..."></textarea>
+                    </div>
+
+                    <!-- Kartu 3 -->
+                    <div class="p-3.5 rounded-xl bg-white border border-ivory-200 space-y-2">
+                      <span class="text-[10px] font-bold uppercase tracking-wider text-amber-brand block">Kartu Visual / Promo 3</span>
+                      <input type="text" id="cms-craft-3-title" class="w-full h-8 px-2.5 rounded-lg bg-ivory-50 border border-ivory-300 text-xs font-semibold" placeholder="Judul Kartu 3" />
+                      <input type="text" id="cms-craft-3-img" class="w-full h-8 px-2.5 rounded-lg bg-ivory-50 border border-ivory-300 text-xs" placeholder="craft-espresso-calibration.jpg" />
+                      <label class="inline-flex items-center justify-center w-full h-8 rounded-lg bg-espresso-800 hover:bg-espresso-900 text-ivory-50 text-[11px] font-semibold cursor-pointer">
+                        <span>📤 Upload Foto 3</span>
+                        <input type="file" accept="image/*" data-upload-target="cms-craft-3-img" class="hidden" />
+                      </label>
+                      <textarea id="cms-craft-3-desc" rows="2" class="w-full p-2 rounded-lg bg-ivory-50 border border-ivory-300 text-[11px]" placeholder="Deskripsi saat foto diklik..."></textarea>
+                    </div>
+
+                    <!-- Kartu 4 -->
+                    <div class="p-3.5 rounded-xl bg-white border border-ivory-200 space-y-2">
+                      <span class="text-[10px] font-bold uppercase tracking-wider text-amber-brand block">Kartu Visual / Promo 4</span>
+                      <input type="text" id="cms-craft-4-title" class="w-full h-8 px-2.5 rounded-lg bg-ivory-50 border border-ivory-300 text-xs font-semibold" placeholder="Judul Kartu 4" />
+                      <input type="text" id="cms-craft-4-img" class="w-full h-8 px-2.5 rounded-lg bg-ivory-50 border border-ivory-300 text-xs" placeholder="craft-fresh-pastry.jpg" />
+                      <label class="inline-flex items-center justify-center w-full h-8 rounded-lg bg-espresso-800 hover:bg-espresso-900 text-ivory-50 text-[11px] font-semibold cursor-pointer">
+                        <span>📤 Upload Foto 4</span>
+                        <input type="file" accept="image/*" data-upload-target="cms-craft-4-img" class="hidden" />
+                      </label>
+                      <textarea id="cms-craft-4-desc" rows="2" class="w-full p-2 rounded-lg bg-ivory-50 border border-ivory-300 text-[11px]" placeholder="Deskripsi saat foto diklik..."></textarea>
+                    </div>
+                  </div>
+
+                  <!-- Banner Reservasi / Komunitas Bawah (#promo) -->
+                  <div class="pt-4 border-t border-ivory-200 grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <div>
+                      <label class="block text-[11px] font-semibold text-stone-700 mb-1">Kicker Banner Bawah</label>
+                      <input type="text" id="cms-promo-kicker" class="w-full h-9 px-3 rounded-lg bg-white border border-ivory-300 text-xs" placeholder="RESERVASI MEJA & KOMUNITAS" />
+                    </div>
+                    <div>
+                      <label class="block text-[11px] font-semibold text-stone-700 mb-1">Judul Banner Bawah</label>
+                      <input type="text" id="cms-promo-title" class="w-full h-9 px-3 rounded-lg bg-white border border-ivory-300 text-xs font-semibold" placeholder="Butuh ruang untuk rapat tim..." />
+                    </div>
+                    <div>
+                      <label class="block text-[11px] font-semibold text-stone-700 mb-1">Teks Tombol Banner Bawah</label>
+                      <input type="text" id="cms-promo-btn" class="w-full h-9 px-3 rounded-lg bg-white border border-ivory-300 text-xs" placeholder="Reservasi via WhatsApp" />
+                    </div>
+                    <div class="sm:col-span-3">
+                      <label class="block text-[11px] font-semibold text-stone-700 mb-1">Deskripsi Banner Bawah</label>
+                      <input type="text" id="cms-promo-desc" class="w-full h-9 px-3 rounded-lg bg-white border border-ivory-300 text-xs" placeholder="Hubungi kami langsung melalui WhatsApp untuk mengamankan meja..." />
+                    </div>
+                  </div>
+                </div>
+
+                <!-- BAGIAN 10: OPSIONALITAS TOMBOL ORDER/CTA, NAVIGASI, LOKASI & FOOTER -->
+                <div class="p-5 rounded-2xl bg-ivory-100/80 border border-ivory-300 space-y-5">
+                  <div>
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-espresso-900">
+                      10. Kontrol Tombol Order / CTA (Mode Katalog Murni), Navigasi, Section Lokasi &amp; Footer
+                    </h4>
+                    <p class="text-[11px] text-stone-600">
+                      Matikan saklar Tombol Order jika website klien hanya digunakan sebagai katalog menu digital. Layout kartu dan halaman otomatis merapikan diri tanpa ruang kosong.
+                    </p>
+                  </div>
+
+                  <!-- 4 Saklar Toggle Visibilitas CTA & Elemen -->
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 p-3.5 rounded-xl bg-white border border-ivory-200">
+                    <label class="flex items-start gap-3 cursor-pointer select-none p-1.5 rounded-lg hover:bg-ivory-50">
+                      <input type="checkbox" id="cms-enable-online-order" checked class="mt-0.5 w-4 h-4 accent-amber-brand rounded cursor-pointer" />
+                      <div>
+                        <span class="text-xs font-bold text-stone-900 block">Tampilkan Tombol Order Online (GoFood/Grab/dll)</span>
+                        <span class="text-[11px] text-stone-500 block">Jika dimatikan, seluruh tombol order di Navbar, Hero, Kartu Menu &amp; Footer disembunyikan dengan rapi.</span>
+                      </div>
+                    </label>
+
+                    <label class="flex items-start gap-3 cursor-pointer select-none p-1.5 rounded-lg hover:bg-ivory-50">
+                      <input type="checkbox" id="cms-enable-wa-cta" checked class="mt-0.5 w-4 h-4 accent-amber-brand rounded cursor-pointer" />
+                      <div>
+                        <span class="text-xs font-bold text-stone-900 block">Tampilkan Tombol Chat / Reservasi WhatsApp</span>
+                        <span class="text-[11px] text-stone-500 block">Mengatur ikon WA di Navbar, tombol Reservasi WA di HP, dan nomor WA di section Lokasi.</span>
+                      </div>
+                    </label>
+
+                    <label class="flex items-start gap-3 cursor-pointer select-none p-1.5 rounded-lg hover:bg-ivory-50">
+                      <input type="checkbox" id="cms-enable-pdf-bar" checked class="mt-0.5 w-4 h-4 accent-amber-brand rounded cursor-pointer" />
+                      <div>
+                        <span class="text-xs font-bold text-stone-900 block">Tampilkan Bar &amp; Tombol Katalog PDF di Bawah Menu</span>
+                        <span class="text-[11px] text-stone-500 block">Memungkinkan pengunjung mencetak atau mengunduh daftar menu lengkap.</span>
+                      </div>
+                    </label>
+
+                    <label class="flex items-start gap-3 cursor-pointer select-none p-1.5 rounded-lg hover:bg-ivory-50">
+                      <input type="checkbox" id="cms-enable-promo-banner" checked class="mt-0.5 w-4 h-4 accent-amber-brand rounded cursor-pointer" />
+                      <div>
+                        <span class="text-xs font-bold text-stone-900 block">Tampilkan Banner CTA Reservasi Bawah (#promo)</span>
+                        <span class="text-[11px] text-stone-500 block">Matikan jika klien tidak membutuhkan banner ajakan reservasi grup/komunitas.</span>
+                      </div>
+                    </label>
+                  </div>
+
+                  <!-- Label Tombol Order, Status Kartu Menu & Bar Bawah Menu -->
+                  <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <div>
+                      <label class="block text-[11px] font-semibold text-stone-700 mb-1">Teks Tombol Order di Navbar</label>
+                      <input type="text" id="cms-order-btn-nav" class="w-full h-9 px-3 rounded-lg bg-white border border-ivory-300 text-xs" placeholder="Pesan Online" />
+                    </div>
+                    <div>
+                      <label class="block text-[11px] font-semibold text-stone-700 mb-1">Teks Tombol Order Utama (Hero &amp; Menu)</label>
+                      <input type="text" id="cms-order-btn-main" class="w-full h-9 px-3 rounded-lg bg-white border border-ivory-300 text-xs font-semibold" placeholder="Pesan di GoFood" />
+                    </div>
+                    <div>
+                      <label class="block text-[11px] font-semibold text-stone-700 mb-1">Teks Tombol Lihat Menu di Hero</label>
+                      <input type="text" id="cms-hero-btn-menu" class="w-full h-9 px-3 rounded-lg bg-white border border-ivory-300 text-xs" placeholder="Lihat Menu" />
+                    </div>
+                    <div>
+                      <label class="block text-[11px] font-semibold text-stone-700 mb-1">Teks Ketersediaan Kartu Menu (Saat Order Aktif)</label>
+                      <input type="text" id="cms-spotlight-avail-order" class="w-full h-9 px-3 rounded-lg bg-white border border-ivory-300 text-xs" placeholder="Tersedia di kedai & GoFood" />
+                    </div>
+                    <div>
+                      <label class="block text-[11px] font-semibold text-stone-700 mb-1">Teks Ketersediaan Kartu Menu (Saat Mode Katalog)</label>
+                      <input type="text" id="cms-spotlight-avail-catalog" class="w-full h-9 px-3 rounded-lg bg-white border border-ivory-300 text-xs" placeholder="✦ Tersedia untuk Dine-In & Takeaway" />
+                    </div>
+                    <div>
+                      <label class="block text-[11px] font-semibold text-stone-700 mb-1">Teks Tombol Katalog PDF</label>
+                      <input type="text" id="cms-pdf-btn-text" class="w-full h-9 px-3 rounded-lg bg-white border border-ivory-300 text-xs" placeholder="Katalog PDF" />
+                    </div>
+                    <div class="sm:col-span-3 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <div>
+                        <label class="block text-[11px] font-semibold text-stone-700 mb-1">Judul Bar Bawah Menu</label>
+                        <input type="text" id="cms-menu-bar-title" class="w-full h-9 px-3 rounded-lg bg-white border border-ivory-300 text-xs" placeholder="Ingin pesan antar ke rumah/kantor atau simpan daftar menu lengkap?" />
+                      </div>
+                      <div>
+                        <label class="block text-[11px] font-semibold text-stone-700 mb-1">Subjudul Bar Bawah Menu</label>
+                        <input type="text" id="cms-menu-bar-desc" class="w-full h-9 px-3 rounded-lg bg-white border border-ivory-300 text-xs" placeholder="Tersedia untuk dine-in, takeaway, maupun pesan antar praktis." />
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Label 4 Menu Navigasi (Navbar & Footer) -->
+                  <div class="pt-3 border-t border-ivory-200 grid grid-cols-2 sm:grid-cols-4 gap-3">
+                    <div>
+                      <label class="block text-[11px] font-semibold text-stone-700 mb-1">Menu Navigasi 1</label>
+                      <input type="text" id="cms-nav-1" class="w-full h-8 px-2.5 rounded-lg bg-white border border-ivory-300 text-xs" placeholder="Menu" />
+                    </div>
+                    <div>
+                      <label class="block text-[11px] font-semibold text-stone-700 mb-1">Menu Navigasi 2</label>
+                      <input type="text" id="cms-nav-2" class="w-full h-8 px-2.5 rounded-lg bg-white border border-ivory-300 text-xs" placeholder="Suasana" />
+                    </div>
+                    <div>
+                      <label class="block text-[11px] font-semibold text-stone-700 mb-1">Menu Navigasi 3</label>
+                      <input type="text" id="cms-nav-3" class="w-full h-8 px-2.5 rounded-lg bg-white border border-ivory-300 text-xs" placeholder="Cerita & Ulasan" />
+                    </div>
+                    <div>
+                      <label class="block text-[11px] font-semibold text-stone-700 mb-1">Menu Navigasi 4</label>
+                      <input type="text" id="cms-nav-4" class="w-full h-8 px-2.5 rounded-lg bg-white border border-ivory-300 text-xs" placeholder="Lokasi" />
+                    </div>
+                  </div>
+
+                  <!-- Judul Section Lokasi, Modal & Footer Copyright/Watermark -->
+                  <div class="pt-3 border-t border-ivory-200 grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <div>
+                      <label class="block text-[11px] font-semibold text-stone-700 mb-1">Kicker Section Lokasi</label>
+                      <input type="text" id="cms-loc-kicker" class="w-full h-8 px-2.5 rounded-lg bg-white border border-ivory-300 text-xs" placeholder="KUNJUNGI KAMI" />
+                    </div>
+                    <div>
+                      <label class="block text-[11px] font-semibold text-stone-700 mb-1">Judul Section Lokasi</label>
+                      <input type="text" id="cms-loc-title" class="w-full h-8 px-2.5 rounded-lg bg-white border border-ivory-300 text-xs font-semibold" placeholder="Lokasi & Jam Buka" />
+                    </div>
+                    <div>
+                      <label class="block text-[11px] font-semibold text-stone-700 mb-1">Teks Tombol Google Maps</label>
+                      <input type="text" id="cms-loc-btn" class="w-full h-8 px-2.5 rounded-lg bg-white border border-ivory-300 text-xs" placeholder="Petunjuk Arah di Google Maps" />
+                    </div>
+                    <div>
+                      <label class="block text-[11px] font-semibold text-stone-700 mb-1">Kicker Modal Katalog PDF</label>
+                      <input type="text" id="cms-modal-menu-kicker" class="w-full h-8 px-2.5 rounded-lg bg-white border border-ivory-300 text-xs" placeholder="KATALOG MENU LENGKAP" />
+                    </div>
+                    <div>
+                      <label class="block text-[11px] font-semibold text-stone-700 mb-1">Kicker Modal Lightbox Galeri</label>
+                      <input type="text" id="cms-modal-gallery-kicker" class="w-full h-8 px-2.5 rounded-lg bg-white border border-ivory-300 text-xs" placeholder="GALERI RUANG & SAJIAN" />
+                    </div>
+                    <div>
+                      <label class="block text-[11px] font-semibold text-stone-700 mb-1">Teks Tombol Buka Galeri</label>
+                      <input type="text" id="cms-amb-btn-gallery" class="w-full h-8 px-2.5 rounded-lg bg-white border border-ivory-300 text-xs" placeholder="Galeri Foto" />
+                    </div>
+                    <div class="sm:col-span-3 grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                      <div>
+                        <label class="block text-[11px] font-semibold text-stone-700 mb-1">Teks Copyright Footer Kiri</label>
+                        <input type="text" id="cms-footer-copy" class="w-full h-9 px-3 rounded-lg bg-white border border-ivory-300 text-xs" placeholder="© 2026 Nama Kafe. All rights reserved." />
+                      </div>
+                      <div>
+                        <label class="block text-[11px] font-semibold text-stone-700 mb-1">Catatan Kanan Footer (Bisa hapus kata Mockup saat sudah Deal)</label>
+                        <input type="text" id="cms-footer-note" class="w-full h-9 px-3 rounded-lg bg-white border border-ivory-300 text-xs" placeholder="Desain Landing Page (Mockup Presentasi)" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="pt-4 border-t border-ivory-200 flex items-center justify-end gap-3">
+                <button
+                  type="submit"
+                  id="save-settings-btn"
+                  class="h-11 px-6 rounded-xl bg-espresso-700 hover:bg-espresso-800 text-ivory-50 text-xs sm:text-sm font-semibold shadow-sm"
+                >
+                  Simpan Pengaturan Kafe
+                </button>
+              </div>
+            </form>
+          </div>
+        </main>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       MODAL 1: TAMBAH / EDIT MENU + UPLOAD FOTO LANGSUNG (SUPABASE STORAGE)
+       ======================================================================== -->
+  <div
+    id="menu-form-modal"
+    role="dialog"
+    aria-modal="true"
+    class="fixed inset-0 z-50 hidden bg-black/70 backdrop-blur-xs items-center justify-center p-3 sm:p-6 overflow-y-auto"
+  >
+    <div class="bg-ivory-50 text-stone-900 rounded-2xl max-w-2xl w-full shadow-2xl border border-ivory-200 overflow-hidden my-auto">
+      <div class="px-5 sm:px-6 py-4 border-b border-ivory-200 flex items-center justify-between">
+        <h3 id="menu-modal-title" class="font-serif text-lg sm:text-xl font-semibold text-stone-900">Edit Menu</h3>
+        <button type="button" id="close-menu-modal-btn" class="w-8 h-8 rounded-lg text-stone-500 hover:bg-ivory-200">✕</button>
+      </div>
+
+      <form id="menu-item-form" class="p-5 sm:p-6" novalidate>
+        <input type="hidden" id="form-item-id" value="" />
+        <div id="form-error-banner" role="alert" class="hidden mb-4 p-3 rounded-xl bg-red-50 border border-red-200 text-xs text-red-800 font-medium"></div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-12 gap-5 sm:gap-6 items-start">
+          <!-- Preview & Upload Gambar (5 Cols) -->
+          <div class="sm:col-span-5 space-y-2.5">
+            <div class="relative aspect-[4/5] w-full rounded-xl overflow-hidden bg-espresso-900 border border-ivory-300 shadow-sm">
+              <img id="form-image-preview" src="menu-espresso-latte.jpg" alt="Preview Menu" onerror="handleImgFallback(this, 'Preview')" class="w-full h-full object-cover warm-editorial-photo" />
+              <span id="form-preview-soldout-badge" class="hidden absolute inset-0 bg-espresso-950/65 flex items-center justify-center">
+                <span class="px-3 py-1.5 rounded-full bg-espresso-950/90 border border-white/25 text-ivory-50 text-xs font-semibold">✕ Habis</span>
+              </span>
+            </div>
+
+            <!-- Tombol Upload Langsung ke Supabase Storage -->
+            <label class="w-full h-9 rounded-xl bg-amber-brand hover:bg-amber-hover text-espresso-950 font-semibold text-xs flex items-center justify-center gap-1.5 cursor-pointer transition-colors shadow-2xs">
+              <span id="upload-menu-photo-label">📤 Upload Foto dari Perangkat</span>
+              <input type="file" id="form-image-file-input" accept="image/jpeg,image/png,image/webp,image/avif" class="hidden" />
+            </label>
+
+            <div>
+              <label for="form-image-url" class="block text-[11px] font-medium text-stone-600 mb-1">Atau URL / nama file foto:</label>
+              <input type="text" id="form-image-url" placeholder="menu-espresso-latte.jpg" class="w-full h-8 px-2.5 rounded-lg bg-white border border-ivory-300 text-xs" />
+            </div>
+
+            <div>
+              <select id="form-image-preset" class="w-full h-8 px-2 rounded-lg bg-ivory-100 border border-ivory-300 text-[11px] text-stone-700">
+                <option value="">— Pilih Aset Foto Bawaan —</option>
+                <option value="menu-espresso-latte.jpg">Espresso Latte</option>
+                <option value="menu-caramel-macchiato.jpg">Caramel Macchiato</option>
+                <option value="menu-americano.jpg">Americano</option>
+                <option value="menu-matcha-espresso.jpg">Matcha Espresso Fusion</option>
+                <option value="menu-brown-sugar-boba.jpg">Brown Sugar Boba Milk</option>
+                <option value="menu-salted-caramel-boba.jpg">Salted Caramel Boba Milk</option>
+                <option value="menu-earl-grey-macchiato.jpg">Honey Earl Grey Macchiato</option>
+                <option value="menu-red-velvet-latte.jpg">Ice Red Velvet Latte</option>
+                <option value="menu-v60-gayo.jpg">V60 Aceh Gayo</option>
+                <option value="menu-japanese-iced-coffee.jpg">Japanese Iced Coffee</option>
+                <option value="menu-vietnam-drip.jpg">Vietnam Drip Susu</option>
+                <option value="menu-french-press-flores.jpg">French Press Flores Bajawa</option>
+                <option value="menu-egg-toast.jpg">Egg Tentang Toast</option>
+                <option value="menu-butter-croissant.jpg">Butter Croissant</option>
+                <option value="menu-pain-au-chocolat.jpg">Pain au Chocolat</option>
+                <option value="menu-cinnamon-roll.jpg">Cinnamon Roll Glaze</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Input Detail Menu (7 Cols) -->
+          <div class="sm:col-span-7 space-y-3.5">
+            <div>
+              <label for="form-name" class="block text-xs font-semibold text-stone-700 mb-1">Nama Menu *</label>
+              <input type="text" id="form-name" required maxlength="120" class="w-full h-10 px-3.5 rounded-xl bg-white border border-ivory-300 text-xs sm:text-sm" />
+            </div>
+
+            <div>
+              <label for="form-category" class="block text-xs font-semibold text-stone-700 mb-1">
+                Kategori * <span class="font-normal text-stone-400">(Pilih yang ada atau ketik kategori baru)</span>
+              </label>
+              <input
+                type="text"
+                id="form-category"
+                list="category-datalist"
+                required
+                placeholder="Ketik atau pilih: signature-coffee, dimsum, ramen..."
+                class="w-full h-10 px-3.5 rounded-xl bg-white border border-ivory-300 text-xs sm:text-sm"
+              />
+              <datalist id="category-datalist"></datalist>
+            </div>
+
+            <div>
+              <label for="form-description" class="block text-xs font-semibold text-stone-700 mb-1">Deskripsi</label>
+              <textarea id="form-description" rows="3" maxlength="500" class="w-full p-3 rounded-xl bg-white border border-ivory-300 text-xs sm:text-sm"></textarea>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label for="form-price" class="block text-xs font-semibold text-stone-700 mb-1">Harga Normal (Rp) *</label>
+                <input type="number" id="form-price" required min="0" step="500" class="w-full h-10 px-3.5 rounded-xl bg-white border border-ivory-300 text-xs sm:text-sm font-semibold tabular-nums" />
+              </div>
+              <div>
+                <label for="form-promo-price" class="block text-xs font-semibold text-stone-700 mb-1">Harga Promo (opsional)</label>
+                <input type="number" id="form-promo-price" min="0" step="500" class="w-full h-10 px-3.5 rounded-xl bg-white border border-ivory-300 text-xs sm:text-sm font-semibold tabular-nums disabled:bg-ivory-100" />
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label for="form-attributes" class="block text-[11px] font-semibold text-stone-600 mb-1">Atribut (pisahkan koma)</label>
+                <input type="text" id="form-attributes" placeholder="Iced, Dairy" class="w-full h-9 px-3 rounded-lg bg-white border border-ivory-300 text-xs" />
+              </div>
+              <div>
+                <label for="form-badge" class="block text-[11px] font-semibold text-stone-600 mb-1">Badge Unggulan</label>
+                <input type="text" id="form-badge" placeholder="Signature Unggulan" class="w-full h-9 px-3 rounded-lg bg-white border border-ivory-300 text-xs" />
+              </div>
+            </div>
+
+            <div class="pt-2 flex flex-wrap items-center gap-6">
+              <label class="inline-flex items-center gap-2.5 cursor-pointer select-none">
+                <input type="checkbox" id="form-is-available" checked class="sr-only peer" />
+                <span class="w-11 h-6 rounded-full bg-stone-300 peer-checked:bg-emerald-600 relative transition-colors after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:w-5 after:h-5 after:rounded-full after:bg-white after:transition-transform peer-checked:after:translate-x-5"></span>
+                <span id="form-available-label" class="text-xs font-semibold text-stone-800">Tersedia</span>
+              </label>
+
+              <label class="inline-flex items-center gap-2.5 cursor-pointer select-none">
+                <input type="checkbox" id="form-is-promo" class="sr-only peer" />
+                <span class="w-11 h-6 rounded-full bg-stone-300 peer-checked:bg-promo-orange relative transition-colors after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:w-5 after:h-5 after:rounded-full after:bg-white after:transition-transform peer-checked:after:translate-x-5"></span>
+                <span class="text-xs font-semibold text-stone-800">Promo</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6 pt-4 border-t border-ivory-200 flex items-center justify-end gap-2.5">
+          <button type="button" id="cancel-menu-modal-btn" class="h-10 px-4 rounded-xl border border-ivory-300 bg-white text-xs font-semibold text-stone-700">Batal</button>
+          <button type="submit" id="save-menu-submit-btn" class="h-10 px-5 rounded-xl bg-espresso-700 hover:bg-espresso-800 text-ivory-50 text-xs font-semibold">
+            <span id="save-menu-submit-text">Simpan Perubahan</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       MODAL 2: DUPLIKAT PROFIL KAFE BARU (KHUSUS SUPER ADMIN OUTREACH)
+       ======================================================================== -->
+  <div id="duplicate-cafe-modal" role="dialog" aria-modal="true" class="fixed inset-0 z-50 hidden bg-black/70 backdrop-blur-xs items-center justify-center p-4">
+    <div class="bg-ivory-50 text-stone-900 rounded-2xl max-w-md w-full p-6 shadow-2xl border border-ivory-200">
+      <span class="text-[10px] font-bold uppercase tracking-widest text-amber-brand block">OUTREACH AUTOMATION</span>
+      <h3 class="font-serif text-xl font-semibold text-stone-900 mt-1">Duplikat untuk Kafe Baru</h3>
+      <p class="text-xs text-stone-600 mt-1 leading-relaxed">
+        Menyalin seluruh tampilan, warna tema, copywriting, dan daftar menu dari kafe saat ini ke URL target baru (contoh: <code>?kafe=kopi-senja</code>).
+      </p>
+
+      <form id="duplicate-cafe-form" class="mt-4 space-y-3.5">
+        <div>
+          <label class="block text-xs font-semibold text-stone-700 mb-1">Kode URL / Slug Kafe Baru (huruf kecil &amp; strip)</label>
+          <input type="text" id="dup-slug" required pattern="[a-z0-9-]+" placeholder="kopi-senja" class="w-full h-10 px-3.5 rounded-xl bg-white border border-ivory-300 text-xs font-mono" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-stone-700 mb-1">Nama Kafe Target</label>
+          <input type="text" id="dup-name" required placeholder="KOPI SENJA" class="w-full h-10 px-3.5 rounded-xl bg-white border border-ivory-300 text-xs sm:text-sm" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-stone-700 mb-1">Lokasi / Cabang Kafe Target</label>
+          <input type="text" id="dup-branch" required placeholder="Margonda, Depok" class="w-full h-10 px-3.5 rounded-xl bg-white border border-ivory-300 text-xs sm:text-sm" />
+        </div>
+
+        <div class="pt-3 flex items-center justify-end gap-2">
+          <button type="button" id="cancel-dup-btn" class="h-9 px-4 rounded-xl border border-ivory-300 bg-white text-xs font-semibold text-stone-700">Batal</button>
+          <button type="submit" id="confirm-dup-btn" class="h-9 px-4 rounded-xl bg-amber-brand hover:bg-amber-hover text-espresso-950 text-xs font-bold">
+            Buat &amp; Buka Kafe Baru
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       MODAL 3: KONFIRMASI HAPUS MENU
+       ======================================================================== -->
+  <div id="delete-confirm-modal" role="dialog" aria-modal="true" class="fixed inset-0 z-50 hidden bg-black/70 backdrop-blur-xs items-center justify-center p-4">
+    <div class="bg-ivory-50 text-stone-900 rounded-2xl max-w-md w-full p-6 shadow-2xl border border-ivory-200">
+      <h3 class="font-serif text-lg font-semibold text-stone-900">Hapus Menu dari Katalog?</h3>
+      <p class="text-xs sm:text-sm text-stone-600 mt-1.5">
+        Yakin ingin menghapus <strong id="delete-item-name" class="text-stone-900">Menu</strong>?
+      </p>
+      <div class="mt-6 flex items-center justify-end gap-2.5">
+        <button type="button" id="cancel-delete-btn" class="h-9 px-4 rounded-xl border border-ivory-300 bg-white text-xs font-semibold">Batal</button>
+        <button type="button" id="confirm-delete-btn" class="h-9 px-4 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-semibold">Ya, Hapus</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div id="toast-container" aria-live="polite" class="fixed bottom-5 right-5 z-50 max-w-sm w-full pointer-events-none flex flex-col gap-2 px-4 sm:px-0"></div>
+
+  <!-- ========================================================================
+       SCRIPTS
+       ======================================================================== -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
+  <script>
+    window.handleImgFallback = function (img, label = "Kafe") {
+      if (!img || img.dataset.fallbackDone === "true") return;
+      img.dataset.fallbackDone = "true";
+      img.src = `https://placehold.co/400x400/181310/FAF7F2?text=${encodeURIComponent(label)}`;
+    };
+
+    // Fungsi Upload Aman ke Supabase Storage (Validasi tipe file, ukuran <= 5MB & penamaan unik)
+    window.uploadCafeImage = window.uploadCafeImage || async function (file, cafeSlug = "tentang-kopi") {
+      const sb = window.getSupabaseClient ? window.getSupabaseClient() : null;
+      if (!sb) throw new Error("Koneksi Supabase belum aktif.");
+      if (!file) throw new Error("Pilih file gambar terlebih dahulu.");
+
+      const allowedTypes = ["image/jpeg", "image/png", "image/webp", "image/avif", "image/jpg"];
+      if (!allowedTypes.includes(file.type)) {
+        throw new Error("Format file harus berupa gambar (JPG, PNG, WebP, atau AVIF).");
+      }
+      if (file.size > 5 * 1024 * 1024) {
+        throw new Error("Ukuran gambar maksimal 5 MB.");
+      }
+
+      const bucket = (window.TENTANG_KOPI_CONFIG && window.TENTANG_KOPI_CONFIG.STORAGE_BUCKET_NAME) || "cafe-assets";
+      const ext = (file.name.split(".").pop() || "jpg").toLowerCase().replace(/[^a-z0-9]/g, "");
+      const safeSlug = String(cafeSlug || "cafe").toLowerCase().replace(/[^a-z0-9-]/g, "");
+      const uniqueName = `${safeSlug}/${Date.now()}-${Math.random().toString(36).substring(2, 8)}.${ext}`;
+
+      const { error: uploadError } = await sb.storage.from(bucket).upload(uniqueName, file, {
+        cacheControl: "3600",
+        upsert: false
+      });
+
+      if (uploadError) throw uploadError;
+
+      const { data } = sb.storage.from(bucket).getPublicUrl(uniqueName);
+      if (!data || !data.publicUrl) throw new Error("Gagal mendapatkan URL publik gambar.");
+      return data.publicUrl;
+    };
+
+    (function () {
+      const supabase = window.getSupabaseClient ? window.getSupabaseClient() : null;
+
+      // Preset Palet Warna Identitas Brand
+      const THEME_PRESETS = {
+        espresso: {
+          bgDark: "#110E0C",
+          bgDarkSec: "#181310",
+          accent: "#C88A2B",
+          accentHover: "#B5791E",
+          bgLight: "#FAF7F2",
+          bgLightSec: "#F2ECE1"
+        },
+        matcha: {
+          bgDark: "#0F1F17",
+          bgDarkSec: "#162B20",
+          accent: "#5E8C61",
+          accentHover: "#4A734D",
+          bgLight: "#F6F8F4",
+          bgLightSec: "#E9EFE6"
+        },
+        kopitiam: {
+          bgDark: "#231010",
+          bgDarkSec: "#311616",
+          accent: "#D49B35",
+          accentHover: "#B88222",
+          bgLight: "#FBF7F0",
+          bgLightSec: "#F3E9D8"
+        },
+        terracotta: {
+          bgDark: "#1E1410",
+          bgDarkSec: "#2B1D17",
+          accent: "#C85A32",
+          accentHover: "#A94722",
+          bgLight: "#FDF8F5",
+          bgLightSec: "#F5EAE2"
+        },
+        charcoal: {
+          bgDark: "#0E1013",
+          bgDarkSec: "#171A20",
+          accent: "#D9383A",
+          accentHover: "#B8282A",
+          bgLight: "#F8F9FA",
+          bgLightSec: "#ECEEF1"
+        },
+        ocean: {
+          bgDark: "#0C1824",
+          bgDarkSec: "#122334",
+          accent: "#D49B35",
+          accentHover: "#B88324",
+          bgLight: "#F7FAFC",
+          bgLightSec: "#EBF1F5"
+        }
+      };
+
+      // State Aplikasi
+      let adminProfile = null; // { user_id, email, role: 'super_admin'|'owner', cafe_slug }
+      let currentCafeSlug = window.getActiveCafeSlug ? window.getActiveCafeSlug() : "tentang-kopi";
+      let currentCafeData = null;
+      let allCafesList = [];
+      let allMenuItems = [];
+      let currentCategoryFilter = "ALL";
+      let searchQuery = "";
+      let pendingDeleteItem = null;
+      let realtimeChannel = null;
+
+      const DEFAULT_16_SEED = [
+        { slug: "sig-1", name: "Espresso Latte", category: "signature-coffee", price: 32000, description: "Perpaduan double shot espresso Arabika, fresh milk bertekstur lembut, dan sentuhan tipis karamel.", attributes: ["Iced", "Dairy"], badge: "Signature Unggulan", image_url: "menu-espresso-latte.jpg", sort_order: 10 },
+        { slug: "sig-2", name: "Caramel Macchiato", category: "signature-coffee", price: 36000, description: "Espresso di atas susu segar dingin dengan sirup vanila dan saus karamel legit.", attributes: ["Iced", "Dairy"], badge: null, image_url: "menu-caramel-macchiato.jpg", sort_order: 20 },
+        { slug: "sig-3", name: "Americano", category: "signature-coffee", price: 28000, description: "Ekstraksi espresso 100% Arabika dengan air mineral murni yang ringan dan menyegarkan.", attributes: ["Hot / Iced", "Black"], badge: null, image_url: "menu-americano.jpg", sort_order: 30 },
+        { slug: "sig-4", name: "Matcha Espresso Fusion", category: "signature-coffee", price: 34000, description: "Kombinasi matcha Jepang pekat, susu segar, dan satu shot espresso hangat.", attributes: ["Iced", "Fusion"], badge: null, image_url: "menu-matcha-espresso.jpg", sort_order: 40 },
+        { slug: "non-1", name: "Brown Sugar Boba Milk", category: "non-coffee", price: 23500, description: "Susu segar creamy dengan saus karamel gula aren hangat dan pearl boba kenyal.", attributes: ["Iced", "Dairy"], badge: "Favorit GoFood", image_url: "menu-brown-sugar-boba.jpg", sort_order: 10 },
+        { slug: "non-2", name: "Salted Caramel Boba Milk", category: "non-coffee", price: 28000, description: "Susu segar, teh pilihan, saus salted caramel gurih-manis, dan boba kenyal.", attributes: ["Iced", "Dairy"], badge: null, image_url: "menu-salted-caramel-boba.jpg", sort_order: 20 },
+        { slug: "non-3", name: "Honey Earl Grey Macchiato", category: "non-coffee", price: 23500, description: "Seduhan teh Earl Grey beraroma bergamot, madu murni, dan lapisan krim macchiato lembut.", attributes: ["Iced", "Tea Macchiato"], badge: null, image_url: "menu-earl-grey-macchiato.jpg", sort_order: 30 },
+        { slug: "non-4", name: "Ice Red Velvet Latte", category: "non-coffee", price: 22000, description: "Paduan red velvet lembut dengan susu segar dingin yang creamy dan manis seimbang.", attributes: ["Iced", "Dairy"], badge: null, image_url: "menu-red-velvet-latte.jpg", sort_order: 40 },
+        { slug: "brew-1", name: "V60 Aceh Gayo", category: "manual-brew", price: 30000, description: "Single origin Arabica Gayo dengan notes floral, jeruk segar, dan akhir rasa bersih.", attributes: ["Hot / Iced", "Filter"], badge: "Pilihan Barista", image_url: "menu-v60-gayo.jpg", sort_order: 10 },
+        { slug: "brew-2", name: "Japanese Iced Coffee", category: "manual-brew", price: 32000, description: "Seduhan pour-over langsung di atas es kristal untuk mengunci aroma buah segar.", attributes: ["Iced", "Filter"], badge: null, image_url: "menu-japanese-iced-coffee.jpg", sort_order: 20 },
+        { slug: "brew-3", name: "Vietnam Drip Susu", category: "manual-brew", price: 26000, description: "Ekstraksi kopi pekat perlahan di atas lapisan susu kental manis legit.", attributes: ["Hot / Iced", "Sweet"], badge: null, image_url: "menu-vietnam-drip.jpg", sort_order: 30 },
+        { slug: "brew-4", name: "French Press Flores Bajawa", category: "manual-brew", price: 30000, description: "Seduhan full-bodied dengan karakter cokelat hitam dan kacang panggang khas Flores.", attributes: ["Hot", "Full Body"], badge: null, image_url: "menu-french-press-flores.jpg", sort_order: 40 },
+        { slug: "pas-1", name: "Egg Tentang Toast", category: "pastry", price: 24000, description: "Roti brioche panggang mentega tebal dengan isian telur lembut dan saus spesial Tentang Kopi.", attributes: ["Warm", "Savory Toast"], badge: "Teman Kopi Terbaik", image_url: "menu-egg-toast.jpg", sort_order: 10 },
+        { slug: "pas-2", name: "Butter Croissant", category: "pastry", price: 24000, description: "Croissant Prancis berlapis renyah dan harum mentega, disajikan hangat setiap hari.", attributes: ["Warm", "Fresh Baked"], badge: null, image_url: "menu-butter-croissant.jpg", sort_order: 20 },
+        { slug: "pas-3", name: "Pain au Chocolat", category: "pastry", price: 28000, description: "Danish pastry berlapis renyah dengan isian cokelat hitam lumer di bagian tengah.", attributes: ["Warm", "Sweet"], badge: null, image_url: "menu-pain-au-chocolat.jpg", sort_order: 30 },
+        { slug: "pas-4", name: "Cinnamon Roll Glaze", category: "pastry", price: 26000, description: "Gulungan roti lembut beraroma kayu manis dengan lapisan cream cheese glaze.", attributes: ["Warm", "Sweet"], badge: null, image_url: "menu-cinnamon-roll.jpg", sort_order: 40 }
+      ];
+
+      function escapeHtml(str) {
+        return String(str ?? "")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#039;");
+      }
+
+      function showToast(title, subtitle = "Perubahan langsung terlihat di website publik.", type = "success") {
+        const container = document.getElementById("toast-container");
+        if (!container) return;
+        const isErr = type === "error";
+        const toast = document.createElement("div");
+        toast.className = `pointer-events-auto bg-ivory-50 border ${
+          isErr ? "border-red-300" : "border-ivory-300"
+        } rounded-2xl p-4 shadow-xl flex items-start gap-3`;
+        toast.innerHTML = `
+          <div class="w-7 h-7 rounded-full ${
+            isErr ? "bg-red-600 text-white" : "bg-emerald-600 text-white"
+          } flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">${isErr ? "!" : "✓"}</div>
+          <div class="flex-1 min-w-0">
+            <p class="text-xs font-bold text-stone-900">${escapeHtml(title)}</p>
+            <p class="text-[11px] text-stone-600 mt-0.5">${escapeHtml(subtitle)}</p>
+          </div>
+          <button type="button" class="text-stone-400 hover:text-stone-700 text-xs">✕</button>
+        `;
+        toast.querySelector("button").addEventListener("click", () => toast.remove());
+        container.appendChild(toast);
+        setTimeout(() => { if (toast.parentNode) toast.remove(); }, 4200);
+      }
+
+      // Sinkronisasi Input Color Picker & HEX
+      const colorPairs = [
+        ["cms-color-dark", "cms-color-dark-hex"],
+        ["cms-color-dark-sec", "cms-color-dark-sec-hex"],
+        ["cms-color-accent", "cms-color-accent-hex"],
+        ["cms-color-accent-hover", "cms-color-accent-hover-hex"],
+        ["cms-color-light", "cms-color-light-hex"],
+        ["cms-color-light-sec", "cms-color-light-sec-hex"]
+      ];
+
+      function setThemeColorInputs(palette) {
+        if (!palette) return;
+        const map = {
+          "cms-color-dark": palette.bgDark || "#110E0C",
+          "cms-color-dark-sec": palette.bgDarkSec || "#181310",
+          "cms-color-accent": palette.accent || "#C88A2B",
+          "cms-color-accent-hover": palette.accentHover || "#B5791E",
+          "cms-color-light": palette.bgLight || "#FAF7F2",
+          "cms-color-light-sec": palette.bgLightSec || "#F2ECE1"
+        };
+        colorPairs.forEach(([pickerId, hexId]) => {
+          const val = map[pickerId];
+          const pEl = document.getElementById(pickerId);
+          const hEl = document.getElementById(hexId);
+          if (pEl && val) pEl.value = val;
+          if (hEl && val) hEl.value = val;
+        });
+      }
+
+      colorPairs.forEach(([pickerId, hexId]) => {
+        const pEl = document.getElementById(pickerId);
+        const hEl = document.getElementById(hexId);
+        if (!pEl || !hEl) return;
+        pEl.addEventListener("input", () => {
+          hEl.value = pEl.value.toUpperCase();
+          document.getElementById("cms-theme-preset").value = "custom";
+        });
+        hEl.addEventListener("input", () => {
+          const v = hEl.value.trim();
+          if (/^#[0-9A-Fa-f]{6}$/.test(v)) {
+            pEl.value = v;
+            document.getElementById("cms-theme-preset").value = "custom";
+          }
+        });
+      });
+
+      document.getElementById("cms-theme-preset").addEventListener("change", (e) => {
+        const presetKey = e.target.value;
+        if (THEME_PRESETS[presetKey]) {
+          setThemeColorInputs(THEME_PRESETS[presetKey]);
+        }
+      });
+
+      // Navigasi Tab (Menu vs Pengaturan Kafe)
+      const tabPanelMenu = document.getElementById("tab-panel-menu");
+      const tabPanelSettings = document.getElementById("tab-panel-settings");
+      const navTabBtns = Array.from(document.querySelectorAll("[data-nav-tab]"));
+
+      function switchMainTab(tabName) {
+        const isSettings = tabName === "settings";
+        tabPanelMenu.classList.toggle("hidden", isSettings);
+        tabPanelSettings.classList.toggle("hidden", !isSettings);
+        document.getElementById("header-page-title").textContent = isSettings
+          ? "Pengaturan Profil Kafe"
+          : "Dashboard";
+
+        navTabBtns.forEach((btn) => {
+          const active = btn.getAttribute("data-nav-tab") === tabName;
+          btn.className = active
+            ? "w-full px-3.5 py-2.5 rounded-xl bg-espresso-600/90 text-ivory-50 flex items-center gap-3 text-left transition-colors"
+            : "w-full px-3.5 py-2.5 rounded-xl text-stone-300 hover:bg-white/5 hover:text-ivory-50 flex items-center gap-3 text-left transition-colors";
+        });
+      }
+
+      navTabBtns.forEach((btn) => {
+        btn.addEventListener("click", () => switchMainTab(btn.getAttribute("data-nav-tab")));
+      });
+      document.getElementById("btn-open-settings-quick").addEventListener("click", () => switchMainTab("settings"));
+      document.getElementById("btn-back-to-menu").addEventListener("click", () => switchMainTab("menu"));
+
+      // Muat Daftar Kafe untuk Dropdown Super Admin
+      async function loadCafesForSuperAdmin() {
+        if (!supabase || !adminProfile || adminProfile.role !== "super_admin") return;
+        const { data, error } = await supabase.from("cafes").select("slug, name, branch").order("created_at", { ascending: true });
+        if (error || !data) return;
+        allCafesList = data;
+
+        const switcher = document.getElementById("sa-cafe-switcher");
+        switcher.innerHTML = data
+          .map(
+            (c) =>
+              `<option value="${escapeHtml(c.slug)}" ${c.slug === currentCafeSlug ? "selected" : ""}>
+                ${escapeHtml(c.name)} — ${escapeHtml(c.branch)} (?kafe=${escapeHtml(c.slug)})
+              </option>`
+          )
+          .join("");
+
+        const delBtn = document.getElementById("btn-delete-cafe");
+        if (delBtn) {
+          delBtn.classList.toggle("hidden", currentCafeSlug === "tentang-kopi");
+        }
+      }
+
+      // Muat Profil Kafe Aktif & Isi Seluruh Form (Termasuk Custom Config Super Admin)
+      async function loadActiveCafeProfile() {
+        if (!supabase) return;
+        const { data, error } = await supabase
+          .from("cafes")
+          .select("*")
+          .eq("slug", currentCafeSlug)
+          .maybeSingle();
+
+        if (error || !data) return;
+        currentCafeData = data;
+        const cc = data.custom_config || {};
+
+        // Update Sidebar, Header & Link Publik
+        const publicUrl =
+          currentCafeSlug === "tentang-kopi"
+            ? "index.html"
+            : `index.html?kafe=${encodeURIComponent(currentCafeSlug)}`;
+
+        document.getElementById("sidebar-cafe-name").textContent = data.name;
+        document.getElementById("sidebar-cafe-branch").textContent = data.branch;
+        document.getElementById("sidebar-cafe-logo").src = data.logo_url || "logo.jpg";
+        document.getElementById("sidebar-public-link").href = publicUrl;
+        document.getElementById("header-view-public-btn").href = publicUrl;
+        document.getElementById("header-cafe-label").textContent = `${data.name} (${data.branch})`;
+
+        document.getElementById("card-cafe-name").textContent = data.name;
+        document.getElementById("card-cafe-branch").textContent = data.branch;
+        document.getElementById("card-cafe-ambience").src = data.indoor_image_url || "ambience-indoor-ac.jpg";
+        document.getElementById("sys-cafe-slug").textContent = data.slug;
+
+        // Bagian 1 - 4 (Umum)
+        document.getElementById("set-name").value = data.name || "";
+        document.getElementById("set-branch").value = data.branch || "";
+        document.getElementById("set-hero-1").value = data.hero_headline_1 || "";
+        document.getElementById("set-hero-2").value = data.hero_headline_2 || "";
+        document.getElementById("set-hero-desc").value = data.hero_description || "";
+        document.getElementById("set-wa").value = data.whatsapp_number || "";
+        document.getElementById("set-gofood").value = data.gofood_url || "";
+        document.getElementById("set-ig").value = data.instagram_url || "";
+        document.getElementById("set-tiktok").value = data.tiktok_url || "";
+        document.getElementById("set-addr-1").value = data.address_line_1 || "";
+        document.getElementById("set-addr-2").value = data.address_line_2 || "";
+
+        const hoursCfg = cc.hours || {};
+        document.getElementById("set-hours-label-1").value = hoursCfg.label1 !== undefined ? hoursCfg.label1 : "Senin – Kamis";
+        document.getElementById("set-hours-weekday").value = data.hours_weekday || "11.00 – 22.00 WIB";
+        document.getElementById("set-hours-label-2").value = hoursCfg.label2 !== undefined ? hoursCfg.label2 : "Jumat – Minggu";
+        document.getElementById("set-hours-weekend").value = data.hours_weekend !== null && data.hours_weekend !== undefined ? data.hours_weekend : "11.00 – 23.00 WIB";
+        document.getElementById("set-hours-badge").value = hoursCfg.badgeText !== undefined ? hoursCfg.badgeText : "Buka Setiap Hari";
+        document.getElementById("set-hero-status-custom").value = hoursCfg.customHeroStatus || "";
+
+        document.getElementById("set-maps-link").value = data.maps_link || "";
+        document.getElementById("set-maps-embed").value = data.maps_embed_url || "";
+        document.getElementById("set-logo-url").value = data.logo_url || "logo.jpg";
+        document.getElementById("set-hero-img").value = data.hero_image_url || "hero-signature-latte.jpg";
+        document.getElementById("set-indoor-img").value = data.indoor_image_url || "ambience-indoor-ac.jpg";
+        document.getElementById("set-outdoor-img").value = data.outdoor_image_url || "ambience-outdoor-terrace.jpg";
+        document.getElementById("set-bar-img").value = data.bar_image_url || "ambience-coffee-bar.jpg";
+
+        // Bagian 5: Tema Warna Brand
+        const themeCfg = cc.theme || { preset: "espresso", ...THEME_PRESETS.espresso };
+        document.getElementById("cms-theme-preset").value = themeCfg.preset || "espresso";
+        setThemeColorInputs(themeCfg);
+
+        // Bagian 6: Hero Extra, 3 USP & Header Menu
+        const heroExtra = cc.heroExtra || {};
+        document.getElementById("cms-hero-card-kicker").value = heroExtra.cardKicker || "Signature Cup";
+        document.getElementById("cms-hero-card-title").value = heroExtra.cardTitle || "Espresso & Creamy Milk";
+        document.getElementById("cms-hero-card-badge").value = heroExtra.cardBadge || (data.branch ? data.branch.split(",")[0].toUpperCase() : "SUKMAJAYA");
+        document.getElementById("cms-hero-sub-left").value = heroExtra.subLeft || "ARABIKA NUSANTARA";
+        document.getElementById("cms-hero-sub-right").value = heroExtra.subRight || "RUANG SINGGAH";
+
+        const defaultUsp = [
+          { title: "100% Arabica Lokal", desc: "Biji Arabika Nusantara pilihan yang disangrai untuk rasa yang bersih dan seimbang." },
+          { title: "Nyaman untuk Bekerja", desc: "Meja kerja, Wi-Fi stabil, dan akses stopkontak tersedia di area duduk." },
+          { title: "Pastry & Toast Hangat", desc: "Roti panggang, croissant renyah, dan kudapan pendamping kopi yang segar." }
+        ];
+        const uspList = Array.isArray(cc.usp) && cc.usp.length === 3 ? cc.usp : defaultUsp;
+        [1, 2, 3].forEach((n, idx) => {
+          document.getElementById(`cms-usp-${n}-title`).value = uspList[idx]?.title || defaultUsp[idx].title;
+          document.getElementById(`cms-usp-${n}-desc`).value = uspList[idx]?.desc || defaultUsp[idx].desc;
+        });
+
+        const menuHeader = cc.menuHeader || {};
+        document.getElementById("cms-menu-kicker").value = menuHeader.kicker || "KURASI SAJIAN";
+        document.getElementById("cms-menu-title").value = menuHeader.title || "Menu Pilihan";
+        document.getElementById("cms-menu-desc").value = menuHeader.desc || "Diracik setiap hari dari bahan terbaik. Pilih kategori di bawah untuk melihat menu favorit dan harga lengkap kami.";
+
+        // Bagian 7: Section Suasana, 3 Ruang & 4 Fasilitas
+        const amb = cc.ambience || {};
+        document.getElementById("cms-amb-kicker").value = amb.kicker || "RUANG & KENYAMANAN";
+        document.getElementById("cms-amb-title").value = amb.title || "Ruang yang Menginspirasi";
+        document.getElementById("cms-amb-desc").value = amb.desc || "Dirancang dengan pencahayaan hangat dan sirkulasi lega—baik saat Anda butuh fokus di dalam ruangan maupun bersantai di teras teduh.";
+
+        const defaultSpaces = [
+          { kicker: "INDOOR LOUNGE", title: "Area Indoor (Full AC)", subtitle: "Tenang, sejuk, dan dilengkapi meja kayu panjang untuk bekerja (WFC) atau membaca.", lightboxDesc: "Ruang dalam ber-AC yang tenang dengan meja kayu luas untuk bekerja maupun bersantai." },
+          { kicker: "TERRACE AREA", title: "Outdoor (Smoking)", subtitle: "", lightboxDesc: "Area duduk semi-terbuka dengan sirkulasi udara sejuk dan suasana santai." },
+          { kicker: "SLOW BAR", title: "Espresso & Brew Bar", subtitle: "", lightboxDesc: "Meja seduh terbuka tempat barista mengekstraksi biji kopi pilihan setiap hari." }
+        ];
+        const spaces = Array.isArray(amb.spaces) && amb.spaces.length === 3 ? amb.spaces : defaultSpaces;
+        document.getElementById("cms-space-1-kicker").value = spaces[0]?.kicker || defaultSpaces[0].kicker;
+        document.getElementById("cms-space-1-title").value = spaces[0]?.title || defaultSpaces[0].title;
+        document.getElementById("cms-space-1-sub").value = spaces[0]?.subtitle !== undefined ? spaces[0].subtitle : defaultSpaces[0].subtitle;
+        document.getElementById("cms-space-1-lightbox").value = spaces[0]?.lightboxDesc || defaultSpaces[0].lightboxDesc;
+
+        document.getElementById("cms-space-2-kicker").value = spaces[1]?.kicker || defaultSpaces[1].kicker;
+        document.getElementById("cms-space-2-title").value = spaces[1]?.title || defaultSpaces[1].title;
+        document.getElementById("cms-space-2-lightbox").value = spaces[1]?.lightboxDesc || defaultSpaces[1].lightboxDesc;
+
+        document.getElementById("cms-space-3-kicker").value = spaces[2]?.kicker || defaultSpaces[2].kicker;
+        document.getElementById("cms-space-3-title").value = spaces[2]?.title || defaultSpaces[2].title;
+        document.getElementById("cms-space-3-lightbox").value = spaces[2]?.lightboxDesc || defaultSpaces[2].lightboxDesc;
+
+        const defaultFacs = [
+          { title: "Mushola Bersih", desc: "Di dalam area kedai" },
+          { title: "Area Parkir Memadai", desc: "Akses motor & mobil" },
+          { title: "Pet Friendly", desc: "Area teras outdoor" },
+          { title: "Toilet Terawat", desc: "Bersih & nyaman" }
+        ];
+        const facs = Array.isArray(amb.facilities) && amb.facilities.length === 4 ? amb.facilities : defaultFacs;
+        [1, 2, 3, 4].forEach((n, idx) => {
+          document.getElementById(`cms-fac-${n}-title`).value = facs[idx]?.title || defaultFacs[idx].title;
+          document.getElementById(`cms-fac-${n}-desc`).value = facs[idx]?.desc || defaultFacs[idx].desc;
+        });
+
+        // Bagian 8: Ulasan Pelanggan & Skor Google Maps
+        const rev = cc.reviews || {};
+        document.getElementById("cms-rev-score").value = rev.score || "4.5";
+        document.getElementById("cms-rev-kicker").value = rev.kicker || "CATATAN PELANGGAN";
+        document.getElementById("cms-rev-title").value = rev.title || "Apa Kata Mereka";
+        document.getElementById("cms-rev-desc").value = rev.desc || `Kesan hangat dari teman-teman yang menjadikan ${data.name || "kedai kami"} sebagai ruang singgah harian.`;
+
+        const defaultReviews = [
+          { quote: "Kopi di sini selalu konsisten enak. Baristanya ramah dan tempatnya tenang banget buat fokus kerja atau nugas dari siang sampai malam.", author: "Rizky A.", role: "Local Guide · Sukmajaya" },
+          { quote: "Suasananya homey dan adem, lokasinya juga gampang dicari tepat di samping Polsek Sukmajaya. Egg Toast dan es kopi susunya mantap!", author: "Dewi S.", role: "Pelanggan Setia · Depok" },
+          { quote: "Salah satu tempat ngopi favorit di Sukmajaya. Karakter espresso-nya berasa, manisnya pas, dan harganya sangat bersahabat di kantong.", author: "Andi P.", role: "Penikmat Kopi · Depok" }
+        ];
+        const revItems = Array.isArray(rev.items) && rev.items.length === 3 ? rev.items : defaultReviews;
+        [1, 2, 3].forEach((n, idx) => {
+          document.getElementById(`cms-rev-${n}-quote`).value = revItems[idx]?.quote || defaultReviews[idx].quote;
+          document.getElementById(`cms-rev-${n}-author`).value = revItems[idx]?.author || defaultReviews[idx].author;
+          document.getElementById(`cms-rev-${n}-role`).value = revItems[idx]?.role || defaultReviews[idx].role;
+        });
+
+        // Bagian 9: Section Momen / 4 Kartu Visual / Promo & Banner CTA Bawah
+        const momen = cc.momen || {};
+        document.getElementById("cms-momen-kicker").value = momen.kicker || "DI BALIK BAR · @TENTANGKOPIDEPOK";
+        document.getElementById("cms-momen-title").value = momen.title || "Cerita di Setiap Seduhan";
+
+        const defaultCrafts = [
+          { title: "Microfoam & Latte Art", desc: "Sajian latte hangat dengan tekstur susu microfoam lembut.", imageUrl: "craft-latte-art.jpg" },
+          { title: "Seduhan Manual Brew", desc: "Seduhan pour-over untuk menonjolkan karakter asli kopi Nusantara.", imageUrl: "craft-manual-brew.jpg" },
+          { title: "Espresso Kalibrasi Harian", desc: "Sajian cappuccino hangat untuk menemani perbincangan sore.", imageUrl: "craft-espresso-calibration.jpg" },
+          { title: "Kudapan & Roti Hangat", desc: "Pilihan toast, croissant, dan roti hangat sebagai pendamping minum kopi.", imageUrl: "craft-fresh-pastry.jpg" }
+        ];
+        const crafts = Array.isArray(momen.cards) && momen.cards.length === 4 ? momen.cards : defaultCrafts;
+        [1, 2, 3, 4].forEach((n, idx) => {
+          document.getElementById(`cms-craft-${n}-title`).value = crafts[idx]?.title || defaultCrafts[idx].title;
+          document.getElementById(`cms-craft-${n}-img`).value = crafts[idx]?.imageUrl || defaultCrafts[idx].imageUrl;
+          document.getElementById(`cms-craft-${n}-desc`).value = crafts[idx]?.desc || defaultCrafts[idx].desc;
+        });
+
+        const promoBanner = cc.promoBanner || {};
+        document.getElementById("cms-promo-kicker").value = promoBanner.kicker || "RESERVASI MEJA & KOMUNITAS";
+        document.getElementById("cms-promo-title").value = promoBanner.title || "Butuh ruang untuk rapat tim, acara komunitas, atau WFC grup?";
+        document.getElementById("cms-promo-desc").value = promoBanner.desc || "Hubungi kami langsung melalui WhatsApp untuk mengamankan meja dan menyiapkan paket sajian kopi terbaik bagi grup Anda.";
+        document.getElementById("cms-promo-btn").value = promoBanner.btnText || "Reservasi via WhatsApp";
+
+        // Bagian 10: Kontrol Tombol Order/CTA, Navigasi, Lokasi & Footer
+        const cta = cc.ctaConfig || {};
+        document.getElementById("cms-enable-online-order").checked = cta.enableOnlineOrder !== false;
+        document.getElementById("cms-enable-wa-cta").checked = cta.enableWaCta !== false;
+        document.getElementById("cms-enable-pdf-bar").checked = cta.enablePdfBar !== false;
+        document.getElementById("cms-enable-promo-banner").checked = cta.enablePromoBanner !== false;
+
+        document.getElementById("cms-order-btn-nav").value = cta.orderBtnNav || "Pesan Online";
+        document.getElementById("cms-order-btn-main").value = cta.orderBtnMain || "Pesan di GoFood";
+        document.getElementById("cms-hero-btn-menu").value = cta.heroBtnMenu || "Lihat Menu";
+        document.getElementById("cms-spotlight-avail-order").value = cta.spotlightAvailOrder || "Tersedia di kedai & GoFood";
+        document.getElementById("cms-spotlight-avail-catalog").value = cta.spotlightAvailCatalog || "✦ Tersedia untuk Dine-In & Takeaway";
+        document.getElementById("cms-pdf-btn-text").value = cta.pdfBtnText || "Katalog PDF";
+        document.getElementById("cms-menu-bar-title").value = cta.menuBarTitle || "Ingin pesan antar ke rumah/kantor atau simpan daftar menu lengkap?";
+        document.getElementById("cms-menu-bar-desc").value = cta.menuBarDesc || "Tersedia untuk dine-in, takeaway, maupun pesan antar praktis melalui GoFood.";
+
+        const navLabels = cc.navLabels || {};
+        document.getElementById("cms-nav-1").value = navLabels.nav1 || "Menu";
+        document.getElementById("cms-nav-2").value = navLabels.nav2 || "Suasana";
+        document.getElementById("cms-nav-3").value = navLabels.nav3 || "Cerita & Ulasan";
+        document.getElementById("cms-nav-4").value = navLabels.nav4 || "Lokasi";
+
+        const locExtra = cc.lokasiExtra || {};
+        document.getElementById("cms-loc-kicker").value = locExtra.kicker || "KUNJUNGI KAMI";
+        document.getElementById("cms-loc-title").value = locExtra.title || "Lokasi & Jam Buka";
+        document.getElementById("cms-loc-btn").value = locExtra.btnText || "Petunjuk Arah di Google Maps";
+        document.getElementById("cms-modal-menu-kicker").value = locExtra.modalMenuKicker || "KATALOG MENU LENGKAP";
+        document.getElementById("cms-modal-gallery-kicker").value = locExtra.modalGalleryKicker || "GALERI RUANG & SEDUHAN";
+        document.getElementById("cms-amb-btn-gallery").value = locExtra.btnGallery || "Galeri Foto";
+
+        const footerCfg = cc.footer || {};
+        document.getElementById("cms-footer-copy").value = footerCfg.copyright || `© 2026 ${data.name || "Tentang Kopi"} ${data.branch || ""}. All rights reserved.`;
+        document.getElementById("cms-footer-note").value = footerCfg.note !== undefined ? footerCfg.note : `Desain Landing Page (Mockup Presentasi) · ${data.branch || "Sukmajaya, Depok"}`;
+      }
+
+      // Simpan Pengaturan Profil Kafe (Menyimpan Kolom Standar + JSONB custom_config)
+      document.getElementById("cafe-settings-form").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        if (!supabase) return;
+        const btn = document.getElementById("save-settings-btn");
+        btn.disabled = true;
+        btn.textContent = "Menyimpan...";
+
+        const existingCc = (currentCafeData && currentCafeData.custom_config) ? { ...currentCafeData.custom_config } : {};
+
+        // Update pengaturan jam fleksibel (bisa diakses Owner & Super Admin)
+        existingCc.hours = {
+          label1: document.getElementById("set-hours-label-1").value.trim() || "Senin – Kamis",
+          label2: document.getElementById("set-hours-label-2").value.trim(),
+          badgeText: document.getElementById("set-hours-badge").value.trim() || "Buka Setiap Hari",
+          customHeroStatus: document.getElementById("set-hero-status-custom").value.trim()
+        };
+
+        // Jika yang login adalah Super Admin, simpan seluruh konfigurasi Agency Website Builder (Bagian 5 - 10)
+        if (adminProfile && adminProfile.role === "super_admin") {
+          existingCc.theme = {
+            preset: document.getElementById("cms-theme-preset").value,
+            bgDark: document.getElementById("cms-color-dark-hex").value.trim() || "#110E0C",
+            bgDarkSec: document.getElementById("cms-color-dark-sec-hex").value.trim() || "#181310",
+            accent: document.getElementById("cms-color-accent-hex").value.trim() || "#C88A2B",
+            accentHover: document.getElementById("cms-color-accent-hover-hex").value.trim() || "#B5791E",
+            bgLight: document.getElementById("cms-color-light-hex").value.trim() || "#FAF7F2",
+            bgLightSec: document.getElementById("cms-color-light-sec-hex").value.trim() || "#F2ECE1"
+          };
+
+          existingCc.heroExtra = {
+            cardKicker: document.getElementById("cms-hero-card-kicker").value.trim(),
+            cardTitle: document.getElementById("cms-hero-card-title").value.trim(),
+            cardBadge: document.getElementById("cms-hero-card-badge").value.trim(),
+            subLeft: document.getElementById("cms-hero-sub-left").value.trim(),
+            subRight: document.getElementById("cms-hero-sub-right").value.trim()
+          };
+
+          existingCc.usp = [1, 2, 3].map((n) => ({
+            title: document.getElementById(`cms-usp-${n}-title`).value.trim(),
+            desc: document.getElementById(`cms-usp-${n}-desc`).value.trim()
+          }));
+
+          existingCc.menuHeader = {
+            kicker: document.getElementById("cms-menu-kicker").value.trim(),
+            title: document.getElementById("cms-menu-title").value.trim(),
+            desc: document.getElementById("cms-menu-desc").value.trim()
+          };
+
+          existingCc.ambience = {
+            kicker: document.getElementById("cms-amb-kicker").value.trim(),
+            title: document.getElementById("cms-amb-title").value.trim(),
+            desc: document.getElementById("cms-amb-desc").value.trim(),
+            spaces: [
+              {
+                kicker: document.getElementById("cms-space-1-kicker").value.trim(),
+                title: document.getElementById("cms-space-1-title").value.trim(),
+                subtitle: document.getElementById("cms-space-1-sub").value.trim(),
+                lightboxDesc: document.getElementById("cms-space-1-lightbox").value.trim()
+              },
+              {
+                kicker: document.getElementById("cms-space-2-kicker").value.trim(),
+                title: document.getElementById("cms-space-2-title").value.trim(),
+                subtitle: "",
+                lightboxDesc: document.getElementById("cms-space-2-lightbox").value.trim()
+              },
+              {
+                kicker: document.getElementById("cms-space-3-kicker").value.trim(),
+                title: document.getElementById("cms-space-3-title").value.trim(),
+                subtitle: "",
+                lightboxDesc: document.getElementById("cms-space-3-lightbox").value.trim()
+              }
+            ],
+            facilities: [1, 2, 3, 4].map((n) => ({
+              title: document.getElementById(`cms-fac-${n}-title`).value.trim(),
+              desc: document.getElementById(`cms-fac-${n}-desc`).value.trim()
+            }))
+          };
+
+          existingCc.reviews = {
+            score: document.getElementById("cms-rev-score").value.trim() || "4.5",
+            kicker: document.getElementById("cms-rev-kicker").value.trim(),
+            title: document.getElementById("cms-rev-title").value.trim(),
+            desc: document.getElementById("cms-rev-desc").value.trim(),
+            items: [1, 2, 3].map((n) => ({
+              quote: document.getElementById(`cms-rev-${n}-quote`).value.trim(),
+              author: document.getElementById(`cms-rev-${n}-author`).value.trim(),
+              role: document.getElementById(`cms-rev-${n}-role`).value.trim()
+            }))
+          };
+
+          existingCc.momen = {
+            kicker: document.getElementById("cms-momen-kicker").value.trim(),
+            title: document.getElementById("cms-momen-title").value.trim(),
+            cards: [1, 2, 3, 4].map((n) => ({
+              title: document.getElementById(`cms-craft-${n}-title`).value.trim(),
+              imageUrl: document.getElementById(`cms-craft-${n}-img`).value.trim(),
+              desc: document.getElementById(`cms-craft-${n}-desc`).value.trim()
+            }))
+          };
+
+          existingCc.promoBanner = {
+            kicker: document.getElementById("cms-promo-kicker").value.trim(),
+            title: document.getElementById("cms-promo-title").value.trim(),
+            desc: document.getElementById("cms-promo-desc").value.trim(),
+            btnText: document.getElementById("cms-promo-btn").value.trim()
+          };
+
+          existingCc.ctaConfig = {
+            enableOnlineOrder: document.getElementById("cms-enable-online-order").checked,
+            enableWaCta: document.getElementById("cms-enable-wa-cta").checked,
+            enablePdfBar: document.getElementById("cms-enable-pdf-bar").checked,
+            enablePromoBanner: document.getElementById("cms-enable-promo-banner").checked,
+            orderBtnNav: document.getElementById("cms-order-btn-nav").value.trim() || "Pesan Online",
+            orderBtnMain: document.getElementById("cms-order-btn-main").value.trim() || "Pesan di GoFood",
+            heroBtnMenu: document.getElementById("cms-hero-btn-menu").value.trim() || "Lihat Menu",
+            spotlightAvailOrder: document.getElementById("cms-spotlight-avail-order").value.trim() || "Tersedia di kedai & GoFood",
+            spotlightAvailCatalog: document.getElementById("cms-spotlight-avail-catalog").value.trim() || "✦ Tersedia untuk Dine-In & Takeaway",
+            pdfBtnText: document.getElementById("cms-pdf-btn-text").value.trim() || "Katalog PDF",
+            menuBarTitle: document.getElementById("cms-menu-bar-title").value.trim(),
+            menuBarDesc: document.getElementById("cms-menu-bar-desc").value.trim()
+          };
+
+          existingCc.navLabels = {
+            nav1: document.getElementById("cms-nav-1").value.trim() || "Menu",
+            nav2: document.getElementById("cms-nav-2").value.trim() || "Suasana",
+            nav3: document.getElementById("cms-nav-3").value.trim() || "Cerita & Ulasan",
+            nav4: document.getElementById("cms-nav-4").value.trim() || "Lokasi"
+          };
+
+          existingCc.lokasiExtra = {
+            kicker: document.getElementById("cms-loc-kicker").value.trim() || "KUNJUNGI KAMI",
+            title: document.getElementById("cms-loc-title").value.trim() || "Lokasi & Jam Buka",
+            btnText: document.getElementById("cms-loc-btn").value.trim() || "Petunjuk Arah di Google Maps",
+            modalMenuKicker: document.getElementById("cms-modal-menu-kicker").value.trim() || "KATALOG MENU LENGKAP",
+            modalGalleryKicker: document.getElementById("cms-modal-gallery-kicker").value.trim() || "GALERI RUANG & SEDUHAN",
+            btnGallery: document.getElementById("cms-amb-btn-gallery").value.trim() || "Galeri Foto"
+          };
+
+          existingCc.footer = {
+            copyright: document.getElementById("cms-footer-copy").value.trim(),
+            note: document.getElementById("cms-footer-note").value.trim()
+          };
+        }
+
+        const payload = {
+          name: document.getElementById("set-name").value.trim(),
+          branch: document.getElementById("set-branch").value.trim(),
+          hero_headline_1: document.getElementById("set-hero-1").value.trim(),
+          hero_headline_2: document.getElementById("set-hero-2").value.trim(),
+          hero_description: document.getElementById("set-hero-desc").value.trim(),
+          whatsapp_number: document.getElementById("set-wa").value.trim().replace(/[^0-9]/g, ""),
+          gofood_url: document.getElementById("set-gofood").value.trim(),
+          instagram_url: document.getElementById("set-ig").value.trim(),
+          tiktok_url: document.getElementById("set-tiktok").value.trim(),
+          address_line_1: document.getElementById("set-addr-1").value.trim(),
+          address_line_2: document.getElementById("set-addr-2").value.trim(),
+          hours_weekday: document.getElementById("set-hours-weekday").value.trim(),
+          hours_weekend: document.getElementById("set-hours-weekend").value.trim(),
+          maps_link: document.getElementById("set-maps-link").value.trim(),
+          maps_embed_url: document.getElementById("set-maps-embed").value.trim(),
+          logo_url: document.getElementById("set-logo-url").value.trim() || "logo.jpg",
+          hero_image_url: document.getElementById("set-hero-img").value.trim() || "hero-signature-latte.jpg",
+          indoor_image_url: document.getElementById("set-indoor-img").value.trim() || "ambience-indoor-ac.jpg",
+          outdoor_image_url: document.getElementById("set-outdoor-img").value.trim() || "ambience-outdoor-terrace.jpg",
+          bar_image_url: document.getElementById("set-bar-img").value.trim() || "ambience-coffee-bar.jpg",
+          custom_config: existingCc
+        };
+
+        const { error } = await supabase.from("cafes").update(payload).eq("slug", currentCafeSlug);
+        btn.disabled = false;
+        btn.textContent = "Simpan Pengaturan Kafe";
+
+        if (error) {
+          showToast("Gagal menyimpan pengaturan", error.message, "error");
+          return;
+        }
+
+        await loadActiveCafeProfile();
+        await loadCafesForSuperAdmin();
+        showToast("Profil & Kustomisasi berhasil disimpan!", "Seluruh perubahan langsung aktif di halaman publik kafe ini.");
+      });
+
+      // Upload Gambar untuk Seluruh Input di Tab Pengaturan (Termasuk 4 Kartu Visual/Promo)
+      document.querySelectorAll("input[type='file'][data-upload-target]").forEach((fileInput) => {
+        fileInput.addEventListener("change", async (e) => {
+          const file = e.target.files && e.target.files[0];
+          if (!file) return;
+          const targetId = fileInput.getAttribute("data-upload-target");
+          const targetInput = document.getElementById(targetId);
+          const spanLabel = fileInput.parentElement.querySelector("span");
+          const origText = spanLabel.textContent;
+
+          try {
+            spanLabel.textContent = "⏳ Mengupload...";
+            const publicUrl = await window.uploadCafeImage(file, currentCafeSlug);
+            if (targetInput) targetInput.value = publicUrl;
+            showToast("Foto berhasil diupload!", "Jangan lupa klik Simpan Pengaturan Kafe di bawah.");
+          } catch (err) {
+            showToast("Gagal upload foto", err.message, "error");
+          } finally {
+            spanLabel.textContent = origText;
+            fileInput.value = "";
+          }
+        });
+      });
+
+      // Helper Format Nama Kategori
+      const catLabelMap = {
+        "signature-coffee": "Coffee",
+        "non-coffee": "Non-Coffee",
+        "manual-brew": "Manual Brew",
+        "pastry": "Makanan"
+      };
+
+      function formatCatLabel(catId) {
+        if (!catId) return "Lainnya";
+        if (catLabelMap[catId]) return catLabelMap[catId];
+        return String(catId)
+          .replace(/-/g, " ")
+          .replace(/\b\w/g, (c) => c.toUpperCase());
+      }
+
+      // Render Datalist & Tombol Filter Kategori secara Dinamis
+      function renderDynamicCategories() {
+        const uniqueCats = [...new Set(allMenuItems.map((i) => i.categoryId).filter(Boolean))];
+
+        if (
+          currentCategoryFilter !== "ALL" &&
+          currentCategoryFilter !== "PROMO_ONLY" &&
+          !uniqueCats.includes(currentCategoryFilter)
+        ) {
+          currentCategoryFilter = "ALL";
+        }
+
+        const catCountEl = document.getElementById("stat-category-count");
+        if (catCountEl) {
+          catCountEl.textContent = `${uniqueCats.length} kategori kurasi`;
+        }
+
+        const datalist = document.getElementById("category-datalist");
+        if (datalist) {
+          datalist.innerHTML = uniqueCats
+            .map((c) => `<option value="${escapeHtml(c)}">${escapeHtml(formatCatLabel(c))}</option>`)
+            .join("");
+        }
+
+        const pillsContainer = document.getElementById("category-filter-pills");
+        if (pillsContainer) {
+          const allPills = [
+            { id: "ALL", label: "Semua" },
+            ...uniqueCats.map((c) => ({ id: c, label: formatCatLabel(c) })),
+            { id: "PROMO_ONLY", label: "🔥 Promo" }
+          ];
+
+          pillsContainer.innerHTML = allPills
+            .map((p) => {
+              const active = currentCategoryFilter === p.id;
+              const cls = active
+                ? "px-3 py-1.5 rounded-lg text-xs font-semibold bg-espresso-700 text-ivory-50"
+                : "px-3 py-1.5 rounded-lg text-xs font-medium bg-ivory-100 hover:bg-ivory-200 text-stone-700";
+              return `<button type="button" data-cat-filter="${escapeHtml(p.id)}" class="${cls}">${escapeHtml(p.label)}</button>`;
+            })
+            .join("");
+        }
+      }
+
+      // Statistik & Render Tabel Menu
+      function updateMetricsSummary() {
+        const total = allMenuItems.length;
+        const available = allMenuItems.filter((i) => i.isAvailable).length;
+        const soldOut = total - available;
+        const promo = allMenuItems.filter((i) => i.isPromo).length;
+
+        document.getElementById("stat-total-menu").textContent = String(total);
+        document.getElementById("stat-available-menu").textContent = String(available);
+        document.getElementById("stat-soldout-menu").textContent = String(soldOut);
+        document.getElementById("stat-promo-menu").textContent = String(promo);
+        document.getElementById("banner-active-count").textContent = String(available);
+        document.getElementById("banner-total-subtitle").textContent = `dari ${total} total menu`;
+        document.getElementById("sidebar-promo-badge").textContent = String(promo);
+      }
+
+      function renderMenuTable() {
+        updateMetricsSummary();
+        renderDynamicCategories();
+        const tableWrapper = document.getElementById("table-wrapper");
+        const stateContainer = document.getElementById("table-state-container");
+        const tbody = document.getElementById("menu-table-body");
+
+        const q = searchQuery.trim().toLowerCase();
+        const filtered = allMenuItems.filter((item) => {
+          const matchCat =
+            currentCategoryFilter === "ALL"
+              ? true
+              : currentCategoryFilter === "PROMO_ONLY"
+              ? item.isPromo
+              : item.categoryId === currentCategoryFilter;
+          const matchQ =
+            !q ||
+            item.name.toLowerCase().includes(q) ||
+            item.description.toLowerCase().includes(q);
+          return matchCat && matchQ;
+        });
+
+        document.getElementById("table-count-label").textContent = `${filtered.length} dari ${allMenuItems.length} menu`;
+
+        if (filtered.length === 0) {
+          tableWrapper.classList.add("hidden");
+          stateContainer.classList.remove("hidden");
+          stateContainer.innerHTML = `<p class="text-xs text-stone-500">Tidak ada menu yang cocok dengan filter saat ini.</p>`;
+          return;
+        }
+
+        stateContainer.classList.add("hidden");
+        tableWrapper.classList.remove("hidden");
+
+        tbody.innerHTML = filtered
+          .map((item) => {
+            const safeName = escapeHtml(item.name);
+            const safeDesc = escapeHtml(item.description);
+            const safeImg = escapeHtml(item.imageUrl);
+            const catLabel = escapeHtml(formatCatLabel(item.categoryId));
+
+            return `
+              <tr class="block md:table-row p-4 md:p-0 hover:bg-ivory-100/50 transition-colors">
+                <td class="block md:table-cell md:py-4 md:pl-6 md:pr-3 align-top">
+                  <div class="flex items-start gap-3.5">
+                    <div class="w-12 h-12 rounded-xl overflow-hidden bg-ivory-200 border border-ivory-300 shrink-0 mt-0.5">
+                      <img src="${safeImg}" alt="${safeName}" width="48" height="48" loading="lazy" onerror="handleImgFallback(this, '${safeName}')" class="w-full h-full object-cover warm-editorial-photo ${item.isAvailable ? "" : "grayscale opacity-60"}" />
+                    </div>
+                    <div class="min-w-0 flex-1">
+                      <p class="font-semibold text-stone-900 text-sm leading-snug break-words">${safeName}</p>
+                      <p class="text-xs text-stone-600 mt-1 leading-relaxed whitespace-normal break-words">${safeDesc}</p>
+                    </div>
+                  </div>
+                </td>
+
+                <td class="inline-block md:table-cell mt-3 md:mt-0 mr-2 md:mr-0 md:py-4 md:px-3 align-middle whitespace-nowrap">
+                  <span class="px-2.5 py-1 rounded-lg bg-ivory-200/70 text-stone-700 text-[11px] font-medium">${catLabel}</span>
+                </td>
+
+                <td class="inline-block md:table-cell mt-3 md:mt-0 mr-2 md:mr-0 md:py-4 md:px-3 align-middle whitespace-nowrap font-semibold text-stone-900 tabular-nums text-xs sm:text-sm">
+                  ${
+                    item.isPromo
+                      ? `<span class="line-through text-stone-400 font-normal text-xs mr-1 md:mr-0 md:block">${window.formatRupiah(item.price)}</span>`
+                      : window.formatRupiah(item.price)
+                  }
+                </td>
+
+                <td class="inline-block md:table-cell mt-3 md:mt-0 mr-2 md:mr-0 md:py-4 md:px-3 align-middle whitespace-nowrap">
+                  <button
+                    type="button"
+                    data-action="toggle-availability"
+                    data-id="${escapeHtml(item.id)}"
+                    class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border text-[11px] font-semibold ${
+                      item.isAvailable
+                        ? "bg-emerald-50 border-emerald-200 text-emerald-800"
+                        : "bg-red-50 border-red-200 text-red-700"
+                    }"
+                  >
+                    <span class="w-2 h-2 rounded-full ${item.isAvailable ? "bg-emerald-600" : "bg-red-600"}"></span>
+                    <span>${item.isAvailable ? "Tersedia" : "Habis"}</span>
+                  </button>
+                </td>
+
+                <td class="inline-block md:table-cell mt-3 md:mt-0 md:py-4 md:px-3 align-middle whitespace-nowrap">
+                  ${
+                    item.isPromo
+                      ? `<span class="px-2 py-0.5 rounded-full bg-promo-soft text-promo-orange text-[10px] font-bold inline-block md:block w-fit">Promo</span>
+                         <span class="text-xs font-bold text-stone-900 tabular-nums ml-1 md:ml-0">${window.formatRupiah(item.promoPrice)}</span>`
+                      : `<span class="hidden md:inline text-stone-400 text-xs">—</span>`
+                  }
+                </td>
+
+                <td class="block md:table-cell mt-3 pt-2.5 md:mt-0 md:pt-0 border-t border-ivory-200/80 md:border-none md:py-4 md:pl-3 md:pr-6 align-middle whitespace-nowrap text-right">
+                  <div class="inline-flex items-center justify-end gap-1.5 w-full md:w-auto">
+                    <button type="button" data-action="edit" data-id="${escapeHtml(item.id)}" class="flex-1 md:flex-initial h-8 px-3.5 rounded-lg border border-ivory-300 bg-white hover:border-stone-900 text-xs font-semibold">Edit</button>
+                    <button type="button" data-action="delete" data-id="${escapeHtml(item.id)}" class="w-8 h-8 rounded-lg border border-ivory-300 bg-white hover:border-red-300 text-stone-500 hover:text-red-600 flex items-center justify-center shrink-0">🗑</button>
+                  </div>
+                </td>
+              </tr>
+            `;
+          })
+          .join("");
+      }
+
+      async function fetchMenuItems(showLoading = true) {
+        if (!supabase) return;
+        const stateContainer = document.getElementById("table-state-container");
+        const tableWrapper = document.getElementById("table-wrapper");
+
+        if (showLoading) {
+          tableWrapper.classList.add("hidden");
+          stateContainer.classList.remove("hidden");
+          stateContainer.innerHTML = `<p class="text-xs text-stone-500 animate-pulse">Memuat daftar menu...</p>`;
+        }
+
+        const { data, error } = await supabase
+          .from("menu_items")
+          .select("*")
+          .eq("cafe_slug", currentCafeSlug)
+          .order("category", { ascending: true })
+          .order("sort_order", { ascending: true })
+          .order("created_at", { ascending: true });
+
+        if (error) {
+          stateContainer.innerHTML = `<p class="text-xs text-red-600">Gagal memuat menu: ${escapeHtml(error.message)}</p>`;
+          return;
+        }
+
+        allMenuItems = (data || []).map(window.normalizeMenuItem);
+        document.getElementById("sys-last-updated").textContent =
+          new Date().toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" }) + " WIB";
+        renderMenuTable();
+      }
+
+      function setupRealtime() {
+        if (!supabase) return;
+        if (realtimeChannel) supabase.removeChannel(realtimeChannel);
+        realtimeChannel = supabase
+          .channel(`admin-sync-${currentCafeSlug}`)
+          .on(
+            "postgres_changes",
+            { event: "*", schema: "public", table: "menu_items", filter: `cafe_slug=eq.${currentCafeSlug}` },
+            () => fetchMenuItems(false)
+          )
+          .subscribe();
+      }
+
+      // Modal Add / Edit Menu + Upload Foto Langsung
+      const menuFormModal = document.getElementById("menu-form-modal");
+      const formImagePreview = document.getElementById("form-image-preview");
+      const formImageUrl = document.getElementById("form-image-url");
+      const formIsAvailable = document.getElementById("form-is-available");
+      const formIsPromo = document.getElementById("form-is-promo");
+      const formPromoPrice = document.getElementById("form-promo-price");
+
+      function openMenuModal(item = null) {
+        document.getElementById("form-error-banner").classList.add("hidden");
+        if (item) {
+          document.getElementById("menu-modal-title").textContent = "Edit Menu";
+          document.getElementById("form-item-id").value = item.id;
+          document.getElementById("form-name").value = item.name;
+          document.getElementById("form-category").value = item.categoryId;
+          document.getElementById("form-description").value = item.description;
+          document.getElementById("form-price").value = item.price;
+          formIsAvailable.checked = item.isAvailable;
+          formIsPromo.checked = item.isPromo;
+          formPromoPrice.value = item.promoPrice !== null ? item.promoPrice : "";
+          formPromoPrice.disabled = !item.isPromo;
+          document.getElementById("form-attributes").value = (item.attributes || []).join(", ");
+          document.getElementById("form-badge").value = item.badge || "";
+          formImageUrl.value = item.imageUrl;
+          delete formImagePreview.dataset.fallbackDone;
+          formImagePreview.src = item.imageUrl;
+        } else {
+          document.getElementById("menu-modal-title").textContent = "Tambah Menu Baru";
+          document.getElementById("form-item-id").value = "";
+          document.getElementById("form-name").value = "";
+          document.getElementById("form-category").value = "";
+          document.getElementById("form-description").value = "";
+          document.getElementById("form-price").value = "";
+          formIsAvailable.checked = true;
+          formIsPromo.checked = false;
+          formPromoPrice.value = "";
+          formPromoPrice.disabled = true;
+          document.getElementById("form-attributes").value = "Iced, Dairy";
+          document.getElementById("form-badge").value = "";
+          formImageUrl.value = "menu-espresso-latte.jpg";
+          delete formImagePreview.dataset.fallbackDone;
+          formImagePreview.src = "menu-espresso-latte.jpg";
+        }
+        document.getElementById("form-preview-soldout-badge").classList.toggle("hidden", formIsAvailable.checked);
+        menuFormModal.classList.remove("hidden");
+        menuFormModal.classList.add("flex");
+      }
+
+      function closeMenuModal() {
+        menuFormModal.classList.add("hidden");
+        menuFormModal.classList.remove("flex");
+      }
+
+      // Upload File Gambar di Modal Menu ke Supabase Storage
+      document.getElementById("form-image-file-input").addEventListener("change", async (e) => {
+        const file = e.target.files && e.target.files[0];
+        if (!file) return;
+        const labelEl = document.getElementById("upload-menu-photo-label");
+        const prevText = labelEl.textContent;
+        try {
+          labelEl.textContent = "⏳ Mengupload ke Cloud...";
+          const uploadedUrl = await window.uploadCafeImage(file, currentCafeSlug);
+          formImageUrl.value = uploadedUrl;
+          delete formImagePreview.dataset.fallbackDone;
+          formImagePreview.src = uploadedUrl;
+          showToast("Foto menu berhasil diupload!");
+        } catch (err) {
+          showToast("Gagal upload foto", err.message, "error");
+        } finally {
+          labelEl.textContent = prevText;
+          e.target.value = "";
+        }
+      });
+
+      formImageUrl.addEventListener("input", () => {
+        if (formImageUrl.value.trim()) {
+          delete formImagePreview.dataset.fallbackDone;
+          formImagePreview.src = formImageUrl.value.trim();
+        }
+      });
+      document.getElementById("form-image-preset").addEventListener("change", (e) => {
+        if (e.target.value) {
+          formImageUrl.value = e.target.value;
+          delete formImagePreview.dataset.fallbackDone;
+          formImagePreview.src = e.target.value;
+        }
+      });
+      formIsAvailable.addEventListener("change", () => {
+        document.getElementById("form-preview-soldout-badge").classList.toggle("hidden", formIsAvailable.checked);
+      });
+      formIsPromo.addEventListener("change", () => {
+        formPromoPrice.disabled = !formIsPromo.checked;
+      });
+
+      // Submit Form Menu
+      document.getElementById("menu-item-form").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const errBanner = document.getElementById("form-error-banner");
+        errBanner.classList.add("hidden");
+
+        const id = document.getElementById("form-item-id").value.trim();
+        const name = document.getElementById("form-name").value.trim();
+        const category = document
+          .getElementById("form-category")
+          .value.trim()
+          .toLowerCase()
+          .replace(/\s+/g, "-");
+        const description = document.getElementById("form-description").value.trim();
+        const price = Number(document.getElementById("form-price").value);
+        const isAvailable = formIsAvailable.checked;
+        const isPromo = formIsPromo.checked;
+        const promoPrice = isPromo && formPromoPrice.value.trim() !== "" ? Number(formPromoPrice.value) : null;
+
+        if (name.length < 2) {
+          errBanner.textContent = "Nama menu minimal 2 karakter.";
+          errBanner.classList.remove("hidden");
+          return;
+        }
+        if (!category) {
+          errBanner.textContent = "Kategori wajib diisi.";
+          errBanner.classList.remove("hidden");
+          return;
+        }
+        if (!Number.isFinite(price) || price < 0) {
+          errBanner.textContent = "Harga normal wajib berupa angka valid (>= 0).";
+          errBanner.classList.remove("hidden");
+          return;
+        }
+        if (isPromo && (promoPrice === null || promoPrice < 0 || promoPrice >= price)) {
+          errBanner.textContent = "Harga Promo wajib lebih kecil daripada Harga Normal.";
+          errBanner.classList.remove("hidden");
+          return;
+        }
+
+        const payload = {
+          cafe_slug: currentCafeSlug,
+          name,
+          category,
+          description,
+          price: Math.round(price),
+          is_available: isAvailable,
+          is_promo: isPromo,
+          promo_price: isPromo ? Math.round(promoPrice) : null,
+          attributes: document.getElementById("form-attributes").value.split(",").map((s) => s.trim()).filter(Boolean),
+          badge: document.getElementById("form-badge").value.trim() || null,
+          image_url: formImageUrl.value.trim() || "logo.jpg"
+        };
+
+        const res = id
+          ? await supabase.from("menu_items").update(payload).eq("id", id)
+          : await supabase.from("menu_items").insert([payload]);
+
+        if (res.error) {
+          errBanner.textContent = res.error.message;
+          errBanner.classList.remove("hidden");
+          return;
+        }
+
+        closeMenuModal();
+        await fetchMenuItems(false);
+        showToast(id ? "Menu berhasil diperbarui!" : "Menu baru berhasil ditambahkan!");
+      });
+
+      // Delegasi Klik Tabel Menu
+      document.getElementById("menu-table-body").addEventListener("click", async (e) => {
+        const btn = e.target.closest("button[data-action]");
+        if (!btn) return;
+        const action = btn.getAttribute("data-action");
+        const id = btn.getAttribute("data-id");
+        const item = allMenuItems.find((i) => String(i.id) === String(id));
+        if (!item) return;
+
+        if (action === "toggle-availability") {
+          const next = !item.isAvailable;
+          const { error } = await supabase.from("menu_items").update({ is_available: next }).eq("id", id);
+          if (error) return showToast("Gagal mengubah status", error.message, "error");
+          item.isAvailable = next;
+          renderMenuTable();
+          showToast(`Status "${item.name}" diubah ke ${next ? "Tersedia" : "Habis"}`);
+        } else if (action === "edit") {
+          openMenuModal(item);
+        } else if (action === "delete") {
+          pendingDeleteItem = item;
+          document.getElementById("delete-item-name").textContent = item.name;
+          document.getElementById("delete-confirm-modal").classList.remove("hidden");
+          document.getElementById("delete-confirm-modal").classList.add("flex");
+        }
+      });
+
+      document.getElementById("confirm-delete-btn").addEventListener("click", async () => {
+        if (!pendingDeleteItem) return;
+        const { error } = await supabase.from("menu_items").delete().eq("id", pendingDeleteItem.id);
+        document.getElementById("delete-confirm-modal").classList.add("hidden");
+        document.getElementById("delete-confirm-modal").classList.remove("flex");
+        if (error) return showToast("Gagal menghapus menu", error.message, "error");
+        await fetchMenuItems(false);
+        showToast(`Menu "${pendingDeleteItem.name}" telah dihapus.`);
+      });
+
+      // Reset 16 Menu Default untuk Kafe Aktif
+      document.getElementById("btn-reset-default").addEventListener("click", async () => {
+        if (!window.confirm(`Reset daftar menu "${currentCafeSlug}" ke 16 menu default?`)) return;
+        await supabase.from("menu_items").delete().eq("cafe_slug", currentCafeSlug);
+        const rows = DEFAULT_16_SEED.map((r) => ({ ...r, cafe_slug: currentCafeSlug, is_available: true, is_promo: false, promo_price: null }));
+        const { error } = await supabase.from("menu_items").insert(rows);
+        if (error) return showToast("Gagal mereset menu", error.message, "error");
+        await fetchMenuItems(false);
+        showToast("16 Menu default berhasil dipulihkan!");
+      });
+
+      // Fitur Super Admin: Switch Kafe, Copy Link Pitching, Duplikat Kafe Baru, & Hapus Kafe
+      document.getElementById("sa-cafe-switcher").addEventListener("change", async (e) => {
+        currentCafeSlug = e.target.value;
+        await loadActiveCafeProfile();
+        await fetchMenuItems(true);
+        setupRealtime();
+        await loadCafesForSuperAdmin();
+        showToast(`Berpindah ke kafe: ${currentCafeSlug}`);
+      });
+
+      document.getElementById("btn-copy-outreach-link").addEventListener("click", () => {
+        const baseUrl = window.location.href.split("admin.html")[0];
+        const link = `${baseUrl}index.html?kafe=${encodeURIComponent(currentCafeSlug)}`;
+        navigator.clipboard.writeText(link);
+        showToast("Link Pitching Disalin!", link);
+      });
+
+      const dupModal = document.getElementById("duplicate-cafe-modal");
+      document.getElementById("btn-open-duplicate-modal").addEventListener("click", () => {
+        dupModal.classList.remove("hidden");
+        dupModal.classList.add("flex");
+      });
+      document.getElementById("cancel-dup-btn").addEventListener("click", () => {
+        dupModal.classList.add("hidden");
+        dupModal.classList.remove("flex");
+      });
+
+      document.getElementById("duplicate-cafe-form").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const newSlug = document.getElementById("dup-slug").value.trim().toLowerCase().replace(/[^a-z0-9-]/g, "-");
+        const newName = document.getElementById("dup-name").value.trim();
+        const newBranch = document.getElementById("dup-branch").value.trim();
+
+        const { error } = await supabase.rpc("duplicate_cafe_profile", {
+          source_cafe_slug: currentCafeSlug,
+          new_cafe_slug: newSlug,
+          new_cafe_name: newName,
+          new_cafe_branch: newBranch
+        });
+
+        if (error) return showToast("Gagal menduplikat kafe", error.message, "error");
+
+        dupModal.classList.add("hidden");
+        dupModal.classList.remove("flex");
+        currentCafeSlug = newSlug;
+        await loadCafesForSuperAdmin();
+        await loadActiveCafeProfile();
+        await fetchMenuItems(true);
+        setupRealtime();
+        showToast(`Kafe "${newName}" siap!`, `Link: index.html?kafe=${newSlug}`);
+      });
+
+      document.getElementById("btn-delete-cafe").addEventListener("click", async () => {
+        if (currentCafeSlug === "tentang-kopi") return;
+        if (!window.confirm(`Hapus profil kafe "${currentCafeSlug}" beserta seluruh menunya?`)) return;
+        const { error } = await supabase.from("cafes").delete().eq("slug", currentCafeSlug);
+        if (error) return showToast("Gagal menghapus kafe", error.message, "error");
+        currentCafeSlug = "tentang-kopi";
+        await loadCafesForSuperAdmin();
+        await loadActiveCafeProfile();
+        await fetchMenuItems(true);
+        setupRealtime();
+        showToast("Profil kafe prospek berhasil dihapus.");
+      });
+
+      // Delegasi Klik Filter Kategori & Search
+      document.getElementById("category-filter-pills").addEventListener("click", (e) => {
+        const pill = e.target.closest("button[data-cat-filter]");
+        if (!pill) return;
+        currentCategoryFilter = pill.getAttribute("data-cat-filter");
+        renderMenuTable();
+      });
+
+      document.getElementById("sidebar-promo-shortcut").addEventListener("click", () => {
+        switchMainTab("menu");
+        currentCategoryFilter = "PROMO_ONLY";
+        renderMenuTable();
+      });
+
+      document.getElementById("menu-search-input").addEventListener("input", (e) => {
+        searchQuery = e.target.value || "";
+        renderMenuTable();
+      });
+
+      // Event Listeners Modal & Sidebar
+      document.getElementById("btn-add-menu-top").addEventListener("click", () => openMenuModal(null));
+      document.getElementById("btn-banner-add-menu").addEventListener("click", () => openMenuModal(null));
+      document.getElementById("close-menu-modal-btn").addEventListener("click", closeMenuModal);
+      document.getElementById("cancel-menu-modal-btn").addEventListener("click", closeMenuModal);
+      document.getElementById("cancel-delete-btn").addEventListener("click", () => {
+        document.getElementById("delete-confirm-modal").classList.add("hidden");
+        document.getElementById("delete-confirm-modal").classList.remove("flex");
+      });
+      document.getElementById("btn-manual-refresh").addEventListener("click", () => {
+        loadActiveCafeProfile();
+        fetchMenuItems(false);
+        showToast("Data berhasil disegarkan!");
+      });
+
+      const sidebar = document.getElementById("admin-sidebar");
+      const backdrop = document.getElementById("sidebar-backdrop");
+      document.getElementById("open-sidebar-btn").addEventListener("click", () => {
+        sidebar.classList.remove("-translate-x-full");
+        backdrop.classList.remove("hidden");
+      });
+      document.getElementById("close-sidebar-btn").addEventListener("click", () => {
+        sidebar.classList.add("-translate-x-full");
+        backdrop.classList.add("hidden");
+      });
+      backdrop.addEventListener("click", () => {
+        sidebar.classList.add("-translate-x-full");
+        backdrop.classList.add("hidden");
+      });
+
+      document.getElementById("toggle-password-btn").addEventListener("click", () => {
+        const pwd = document.getElementById("login-password");
+        pwd.type = pwd.type === "password" ? "text" : "password";
+      });
+
+      // Autentikasi & Verifikasi Role (Super Admin vs Owner)
+      async function handleSession(session) {
+        const authView = document.getElementById("auth-view");
+        const dashView = document.getElementById("dashboard-view");
+        const alertEl = document.getElementById("auth-alert");
+
+        if (!session || !session.user) {
+          dashView.classList.add("hidden");
+          authView.classList.remove("hidden");
+          return;
+        }
+
+        const { data: rows, error } = await supabase.rpc("get_my_admin_profile");
+        if (error || !rows || rows.length === 0) {
+          await supabase.auth.signOut();
+          dashView.classList.add("hidden");
+          authView.classList.remove("hidden");
+          alertEl.textContent = "Akses Ditolak: Akun Anda belum terdaftar di tabel admin_users.";
+          alertEl.classList.remove("hidden");
+          return;
+        }
+
+        adminProfile = rows[0];
+        document.getElementById("admin-user-email").textContent = adminProfile.email;
+
+        const saBar = document.getElementById("super-admin-bar");
+        const saCmsPanel = document.getElementById("super-admin-cms-panel");
+
+        if (adminProfile.role === "super_admin") {
+          document.getElementById("admin-role-label").textContent = "Super Admin (Agency)";
+          saBar.classList.remove("hidden");
+          if (saCmsPanel) saCmsPanel.classList.remove("hidden");
+          await loadCafesForSuperAdmin();
+        } else {
+          // Jika yang login adalah Pemilik Kafe (role = 'owner'), kunci ke cafe_slug miliknya & sembunyikan CMS Super Admin
+          document.getElementById("admin-role-label").textContent = "Owner Kafe";
+          saBar.classList.add("hidden");
+          if (saCmsPanel) saCmsPanel.classList.add("hidden");
+          currentCafeSlug = adminProfile.cafe_slug || "tentang-kopi";
+        }
+
+        authView.classList.add("hidden");
+        dashView.classList.remove("hidden");
+
+        await loadActiveCafeProfile();
+        await fetchMenuItems(true);
+        setupRealtime();
+      }
+
+      document.getElementById("login-form").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const alertEl = document.getElementById("auth-alert");
+        alertEl.classList.add("hidden");
+        if (!supabase) return;
+
+        const email = document.getElementById("login-email").value.trim();
+        const password = document.getElementById("login-password").value;
+        const btn = document.getElementById("login-submit-btn");
+        btn.disabled = true;
+
+        const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+        btn.disabled = false;
+
+        if (error) {
+          alertEl.textContent = "Login gagal: Email atau password salah.";
+          alertEl.classList.remove("hidden");
+          return;
+        }
+        await handleSession(data.session);
+      });
+
+      document.getElementById("logout-btn").addEventListener("click", async () => {
+        if (supabase) await supabase.auth.signOut();
+        document.getElementById("dashboard-view").classList.add("hidden");
+        document.getElementById("auth-view").classList.remove("hidden");
+      });
+
+      window.formatRupiah = function (angka) {
+        const num = Number(angka) || 0;
+        return "Rp " + num.toLocaleString("id-ID");
+      };
+
+      // Auto-scroll mulus saat tombol Promo Diskon di sidebar diklik
+      document.addEventListener("click", function (e) {
+        const btn = e.target.closest("button, a");
+        if (!btn) return;
+
+        const text = (btn.textContent || "").trim();
+        if (text.includes("Promo Diskon") && !text.includes("🔥")) {
+          setTimeout(() => {
+            const searchInput = document.querySelector('input[placeholder*="Cari menu"]');
+            const targetCard = searchInput ? searchInput.closest("div.bg-white, section, div.rounded-2xl, div.rounded-3xl") || searchInput : null;
+            if (targetCard) {
+              targetCard.scrollIntoView({ behavior: "smooth", block: "start" });
+            }
+          }, 50);
+        }
+      });
+
+      window.addEventListener("DOMContentLoaded", async () => {
+        if (!window.isSupabaseConfigured() || !supabase) {
+          document.getElementById("config-warning-banner").classList.remove("hidden");
+          return;
+        }
+        const { data } = await supabase.auth.getSession();
+        if (data && data.session) await handleSession(data.session);
+      });
+    })();
+  </script>
+</body>
+</html>
